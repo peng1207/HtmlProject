@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> </title>
+        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+        <dic id="productList">
+        </div>
+        
+        <script>
+            
+            var container =document.getElementById('productList');
+            var node=container.nextSibling;
+            var list = ["123213123","23123123123","12312312321","asdasd","asdasds"];
+            for (i in list){
+                var tempDiv = '<div onclick=pushNext('+list[i]+')> \
+                                <div><img src="videobg.png" width="100%"/> </div>\
+                                <div class="textStyle">'+ list[i] +'</div>  \
+                               <div>'
+                oDiv = document.createElement('div');
+                oDiv.innerHTML = tempDiv;
+                container.parentNode.insertBefore(oDiv, node);
+                node=oDiv.nextSibling;
+                
+            }
+            
+            function pushNext(e){
+               window.location.href = 'priductDet.html?id='+e;
+               
+            }
+            
+       </script>
+ 
+       
+    </body>
+</html>
