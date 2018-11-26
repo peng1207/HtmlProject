@@ -15,4 +15,12 @@
 .input:empty::before {
     content: attr(placeholder);
 }
- 
+.button{
+    width: 80%;
+    height: 50px;
+    border: 1px solid #ddd; 
+    font-size: 24px;
+    background-color: #F33; 
+    text-align: center;
+    color: #fff;
+}
