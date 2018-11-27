@@ -9,38 +9,75 @@
     </head>
     <body>
         <div> 
-            <div>
-                <div>商品名称</div>
-                <div class='input' contenteditable="true" placeholder="输入商品名称" id="title"></div>
+            <div class="div-row">
+                <div class="div-inline div-title" >商品名称</div>
+                <input class="input" type="text" id="title" placeholder="输入商品名称"/> 
             </div>
-            <div>
-                <div>商品属性</div>
-                <div class='input' contenteditable="true" placeholder="输入商品属性" id="attribute"></div>
+            <div class="div-row">
+                <div class="div-inline div-title" >商品属性</div>
+                <input class="input" type="text" id="attribute" placeholder="输入商品属性"/> 
             </div>
-            <div>
-                <div>商品价格</div>
-                <div class='input' contenteditable="true" placeholder="输入商品价格" id="price"></div>
-           </div>
+            <div class="div-row">
+                <div class="div-inline div-title" >商品价格</div>
+                <input class="input" type="text" id="price" placeholder="输入商品价格"/> 
+            </div>
                 
-            <div>
-                 <div>商品库存</div>
-                <div class='input' contenteditable="true" placeholder="输入商品库存" id="stock"></div>
+            <div class="div-row">
+                 <div class="div-inline div-title" >商品库存</div>
+                <input class="input" type="text" id="stock" placeholder="输入商品库存"/> 
             </div>
-            <div>
-                <div>商品规格</div>
-                <div class='input' contenteditable="true" placeholder="输入商品规格" id="spec"></div>
+            <div class="div-row">
+                <div class="div-inline div-title" >商品规格</div>
+                <input class="input" type="text" id="spec" placeholder="输入商品规格"/> 
             </div>
-            <div>
-                <div>商品说明</div>
-                <div class='input' contenteditable="true" placeholder="输入商品说明" id="spec"></div>
+            <div class="div-row">
+                <div class="div-inline div-title" >商品说明</div>
+          
+                <input class="input" type="text" id="info " placeholder="输入商品说明"/> 
             </div >
+            <div id="productImg">
+                
+            </div>
+            <input type="file" name='imageFile' id="imageFile" onchange="fileSelected()" accept="image/png, image/jpeg, image/gif, image/jpg"/>
+
+
             <div class="button" onclick="submit()">提交</div>
         </div>
 
         <script>
+            window.onload = function(){
+                
+                $("#title").attr("Value","dasdasd");
+            }
+
+
             function submit(){
                 console.log("点击提交");
             }
+
+            function fileSelected(){
+                var oFile = document.getElementById('imageFile').files[0];    //读取文件
+                var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+                if (!rFilter.test(oFile.type)) {
+                     alert("文件格式必须为图片");
+                }
+                var reads= new FileReader();
+                reads.readAsDataURL(oFile);
+                var container =document.getElementById('productImg');
+                var node=container.nextSibling;
+                reads.onload=function (e) {
+                  
+                 var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>'
+                oDiv = document.createElement('div');
+                oDiv.innerHTML = tempDiv;
+                container.parentNode.insertBefore(oDiv, node);
+                node=oDiv.nextSibling;
+
+                };
+            }
+         //建立一個可存取到該file的url
+  
+ 
         
         </script>
 

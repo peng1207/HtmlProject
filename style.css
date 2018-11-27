@@ -5,12 +5,34 @@
     padding:10px;
 }
 .input{
-    width:200px;
-    height:24px;
-    line-height:24px;
+    width: 80%;;
+     float: right;
+     min-height: 30px;
+    max-height: 30px;
     font-size:14px;
     padding:5px 8px;
+    margin-top: 5px;
     border:1px solid #ddd;
+    
+}
+.div-title{
+    width: 100px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+     
+    float: left;
+}
+.div-inline{ 
+    display:inline;
+} 
+.div-row{
+    width: 100%;
+    min-height: 50px;
+    display:block;
+    clear:both;
+    border:1px solid #ddd;
+    margin-top: 10px;
 }
 .input:empty::before {
     content: attr(placeholder);
@@ -24,4 +46,6 @@
     text-align: center;
     color: #fff;
     padding:5px 8px;
+    margin: 0 auto;
+    margin-top: 10px;
 }
