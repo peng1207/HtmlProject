@@ -1,6 +1,6 @@
 <?php
 header("charset=utf-8"); 
-$serverName="localhost"; 
+$serverName="huangshupeng.cn"; 
 $username="root"; 
 $password="hsp13824404512hsp"; 
 $dbname="ZKDabase"; 
@@ -10,7 +10,10 @@ if (!$conn){
 }
 mysql_select_db($dbname);
 class Response{
-    public static function json($code,$message="",$data=array()){
+    public static function json($code,$message="",$data=null){
+        if ($data == null){
+            $data = (object)array(); 
+        }
         $result=array(
          'code'=>$code,
          'message'=>$message,
@@ -18,6 +21,15 @@ class Response{
         ); 
         echo json_encode($result); 
         exit; 
+    }
+    public static function failure($code,$message=""){
+        $result=array(
+            'code'=>$code, 
+            'message'=>$message,
+            'data'=>(object)array()
+        );
+        echo json_encode($result); 
+        exit;  
     }
 }
 

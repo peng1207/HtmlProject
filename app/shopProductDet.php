@@ -18,4 +18,4 @@ if ($result){
     Response::failure("101","获取数据失败"); 
 }
 
-?>
+?> 
