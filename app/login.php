@@ -14,11 +14,12 @@ if (empty($pwd)){
     Response::failure("2","密码不能为空");
 }
 
+$pwd = md5($pwd); 
 $sqla = "SELECT * from user where accound='$accound' and pwd='$pwd'";
  
 $result = mysql_query($sqla,$conn);
-
-if ($result){
+ 
+if ($result && mysql_fetch_array($result)){
     Response::json("0","登录成功"); 
 }else{
     Response::failure("101","密码或账号错误");

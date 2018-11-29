@@ -1,9 +1,13 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 header("charset=utf-8"); 
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
 $serverName="huangshupeng.cn"; 
 $username="root"; 
 $password="hsp13824404512hsp"; 
-$dbname="ZKDabase"; 
+$dbname="ZKDataBase"; 
 $conn = mysql_connect($serverName,$username,$password); 
 if (!$conn){
     echo "数据库连接失败"; 

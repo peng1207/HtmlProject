@@ -5,6 +5,7 @@
         <title> </title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
@@ -53,6 +54,11 @@
 
             function submit(){
                 console.log("点击提交");
+                var data = {}; 
+                console.log(data);
+                addProduct(data,function(response){
+
+                });   
             }
 
             function fileSelected(){
