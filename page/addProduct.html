@@ -36,32 +36,84 @@
           
                 <input class="input" type="text" id="info " placeholder="输入商品说明"/> 
             </div >
-            <div id="productImg">
-                
+            <div id="feedback">
             </div>
-            <input type="file" name='imageFile' id="imageFile" onchange="fileSelected()" accept="image/png, image/jpeg, image/gif, image/jpg"/>
+                <div class="box">
+                    <a href="javascript:;" class="file">选择图片
+                        <input type="file" multiple="multiple" id="inputfile" name="" class="photo"  accept="image/png, image/jpeg, image/gif, image/jpg">
+                    </a>
+                    
+                </div>
 
 
             <div class="button" onclick="submit()">提交</div>
         </div>
 
         <script>
+            var myFiles=new Array(); 
+            
+
             window.onload = function(){
                 
                 $("#title").attr("Value","dasdasd");
+
+                $("#inputfile").change(function(){
+                    console.log("获取图片");
+                    var feedback = $("#feedback");
+                     if (feedback.children('img').length>5) {
+                         alert("最多只能选择5张图片");
+                         return false;
+                       }
+                    // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+ 
+                    $.each($('#inputfile')[0].files, function(i, file) {
+                        var reads= new FileReader();
+                        reads.readAsDataURL(file);
+                        myFiles.push(file);
+                        reads.onload=function (e) {
+                  
+                            // var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>';
+                            var tempDiv = '<img style="width:100px;height:100px;" src='+ this.result+'>';
+                            if($("#feedback").children('img').length == 0)
+                            {
+                                $("#feedback").append(tempDiv);
+                            }
+                            else{
+                                $("#feedback").children('img').eq(0).after(tempDiv);
+                            } 
+                        };
+                    });
+
+                  
+                }); 
             }
 
 
             function submit(){
                 console.log("点击提交");
-                var data = {}; 
-                console.log(data);
-                addProduct(data,function(response){
+                
+                console.log(myFiles);
+                var data = new FormData();
+                for (var i=0;i<myFiles.length;i++){
+                    data.append('upload_file'+i, myFiles[i]);
+                }
+                upload(data,function(reponse){
+                    console.log(reponse); 
+                }); 
+                // var data = {}; 
+                // console.log(data);
+                // addProduct(data,function(response){
 
-                });   
+                // });   
             }
 
             function fileSelected(){
+                var feedback = $("#feedback");
+                if (feedback.children('img').length>5) {
+                     alert("最多只能选择5张图片");
+                     return false;
+                }
+
                 var oFile = document.getElementById('imageFile').files[0];    //读取文件
                 var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
                 if (!rFilter.test(oFile.type)) {
@@ -73,7 +125,8 @@
                 var node=container.nextSibling;
                 reads.onload=function (e) {
                   
-                 var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>'
+                var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>'
+                 
                 oDiv = document.createElement('div');
                 oDiv.innerHTML = tempDiv;
                 container.parentNode.insertBefore(oDiv, node);
