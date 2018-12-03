@@ -6,10 +6,22 @@ function isEmpty(obj){
         return false;
     }
 }
+/// 判断字符串有没值 没有默认为空
+function changeText(obj){
+    if (isEmpty(obj)){
+        return ""; 
+    }else{
+        return obj; 
+    }
+
+}
 /// 清除div下的元素
 function cleanDiv(id){
     var div = document.getElementById(id);  
      div.innerHTML = "";
+}
+function back(){
+    javascript:history.back();
 }
 /*获取到Url里面的参数*/
 (function ($) {

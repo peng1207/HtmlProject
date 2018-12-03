@@ -7,20 +7,21 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
-        <div onclick=back() style="background:#F33;height:44px">
-           返回
+        <div class="nav">
+                <div onclick=back() class="nav_back">
+                        <img src="../img/back.png" class="nav_back_img"/>
+                </div>
+                <div class="line"></div>
         </div>
+       
         <div id="productDet">
         </div>
         
        <script>
-           function back(){
-            //    javascript:history.back();
-            cleanDiv("productDet");
            
-           }
            window.onload = function(){
                getDet();
             }
@@ -28,24 +29,35 @@
                 var id = $.getUrlParam('id');
                 console.log(id);
                 if(!isEmpty(id)){
-                  
                     getProductDetRequest(JSON.stringify({"id":id }),function(data){
                         console.log(data);
                         if (data.code == "0"){
-                            var objec = data.data; 
+                            var objec = data.data;
+                            var imgPath_Array = new Array(); 
+                            imgPath_Array = changeText(objec.imgs).split(",");
+                            console.log(imgPath_Array);
+                            var imgDiv = '<div id="flexiselDemo3">'; 
+                            for (i=0;i<imgPath_Array.length ;i++ ) 
+                            { 
+                                var imgPath = imgPath_Array[i];
+                                console.log(imgPath);
+                                imgDiv += '<div><img src="'+imgPath+'"alt=""/></div>'; 
+                            } 
+                            imgDiv += '</div>'
+                            $("#productDet").append(imgDiv);
                             var tempDiv = '<div> \
-                                           <div id="img"></div>\
-                                           <div id="title">'+objec.title+'</div>\
-                                           <div id="att">'+objec.attribute+'</div>\
-                                           <div id="price">'+objec.price+'/'+objec.price_unit+'</div>\
-                                           <div id="line"> </div>\
-                                           <div id="brand">'+objec.brand+'</div>\
-                                           <div id="spec">'+objec.spec+'</div>\
-                                           <div id="stock">'+objec.stock+'/'+objec.unit+'</div>\
-                                           <div>商品说明</div>\
-                                           <div id="info">'+objec.info+'</div>\
+                                           <div id="title" class="product_det_title">'+changeText(objec.title)+'</div>\
+                                           <div id="attribute" class="product_det_attribute">'+changeText(objec.attribute)+'</div>\
+                                           <div id="price" class="product_det_price">'+changeText(objec.price)+(isEmpty(objec.price_unit) ? '' : '/')+changeText(objec.price_unit)+'</div>\
+                                           <div id="line" class="line"> </div>\
+                                           <div id="brand" class="product_det_brand">品牌 '+changeText(objec.brand)+'</div>\
+                                           <div id="spec" class="product_det_spec">规格 '+changeText(objec.spec)+'</div>\
+                                           <div id="stock" class="product_det_stock">库存 ' +changeText(objec.stock)+''+changeText(objec.unit)+'</div>\
+                                           <div class="line"/>\
+                                           <div class="product_det_infoTitle">商品说明</div>\
+                                           <div id="info" class="product_det_info">'+changeText(objec.info)+'</div>\
                                           </div>'; 
-
+                                  
                             $("#productDet").append(tempDiv);
 
                            
