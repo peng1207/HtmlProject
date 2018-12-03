@@ -4,12 +4,18 @@
         <meta charset="UTF-8" />
         <title> </title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="../js/request.js"></script>
-        <script type="text/javascript" src="../js/base.js"></script>
+       
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <link rel="stylesheet" href="../css/swiper.min.css">
     </head>
     <body>
+            <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+            <script type="text/javascript"  src="../js/libs/jquery.min.js"></script>
+            <script type="text/javascript" src="../js/request.js"></script>
+            <script type="text/javascript" src="../js/base.js"></script>
+            <script   src="../js/libs/swiper.min.js"></script>
+       
+    
         <div class="nav">
                 <div onclick=back() class="nav_back">
                         <img src="../img/back.png" class="nav_back_img"/>
@@ -19,7 +25,7 @@
        
         <div id="productDet">
         </div>
-        
+       
        <script>
            
            window.onload = function(){
@@ -36,14 +42,23 @@
                             var imgPath_Array = new Array(); 
                             imgPath_Array = changeText(objec.imgs).split(",");
                             console.log(imgPath_Array);
-                            var imgDiv = '<div id="flexiselDemo3">'; 
+                            var imgDiv = '<div class="banner-container swiper-container">'; 
+                            imgDiv += '<div class="swiper-wrapper">'; 
                             for (i=0;i<imgPath_Array.length ;i++ ) 
                             { 
                                 var imgPath = imgPath_Array[i];
                                 console.log(imgPath);
-                                imgDiv += '<div><img src="'+imgPath+'"alt=""/></div>'; 
+                                imgDiv += '<div class="swiper-slide"><img style="width:100%" src="'+imgPath+'"alt=""/></div>'; 
+                                imgDiv += '<div class="swiper-slide"><img style="width:100%" src="'+imgPath+'"alt=""/></div>'; 
+                                imgDiv += '<div class="swiper-slide"><img style="width:100%" src="'+imgPath+'"alt=""/></div>'; 
                             } 
-                            imgDiv += '</div>'
+                            imgDiv += '</div>'; 
+                           
+                            imgDiv += '<div class="banner-pagination pagination">\
+                                        <span>  </span>\
+                                        </div>';
+                              imgDiv += '<div class="swiper-pagination"></div>'; 
+                            imgDiv += '</div>'; 
                             $("#productDet").append(imgDiv);
                             var tempDiv = '<div> \
                                            <div id="title" class="product_det_title">'+changeText(objec.title)+'</div>\
@@ -59,8 +74,23 @@
                                           </div>'; 
                                   
                             $("#productDet").append(tempDiv);
-
-                           
+                            var mySwiper = new Swiper('.swiper-container', {
+                            	autoplay: 5000,//可选选项，自动滑动
+})
+                            // var swiper = new Swiper('.swiper-container', {
+                            //                          loop: true,
+                                            
+                            //                           pagination: {
+                            //                                   el: '.swiper-pagination',
+                            //                                   dynamicBullets: true,
+                                                              
+                            //                             },
+                            //                             paginationClickable: '.swiper-pagination', //焦点按钮可点击
+                            //                             // paginationClickable: true,
+                            //                             autoplay:2500
+                            //             });
+                        //    setInterval(timeRun,5000);
+                           timeRun(); 
                         }
 
                     }); 
@@ -68,9 +98,30 @@
 
                 // getProductDetRequest
             }
+            
+            function timeRun(){
+                console.log("定时器执行中");
+                // var swiper = new Swiper('.swiper-container', {
+                //                                       pagination: {
+                //                                               el: '.banner-pagination',
+                //                                               dynamicBullets: true,
+                                                            
+                //                                         },
+                //                                         paginationClickable: '.banner-pagination', //焦点按钮可点击
+                //                         });
+                // mySwiper.slideNext();
+                                 // setInterval("mySwiper.slideNext()", 2000);s //加定时器的目的是：点击焦点按钮后，自动播放你所点击的那张图片的下一张
+                                 var mySwiper = new Swiper('.banner-container',{
+                      loop: true, //用来循环播放
+                  pagination: '.banner-pagination', //显示焦点按钮
+             paginationClickable: '.banner-pagination', //焦点按钮可点击
+             });  
+             setInterval(mySwiper.slideNext(), 2000); //加定时器的目的是：点击焦点按钮后，自动播放你所点击的那张图片的下一张
+            }
 
+                           
            </script>
-        
+         
 
 
         
