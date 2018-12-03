@@ -3,14 +3,13 @@ require_once('conn.php');
  
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
- 
 $title = @$requestData['title'] ? $requestData['title'] : ''; 
 $attribute = @$requestData['attribute'] ? $requestData['attribute'] : ''; 
 $price = @$requestData['price'] ? $requestData['price'] : ''; 
 $stock = @$requestData['stock'] ? $requestData['stock'] : ''; 
 $spec = @$requestData['spec'] ? $requestData['spec'] : ''; 
 $info = @$requestData['info'] ? $requestData['info'] : ''; 
-$imgIds = @$_POrequestDataST['imgIds'] ? $requestData['imgIds'] : ''; 
+$imgIds = @$requestData['imgIds'] ? $requestData['imgIds'] : ''; 
 $id = @$requestData["id"] ? $requestData['id'] : ""; 
 
 if (empty($title)){
@@ -34,10 +33,10 @@ if(empty($info)){
 if (empty($imgIds)){
     Response::failure("7","请上传商品图片");
 }
-$is_insert = TRUE; 
+$is_insert = FALSE; 
 if (empty($id)){
     $id =  md5(uniqid());
-    $is_insert = FALSE; 
+    $is_insert = true; 
 }
 if ($is_insert){
     $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds')";

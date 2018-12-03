@@ -7,11 +7,10 @@ var prefix_url = "/app";
 
 //  添加或编辑商品请求
 function addProduct(data,success){
-    
     $.ajax(
         {
             type:"POST", 
-            dataType:"josn",
+            dataType:"json",
             data:data,
             url : domain_name + prefix_url + "/addProduct.php", 
             success:function(data){
@@ -20,6 +19,20 @@ function addProduct(data,success){
         }
     ); 
 }
+function getProductList(data,success){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/getProductList.php", 
+            success:function(data){
+                success(data); 
+            }
+        }
+    ); 
+}
+
 // 添加意见反馈
 function addFeecdback(){
     

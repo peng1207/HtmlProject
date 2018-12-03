@@ -6,6 +6,7 @@
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
@@ -34,7 +35,7 @@
             <div class="div-row">
                 <div class="div-inline div-title" >商品说明</div>
           
-                <input class="input" type="text" id="info " placeholder="输入商品说明"/> 
+                <input class="input" type="text" id="info" placeholder="输入商品说明"/> 
             </div >
             <div id="feedback">
             </div>
@@ -54,9 +55,7 @@
             
 
             window.onload = function(){
-                
-                $("#title").attr("Value","dasdasd");
-
+                 
                 $("#inputfile").change(function(){
                     console.log("获取图片");
                     var feedback = $("#feedback");
@@ -90,51 +89,80 @@
 
 
             function submit(){
+                var title = document.getElementById("title").value; 
+                var attribute = document.getElementById("attribute").value; 
+                var price = document.getElementById("price").value; 
+                var stock = document.getElementById("stock").value; 
+                var spec = document.getElementById("spec").value; 
+                var info = document.getElementById("info").value;
+                if (isEmpty(title)){
+                    alert("请输入标题"); 
+                    return; 
+                }
+                if (isEmpty(attribute)){
+                    alert("请输入商品属性");
+                    return; 
+                }
+                if (isEmpty(price)){
+                    alert("请输入价格"); 
+                    return; 
+                }
+                if (isEmpty(stock)){
+                    alert("请输入库存");
+                    return; 
+                }
+                if (isEmpty(spec)){
+                    alert("请输入规格");
+                    return; 
+                }
+                if (isEmpty(info)){
+                    alert("请输入说明");
+                    return; 
+                }
                 console.log("点击提交");
                 
                 console.log(myFiles);
+                if (myFiles.length <= 0 ){
+                    alert("请上传图片");
+                    return; 
+                }
+                
                 var data = new FormData();
+
+
                 for (var i=0;i<myFiles.length;i++){
                     data.append('upload_file'+i, myFiles[i]);
                 }
                 upload(data,function(reponse){
                     console.log(reponse); 
-                }); 
-                // var data = {}; 
-                // console.log(data);
-                // addProduct(data,function(response){
-
-                // });   
-            }
-
-            function fileSelected(){
-                var feedback = $("#feedback");
-                if (feedback.children('img').length>5) {
-                     alert("最多只能选择5张图片");
-                     return false;
-                }
-
-                var oFile = document.getElementById('imageFile').files[0];    //读取文件
-                var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
-                if (!rFilter.test(oFile.type)) {
-                     alert("文件格式必须为图片");
-                }
-                var reads= new FileReader();
-                reads.readAsDataURL(oFile);
-                var container =document.getElementById('productImg');
-                var node=container.nextSibling;
-                reads.onload=function (e) {
+                    
+                    if (reponse.code == "0"){
+                        var imgData = reponse.data; 
+                        var img_path = imgData.imgs; 
+                        var data222 = {
+                             "title": title,
+                            "attribute": attribute,
+                            "price":price,
+                            "stock":stock,
+                            "spec":spec,
+                            "info":info,
+                            "imgIds":img_path
+                        }
+                        var requestData= JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
+ 
+                        addProduct(requestData,function(addResponse){
+                             console.log(addResponse); 
+                             alert(addResponse); 
+                        }) ; 
+                    }else{
+                        alert(上传失败);
+                    }
+                
+            }); 
                   
-                var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>'
-                 
-                oDiv = document.createElement('div');
-                oDiv.innerHTML = tempDiv;
-                container.parentNode.insertBefore(oDiv, node);
-                node=oDiv.nextSibling;
-
-                };
             }
-         //建立一個可存取到該file的url
+
+         
   
  
         

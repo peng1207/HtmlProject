@@ -5,6 +5,7 @@ header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 header('content-type:text/html charset:utf-8');
+header('Content-Type:application/json; charset=utf-8');
 class Response{
     public static function json($code,$message="",$data=null){
         if ($data == null){

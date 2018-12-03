@@ -5,6 +5,8 @@
         <title> </title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
@@ -13,31 +15,42 @@
         
         <script>
             
-            var container =document.getElementById('productList');
-            var node=container.nextSibling;
-            var list = ["123213123","23123123123","12312312321","asdasd","asdasds"];
-            for (i in list){
-                var tempDiv = '<div onclick=pushNext('+list[i]+')> \
-                                <div style="position:relative">\
-                                <img src="videobg.png" width="100%"/> \
-                                <div style="background:#000; opacity:0.5;height:100px;width:100px;position:absolute;left:20px;bottom:20px;border-radius:50px"> \
-                                <div style="color:#F33;text-align:center;top:50%;left:50%;margin-top: -50px;margin-left: -50px;position: absolute;font-size:30px"> 500.00 \
-                                </div>\
-                                </div>\
-                                </div>\
-                                <div class="textStyle">'+ list[i] +'</div>  \
-                               <div>'
-                oDiv = document.createElement('div');
-                oDiv.innerHTML = tempDiv;
-                container.parentNode.insertBefore(oDiv, node);
-                node=oDiv.nextSibling;
-                
+            window.onload = function(){
+                productList();
             }
+
+            // var container =document.getElementById('productList');
+            // var node=container.nextSibling;
+            // var list = ["123213123","23123123123","12312312321","asdasd","asdasds"];
+            // for (i in list){
+            //     var tempDiv = '<div onclick=pushNext('+list[i]+')> \
+            //                     <div style="position:relative">\
+            //                     <img src="videobg.png" width="100%"/> \
+            //                     <div style="background:#000; opacity:0.5;height:100px;width:100px;position:absolute;left:20px;bottom:20px;border-radius:50px"> \
+            //                     <div style="color:#F33;text-align:center;top:50%;left:50%;margin-top: -50px;margin-left: -50px;position: absolute;font-size:30px"> 500.00 \
+            //                     </div>\
+            //                     </div>\
+            //                     </div>\
+            //                     <div class="textStyle">'+ list[i] +'</div>  \
+            //                    <div>'
+            //     oDiv = document.createElement('div');
+            //     oDiv.innerHTML = tempDiv;
+            //     container.parentNode.insertBefore(oDiv, node);
+            //     node=oDiv.nextSibling;
+                
+            // }
             
             function pushNext(e){
                window.location.href = 'priductDet.html?id='+e;
                
             }
+            
+            function productList(){
+                getProductList(null,function(data){
+
+                });
+            }
+
             
        </script>
  
