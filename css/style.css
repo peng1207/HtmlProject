@@ -163,3 +163,9 @@
   .box a{
   margin-left: 10px;
   }
+  .section-row{
+    text-align: center
+  }
+  .section-row-img{
+    width: 100%;
+  }

@@ -5,21 +5,62 @@
         <title> </title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
     </head>
     <body>
         <div onclick=back() style="background:#F33;height:44px">
            返回
         </div>
-        
+        <div id="productDet">
+        </div>
         
        <script>
            function back(){
-               javascript:history.back();
-           }
+            //    javascript:history.back();
+            cleanDiv("productDet");
            
+           }
+           window.onload = function(){
+               getDet();
+            }
+            function getDet(){
+                var id = $.getUrlParam('id');
+                console.log(id);
+                if(!isEmpty(id)){
+                  
+                    getProductDetRequest(JSON.stringify({"id":id }),function(data){
+                        console.log(data);
+                        if (data.code == "0"){
+                            var objec = data.data; 
+                            var tempDiv = '<div> \
+                                           <div id="img"></div>\
+                                           <div id="title">'+objec.title+'</div>\
+                                           <div id="att">'+objec.attribute+'</div>\
+                                           <div id="price">'+objec.price+'/'+objec.price_unit+'</div>\
+                                           <div id="line"> </div>\
+                                           <div id="brand">'+objec.brand+'</div>\
+                                           <div id="spec">'+objec.spec+'</div>\
+                                           <div id="stock">'+objec.stock+'/'+objec.unit+'</div>\
+                                           <div>商品说明</div>\
+                                           <div id="info">'+objec.info+'</div>\
+                                          </div>'; 
+
+                            $("#productDet").append(tempDiv);
+
+                           
+                        }
+
+                    }); 
+                }
+
+                // getProductDetRequest
+            }
+
            </script>
         
+
+
         
     </body>
 </html>

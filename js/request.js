@@ -32,6 +32,19 @@ function getProductList(data,success){
         }
     ); 
 }
+function getProductDetRequest(data,success){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/getProductDet.php", 
+            success:function(data){
+                success(data); 
+            }
+        }
+    ); 
+}
 
 // 添加意见反馈
 function addFeecdback(){
