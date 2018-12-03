@@ -77,20 +77,21 @@
                             var mySwiper = new Swiper('.swiper-container', {
                             	autoplay: 5000,//可选选项，自动滑动
 })
-                            // var swiper = new Swiper('.swiper-container', {
-                            //                          loop: true,
+                            var swiper = new Swiper('.swiper-container', {
+                                                     loop: true,
                                             
-                            //                           pagination: {
-                            //                                   el: '.swiper-pagination',
-                            //                                   dynamicBullets: true,
+                                                      pagination: {
+                                                              el: '.swiper-pagination',
+                                                              dynamicBullets: true,
                                                               
-                            //                             },
-                            //                             paginationClickable: '.swiper-pagination', //焦点按钮可点击
-                            //                             // paginationClickable: true,
-                            //                             autoplay:2500
-                            //             });
+                                                        },
+                                                        paginationClickable: '.swiper-pagination', //焦点按钮可点击
+                                                        // paginationClickable: true,
+                                                        autoplay:2500
+                                        });
+                                        swiper.startAutoplay();
                         //    setInterval(timeRun,5000);
-                           timeRun(); 
+                       
                         }
 
                     }); 
