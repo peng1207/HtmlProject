@@ -23,7 +23,10 @@
                 <div class="div-inline div-title" >商品价格</div>
                 <input class="input" type="text" id="price" placeholder="输入商品价格"/> 
             </div>
-                
+            <div class="div-row">
+                    <div class="div-inline div-title" >价格单位</div>
+                    <input class="input" type="text" id="price_unit" placeholder="输入价格单位"/> 
+                </div>
             <div class="div-row">
                  <div class="div-inline div-title" >商品库存</div>
                 <input class="input" type="text" id="stock" placeholder="输入商品库存"/> 
@@ -33,17 +36,14 @@
                 <input class="input" type="text" id="spec" placeholder="输入商品规格"/> 
             </div>
             <div class="div-row">
-                    <div class="div-inline div-title" >价格单位</div>
-                    <input class="input" type="text" id="price_unit" placeholder="输入价格单位"/> 
-                </div>
-                <div class="div-row">
+                    <div class="div-inline div-title" >单位</div>
+                    <input class="input" type="text" id="unit" placeholder="输入单位"/> 
+             </div>  
+             <div class="div-row">
                         <div class="div-inline div-title" >品牌</div>
                         <input class="input" type="text" id="brand" placeholder="输入品牌"/> 
-                    </div>
-              <div class="div-row">
-                            <div class="div-inline div-title" >单位</div>
-                            <input class="input" type="text" id="unit" placeholder="输入单位"/> 
-                        </div>            
+             </div>
+                      
             <div class="div-row">
                 <div class="div-inline div-title" >商品说明</div>
           
@@ -221,11 +221,11 @@
                               document.getElementById("attribute").value = changeText(attribute); 
                               document.getElementById("price").value = changeText(price); 
                               document.getElementById("stock").value = changeText(stock); 
-                             document.getElementById("spec").value = changeText(spec); 
+                              document.getElementById("spec").value = changeText(spec); 
                               document.getElementById("info").value = changeText(info);
-                             document.getElementById("price_unit").value = changeText(price_unit); 
-                            document.getElementById("brand").value = changeText(brand); 
-                            document.getElementById("unit").value = changeText(unit);
+                              document.getElementById("price_unit").value = changeText(price_unit); 
+                              document.getElementById("brand").value = changeText(brand); 
+                              document.getElementById("unit").value = changeText(unit);
                             var imgPath_Array = new Array(); 
                             imgPath_Array = changeText(imgs).split(",");
                             
