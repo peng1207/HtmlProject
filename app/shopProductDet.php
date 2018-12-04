@@ -12,8 +12,39 @@ if (empty($id)){
 
 $sqla = "SELECT * from product where id = '$id'"; 
 $result = mysql_query($sqla,$conn); 
+$objectData ; 
+while ($row = mysql_fetch_array($result)){
+    $id = @$row["id"] ? $row["id"] : ""; 
+    $title = @$row["title"] ? $row["title"] : ""; 
+    $attribute = @$row["attribute"] ? $row["attribute"] : ""; 
+    $price = @$row["price"] ? $row["price"] : ""; 
+    $stock = @$row["stock"] ? $row["stock"] : ""; 
+    $spec = @$row["spec"] ? $row["spec"] : ""; 
+    $info = @$row["info"] ? $row["info"] : ""; 
+    $imgIds = @$row["imgIds"] ? $row["imgIds"] : ""; 
+    $status = @$row["status"] ? $row["status"] : ""; 
+    $price_unit = @$row['price_unit'] ? $row['price_unit'] : "";
+    $brand = @$row['brand'] ? $row['brand'] : "";
+    $unit = @$row['unit'] ? $row['unit'] : "";
+    $objectData = array(
+        "id"=>$id,
+        "title"=>$title, 
+        "attribute"=>$attribute,
+        "price"=>$price,
+        "stock"=>$stock,
+        "spec"=>$spec,
+        "info"=>$info,
+        "status"=>$status,
+        "imgs"=>$imgIds,
+        "price_unit"=>$price_unit,
+        "brand"=>$brand,
+        "unit"=>$unit,
+    ); 
+  
+}
+
 if ($result){
-    Response::json("0","获取数据成功",$result); 
+    Response::json("0","获取数据成功",$objectData); 
 }else{
     Response::failure("101","获取数据失败"); 
 }

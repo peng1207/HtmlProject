@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> 联系我们</title>
+        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    </head>
+    <body>
+
+        <div  style="width:80%;height: 120px;margin-left: 10%">
+                <div >
+                        <div class="">请留下您的联系方式，我们会尽快联系您的</div>                       
+                </div>
+                <div class="div-row">
+                        <div class="div-inline div-title" >您的称呼</div>
+                        <input class="input" type="text" id="name" placeholder="输入您的称呼"/> 
+                </div>
+                <div class="div-row">
+                        <div class="div-inline div-title" >您的联系方式</div>
+                        <input class="input" type="text" id="phone" placeholder="输入您的联系方式"/> 
+                </div>
+                <div> <button onclick="submit()"> 提交</button> </div>
+        </div>
+        <script>
+            
+            function submit(){
+                var title = document.getElementById("name").value; 
+                var phone = document.getElementById("phone").value; 
+                if (isEmpty(title)){
+                    alert("请输入您的称呼");
+                    return; 
+                }
+                if (isEmpty(phone)){
+                    alert("请输入您的联系方式");
+                    return; 
+                }
+                addFeecdback(JSON.stringify({"name":title,"phone":phone}),function(data){
+
+                }); 
+            }
+        
+        </script>
+    </body>
+    </html>

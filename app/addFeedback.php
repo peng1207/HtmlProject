@@ -7,14 +7,15 @@ $requestData = json_decode($raw,TRUE);
 $info = @$requestData['info'] ? $requestData['info'] : ''; 
 $phone = @$requestData['phone'] ? $requestData['phone'] : ''; 
 $name = @$requestData['name'] ? $requestData['name'] : ''; 
-if (empty($phone)){
-    Response::failure("1","联系方法不能为空");
-}
 if (empty($name)){
-    Response::failure("2","称呼不能为空");
+    Response::failure("1","请输入您的称呼");
+}
+if (empty($phone)){
+    Response::failure("2","请输入您的联系方式");
 }
 
-$sqla = "INSERT INTO feedback(info,phone,name) VALUES ('$info','$phone','$name')";
+$id =  md5(uniqid());
+$sqla = "INSERT INTO feedback(id,info,phone,name) VALUES ('$id','$info','$phone','$name')";
 $result = mysql_query($sqla,$conn); 
 if ($result) {
     Response::json("0","提交成功"); 

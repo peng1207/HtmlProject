@@ -23,8 +23,9 @@ while ($row = mysql_fetch_array($result)){
     $info = @$row["info"] ? $row["info"] : ""; 
     $imgIds = @$row["imgIds"] ? $row["imgIds"] : ""; 
     $status = @$row["status"] ? $row["status"] : ""; 
-  
-
+    $price_unit = @$row['price_unit'] ? $row['price_unit'] : "";
+    $brand = @$row['brand'] ? $row['brand'] : "";
+    $unit = @$row['unit'] ? $row['unit'] : "";
     $objectData = array(
         "id"=>$id,
         "title"=>$title, 
@@ -34,9 +35,12 @@ while ($row = mysql_fetch_array($result)){
         "spec"=>$spec,
         "info"=>$info,
         "status"=>$status,
-        "imgs"=>$imgIds
+        "imgs"=>$imgIds,
+        "price_unit"=>$price_unit,
+        "brand"=>$brand,
+        "unit"=>$unit,
     ); 
-    array_push($array,$objectData);
+  
 }
 
 if ($result){

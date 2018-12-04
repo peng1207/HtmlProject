@@ -11,7 +11,9 @@ $spec = @$requestData['spec'] ? $requestData['spec'] : '';
 $info = @$requestData['info'] ? $requestData['info'] : ''; 
 $imgIds = @$requestData['imgIds'] ? $requestData['imgIds'] : ''; 
 $id = @$requestData["id"] ? $requestData['id'] : ""; 
-
+$price_unit = @$requestData['price_unit'] ? $requestData['price_unit'] : ''; 
+$unit = @$requestData['unit'] ? $requestData['unit'] : ''; 
+$brand = @$requestData['brand'] ? $requestData['brand'] : '';
 if (empty($title)){
     Response::failure("1","标题不能为空"); 
 }
@@ -33,13 +35,22 @@ if(empty($info)){
 if (empty($imgIds)){
     Response::failure("7","请上传商品图片");
 }
+if (empty($price_unit)){
+    Response::failure("8","请输入价格单位");
+}
+if (empty($unit)){
+    Response::failure("9","请输入单位");
+}
+if (empty($brand)){
+    Response::failure("10","请输入品牌");
+}
 $is_insert = FALSE; 
 if (empty($id)){
     $id =  md5(uniqid());
     $is_insert = true; 
 }
 if ($is_insert){
-    $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds')";
+    $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds,price_unit,unit,brand) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds','$price_unit','$unit','$brand')";
     $result = mysql_query($sqla,$conn); 
     
     if ($result){
@@ -50,7 +61,7 @@ if ($is_insert){
         Response::failure("101","添加商品失败");
     }
 }else{
-    $sqla = "UPDATE product set title='$title',attribute = '$attribute',price = '$price',stock = '$stock',spec = '$spec',info = '$info', imgIds = '$imgIds'  WHERE id = '$id'"; 
+    $sqla = "UPDATE product set title='$title',attribute = '$attribute',price = '$price',stock = '$stock',spec = '$spec',info = '$info', imgIds = '$imgIds',price_unit = '$price_unit',unit='$unit',brand='$brand'  WHERE id = '$id'"; 
     $result = mysql_query($sqla,$conn); 
     if ($result){
         Response::json("0","更新商品成功",null); 

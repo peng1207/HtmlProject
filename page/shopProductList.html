@@ -1,0 +1,74 @@
+ 
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> 商品列表</title>
+        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    </head>
+
+    <body>
+        <div>
+                <button onclick="addAction()">添加商品</button>
+        </div>
+        <div id ="list" style="width:100%;">
+        </div>    
+
+        <script>
+    
+             window.onload = function(){
+                productList();
+            }
+
+            function productList(){
+                shopProductListRequest(null,function(data){
+                    var code = data.code; 
+                    var listData = data.data; 
+                    var list = listData.list; 
+                    if (code == "0"){
+                        var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%">'; 
+                        div += '<tr>\
+                                    <th style="width:15%">名称</th>\
+                                    <th style="width:15%">价格</th>\
+                                    <th style="width:15%">库存</th>\
+                                    <th style="width:55%"> </th>\
+                                </tr>'
+                        for (i in  list){
+                            var listDic = list[i];
+                            var id = listDic.id; 
+                            div += '<tr>\
+                                         <td>'+changeText(listDic.title)+'</td>\
+                                         <td>'+changeText(listDic.price)+'</td>\
+                                         <td>'+changeText(listDic.stock)+'</td>\
+                                         <td> <button onclick=editAction("'+id+'")>编辑</button>  <button onclick=deleteAction("'+id+'")>删除</button> </td>\
+                                    </tr>'
+
+                        }
+                        
+                        div += "</table>"
+                        $("#list").append(div); 
+                       
+                    }
+
+
+                }); 
+            }
+            function editAction(e){
+                console.log(e); 
+                window.location.href = 'addProduct.html?id='+e;
+            }
+            function deleteAction(e){
+                console.log(e); 
+            }
+             function addAction(){
+                window.location.href = 'addProduct.html';
+            }
+
+        </script>
+
+    </body>
+    </html>

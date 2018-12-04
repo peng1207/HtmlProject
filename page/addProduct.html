@@ -33,6 +33,18 @@
                 <input class="input" type="text" id="spec" placeholder="输入商品规格"/> 
             </div>
             <div class="div-row">
+                    <div class="div-inline div-title" >价格单位</div>
+                    <input class="input" type="text" id="price_unit" placeholder="输入价格单位"/> 
+                </div>
+                <div class="div-row">
+                        <div class="div-inline div-title" >品牌</div>
+                        <input class="input" type="text" id="brand" placeholder="输入品牌"/> 
+                    </div>
+              <div class="div-row">
+                            <div class="div-inline div-title" >单位</div>
+                            <input class="input" type="text" id="unit" placeholder="输入单位"/> 
+                        </div>            
+            <div class="div-row">
                 <div class="div-inline div-title" >商品说明</div>
           
                 <input class="input" type="text" id="info" placeholder="输入商品说明"/> 
@@ -55,7 +67,7 @@
             
 
             window.onload = function(){
-                 
+                getProductDet();
                 $("#inputfile").change(function(){
                     console.log("获取图片");
                     var feedback = $("#feedback");
@@ -95,6 +107,9 @@
                 var stock = document.getElementById("stock").value; 
                 var spec = document.getElementById("spec").value; 
                 var info = document.getElementById("info").value;
+                var price_unit = document.getElementById("price_unit").value; 
+                var brand = document.getElementById("brand").value; 
+                var unit = document.getElementById("unit").value;
                 if (isEmpty(title)){
                     alert("请输入标题"); 
                     return; 
@@ -119,6 +134,18 @@
                     alert("请输入说明");
                     return; 
                 }
+                if (isEmpty(price_unit)){
+                    alert("请输入价格单位");
+                    return; 
+                }
+                if (isEmpty(unit)){
+                    alert("请输入单位"); 
+                    return; 
+                }
+                if (isEmpty(brand)){
+                    alert("请输入品牌");
+                    return;
+                }
                 console.log("点击提交");
                 
                 console.log(myFiles);
@@ -138,7 +165,8 @@
                     
                     if (reponse.code == "0"){
                         var imgData = reponse.data; 
-                        var img_path = imgData.imgs; 
+                        var img_path = imgData.imgs;
+                        var id = $.getUrlParam('id'); 
                         var data222 = {
                              "title": title,
                             "attribute": attribute,
@@ -146,7 +174,11 @@
                             "stock":stock,
                             "spec":spec,
                             "info":info,
-                            "imgIds":img_path
+                            "imgIds":img_path,
+                            "id":changeText(id),
+                            "price_unit":price_unit,
+                            "brand":brand,
+                            "unit":unit
                         }
                         var requestData= JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
  
@@ -163,7 +195,57 @@
             }
 
          
-  
+            function getProductDet(){
+                var id = $.getUrlParam('id');
+                if (!isEmpty(id)){
+                    
+                    getShopProductDet( JSON.stringify({"id":id}),function(data){
+                            var code = data.code ; 
+                            if (code == "0"){
+                                var objectData = data.data; 
+                                console.log(objectData);
+                                var  title = objectData.title; 
+                                var attribute = objectData.attribute;
+                                var price = objectData.price; 
+                                var stock = objectData.stock; 
+                                var spec = objectData.spec;
+                                var info = objectData.info; 
+                                var status = objectData.status;
+                                var imgs = objectData.imgs; 
+                                var price_unit = objectData.price_unit; 
+                                var brand = objectData.brand; 
+                                var unit = objectData.unit;
+
+
+                              document.getElementById("title").value = changeText(title); 
+                              document.getElementById("attribute").value = changeText(attribute); 
+                              document.getElementById("price").value = changeText(price); 
+                              document.getElementById("stock").value = changeText(stock); 
+                             document.getElementById("spec").value = changeText(spec); 
+                              document.getElementById("info").value = changeText(info);
+                             document.getElementById("price_unit").value = changeText(price_unit); 
+                            document.getElementById("brand").value = changeText(brand); 
+                            document.getElementById("unit").value = changeText(unit);
+                            var imgPath_Array = new Array(); 
+                            imgPath_Array = changeText(imgs).split(",");
+                            
+                           
+                            for (i=0;i<imgPath_Array.length ;i++ ) 
+                            { 
+                                var imgPath = imgPath_Array[i];
+                                var tempDiv = '<img style="width:100px;height:100px;" src='+ changeText(imgPath)+'>';
+                                 if($("#feedback").children('img').length == 0)
+                              {
+                                $("#feedback").append(tempDiv);
+                             }
+                            else{
+                                $("#feedback").children('img').eq(0).after(tempDiv);
+                            } 
+                            } 
+                            }
+                    });
+                }
+            }
  
         
         </script>

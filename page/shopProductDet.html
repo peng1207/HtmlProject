@@ -1,0 +1,41 @@
+ 
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> 商品详情</title>
+        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <script type="text/javascript"  src="../js/libs/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
+    </head>
+    <body>
+            <div class="nav">
+                    <div onclick=back() class="nav_back">
+                            <img src="../img/back.png" class="nav_back_img"/>
+                    </div>
+                    <div class="line"></div>
+            </div>
+           
+                
+            <div id="productDet">
+            </div>
+        <script>
+            window.onload = function(){
+               getDet();
+            }
+            function getDet(){
+                var id = $.getUrlParam('id');
+                getShopProductDet(new JSON({"id":id})); 
+
+
+            }
+        </script>
+
+     </body>
+
+  </html>
