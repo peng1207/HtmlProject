@@ -254,7 +254,7 @@
    width: 100%;
    /* overflow: hidden; */
    /* position:relative; */
-  
+  padding-left: 10px;
    height: 120px;;
  }
 .product_list_img{
