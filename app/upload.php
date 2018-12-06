@@ -28,7 +28,7 @@ foreach($_FILES as $file){
             $img_paths = $img_paths.","; 
             $remove_path = $remove_path.","; 
         }
-        $img_paths = $img_paths.$domain_name."/img/".$gb_filename;
+        $img_paths = $img_paths.$gb_filename;
         $remove_path = $remove_path."../img/".$gb_filename; 
         $success_index++; 
     }else{

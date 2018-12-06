@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title> </title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+        <title>商品列表</title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
@@ -47,9 +48,12 @@
                             //     </div>\
                             //     <div class="textStyle">'+ listData.title +'</div>  \
                             //    <div>'
-                            var tempDiv = '<div id="product_list" onclick=pushNext("'+id+'")>\
-                                        <div class="product_list_img"> <img src="'+listData.img+'" class="section-row-img"/> </div>\
-                                        <div class="product_list_content"> <p >'+ listData.title +'</p><p>'+listData.price+'</p></div>\
+                            var tempDiv = '<div class="product_list" onclick=pushNext("'+id+'")>\
+                                             <div id="product_list" class="product_list product_list_top">\
+                                             <div class="product_list_img "> <img src="'+listData.img+'" class="section-row-img"/> </div>\
+                                             <div class="product_list_content"> <div >'+ listData.title +'</div><div class="product_list_content_price">'+listData.price+'<div class="product_list_content_unit">'+(isEmpty(listData.price_unit) ? '' : '/')+changeText(listData.price_unit)+'</div></div></div>\
+                                             </div>\
+                                            <div class="line"></div>\
                                         </div>'
 
                                

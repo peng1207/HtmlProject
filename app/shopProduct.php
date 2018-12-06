@@ -1,6 +1,6 @@
 <?php
 require_once('conn.php');
-
+require_once('base.php');
 $sqla = "SELECT * from product"; 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
@@ -14,12 +14,17 @@ while ($row = mysql_fetch_array($result)){
     $info = @$row["info"] ? $row["info"] : ""; 
     $imgIds = @$row["imgIds"] ? $row["imgIds"] : ""; 
     $status = @$row["status"] ? $row["status"] : ""; 
+    $price_unit = @$row['price_unit'] ? $row['price_unit'] : "";
+    $brand = @$row['brand'] ? $row['brand'] : "";
+    $unit = @$row['unit'] ? $row['unit'] : "";
     $imgID_array = explode(',',$imgIds);
     $imgId = ""; 
     if (count($imgID_array)){
         $imgId = $imgID_array[0]; 
     }
-
+    if (!empty($imgId)){
+        $imgId = $domain_name."/img/".$imgId;
+    }
     $objectData = array(
         "id"=>$id,
         "title"=>$title, 
@@ -29,7 +34,10 @@ while ($row = mysql_fetch_array($result)){
         "spec"=>$spec,
         "info"=>$info,
         "status"=>$status,
-        "img"=>$imgId
+        "img"=>$imgId,
+        "price_unit"=>$price_unit,
+        "brand"=>$brand,
+        "unit"=>$unit,
     ); 
     array_push($array,$objectData);
 }
