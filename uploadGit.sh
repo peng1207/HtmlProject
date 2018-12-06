@@ -1,4 +1,4 @@
-echo $0
+name=$0
 git status
 git add .
 git status
