@@ -19,26 +19,7 @@
                 productList();
             }
 
-            // var container =document.getElementById('productList');
-            // var node=container.nextSibling;
-            // var list = ["123213123","23123123123","12312312321","asdasd","asdasds"];
-            // for (i in list){
-            //     var tempDiv = '<div onclick=pushNext('+list[i]+')> \
-            //                     <div style="position:relative">\
-            //                     <img src="videobg.png" width="100%"/> \
-            //                     <div style="background:#000; opacity:0.5;height:100px;width:100px;position:absolute;left:20px;bottom:20px;border-radius:50px"> \
-            //                     <div style="color:#F33;text-align:center;top:50%;left:50%;margin-top: -50px;margin-left: -50px;position: absolute;font-size:30px"> 500.00 \
-            //                     </div>\
-            //                     </div>\
-            //                     </div>\
-            //                     <div class="textStyle">'+ list[i] +'</div>  \
-            //                    <div>'
-            //     oDiv = document.createElement('div');
-            //     oDiv.innerHTML = tempDiv;
-            //     container.parentNode.insertBefore(oDiv, node);
-            //     node=oDiv.nextSibling;
-                
-            // }
+         
             
             function pushNext(e){
                 console.log(e);
@@ -51,26 +32,28 @@
                         console.log(data.data);
                         var reponseData = data.data; 
                         var list = reponseData.list; 
-                          var container =document.getElementById('productList');
-                          var node=container.nextSibling;
+                         
                         for (i in  list){
                             var listData = list[i];
                             var id = listData.id; 
                             
-                            var tempDiv = '<div onclick=pushNext("'+id+'")> \
-                                <div style="position:relative">\
-                                <img src="'+listData.img+'" class="section-row-img"/> \
-                                <div style="background:#000; opacity:0.5;height:100px;width:100px;position:absolute;left:20px;bottom:20px;border-radius:50px"> \
-                                <div class="section-row"> '+listData.price+' \
-                                </div>\
-                                </div>\
-                                </div>\
-                                <div class="textStyle">'+ listData.title +'</div>  \
-                               <div>'
-                            oDiv = document.createElement('div');
-                            oDiv.innerHTML = tempDiv;
-                            container.parentNode.insertBefore(oDiv, node);
-                            node=oDiv.nextSibling;
+                            // var tempDiv = '<div onclick=pushNext("'+id+'")> \
+                            //     <div style="position:relative">\
+                            //     <img src="'+listData.img+'" class="section-row-img"/> \
+                            //     <div style="background:#000; opacity:0.5;height:100px;width:100px;position:absolute;left:20px;bottom:20px;border-radius:50px"> \
+                            //     <div class="section-row"> '+listData.price+' \
+                            //     </div>\
+                            //     </div>\
+                            //     </div>\
+                            //     <div class="textStyle">'+ listData.title +'</div>  \
+                            //    <div>'
+                            var tempDiv = '<div id="product_list" onclick=pushNext("'+id+'")>\
+                                        <div class="product_list_img"> <img src="'+listData.img+'" class="section-row-img"/> </div>\
+                                        <div class="product_list_content"> <p >'+ listData.title +'</p><p>'+listData.price+'</p></div>\
+                                        </div>'
+
+                               
+                            $("#productList").append(tempDiv);
                         }
                 });
             }

@@ -250,3 +250,22 @@
     -webkit-align-items: center;
     align-items: center;
   }
+ .product_list{
+   width: 100%;
+   /* overflow: hidden; */
+   /* position:relative; */
+  
+   height: 140px;;
+ }
+.product_list_img{
+  float: left;
+  width: 120px;
+  /* margin-left: 10px; */
+  height: 140px;;
+}
+.product_list_content{
+  float: left;
+  margin-left: 10px; 
+  height: 140px;;
+ 
+}
