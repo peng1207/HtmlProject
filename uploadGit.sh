@@ -1,9 +1,14 @@
 name=$1
-echo "第一个参数为：$name"
+
 git status
 git add .
 git status
-git commit -m "提交新的数据"
+if [$name != '']; then
+    git commit -m $name
+else
+    git commit -m "提交新的数据"
+fi
+
 git status
 git push -u origin master
 echo "执行完成"
