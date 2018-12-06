@@ -1,5 +1,5 @@
 name=$1
-echo "第一个参数为：$1"
+echo "第一个参数为：$name"
 git status
 git add .
 git status
