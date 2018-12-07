@@ -58,9 +58,19 @@ function addFeecdback(data,success){
         }
     );    
 }
-/// 获取联系的列表
+/// 获取反馈列表
 function feedBackListRequest(data,success){
-
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/getFeedbackList.php", 
+            success:function(data){
+                success(data); 
+            }
+        }
+    );  
 }
 /// 获取店铺的商品列表
 function shopProductListRequest(data,success){

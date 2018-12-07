@@ -3,8 +3,8 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title> 商品列表</title>
-        
+        <title> 反馈列表</title>
+        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
@@ -12,10 +12,8 @@
     </head>
 
     <body>
-        <div style="height:40px;">
-             <button onclick="addAction()" style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加商品</button>
-        </div>
-        <div id ="list" style="width:100%;margin-top:10px;">
+        
+        <div id ="list" style="width:100%;">
         </div>    
 
         <script>
@@ -25,26 +23,26 @@
             }
 
             function productList(){
-                shopProductListRequest(null,function(data){
+                feedBackListRequest(null,function(data){
                     var code = data.code; 
                     var listData = data.data; 
                     var list = listData.list; 
                     if (code == "0"){
                         var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">'; 
                         div += '<tr style="height:44px;">\
-                                    <th style="width:20%">名称</th>\
-                                    <th style="width:20%">价格</th>\
-                                    <th style="width:20%">库存</th>\
-                                    <th style="width:40%"> </th>\
+                                    <th style="width:30%">称呼</th>\
+                                    <th style="width:30%">联系方式</th>\
+                                    <th style="width:30%">说明</th>\
+                                    \
                                 </tr>'
                         for (i in  list){
                             var listDic = list[i];
                             var id = listDic.id; 
                             div += '<tr style="height:44px;">\
-                                         <td style="margin-left:10px;">'+changeText(listDic.title)+'</td>\
-                                         <td style="text-align: center;">'+changeText(listDic.price)+'</td>\
-                                         <td style="text-align: center;">'+changeText(listDic.stock)+'</td>\
-                                         <td> <button onclick=editAction("'+id+'") style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("'+id+'") style="margin-left:10px;width:100px;">删除</button> </td>\
+                                         <td>'+changeText(listDic.name)+'</td>\
+                                         <td>'+changeText(listDic.phone)+'</td>\
+                                         <td>'+changeText(listDic.info)+'</td>\
+                                         \
                                     </tr>'
 
                         }
