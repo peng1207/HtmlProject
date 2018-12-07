@@ -171,26 +171,45 @@
   }
   .nav {
     width: 100%; 
-    height: 44px;
+    height: auto;
+    overflow:hidden;
     background: #fff;
+  }
+  .nav_content{
+    width: 100%;
+    height: 44px;
+    vertical-align: middle;
+    
   }
   .nav_back{
     width: 40px; 
     height: 40px;
     vertical-align: middle;
-    text-align: center;
     display: table-cell;
+    float: left;
+    padding-top: 5px;
   }
   .nav_back_img {
-    width: 25px; 
-    height: 25px;
+    width: 30px; 
+    height: 30px;
     
+  }
+  .nav_title{
+    float: left; 
+    font-size: 16px; 
+    color: #333333;
+    padding-top: 10px;
+    width: 80%;
+    text-align: center;
   }
   .line{
     width: 100%;
     height: 1px;
     background: #eeeeee; 
    
+  }
+  .product_det{
+    margin-top: 1px;
   }
   .product_det_title{
     font-size: 18px;
@@ -213,7 +232,7 @@
     margin-top: 10px;
   }
   .product_det_price{
-    font-size: 18px;
+    font-size: 20px;
     color: #F33; 
     margin-top: 10px;
     margin-bottom: 5px;
