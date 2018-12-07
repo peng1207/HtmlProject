@@ -1,5 +1,6 @@
 name=$1
 
+git pull origin master
 git status
 git add .
 git status
