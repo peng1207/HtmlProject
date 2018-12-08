@@ -137,7 +137,22 @@ function upload(data,success){
 
 }
 
-
+function loginRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/login.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );    
+}
 
 
 
