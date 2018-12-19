@@ -22,9 +22,9 @@ while ($row = mysql_fetch_array($result)){
     if (count($imgID_array)){
         $imgId = $imgID_array[0]; 
     }
-    if (!empty($imgId)){
-        $imgId = $domain_name."/img/".$imgId;
-    }
+    // if (!empty($imgId)){
+    //     $imgId = $domain_name."/img/".$imgId;
+    // }
 
     $objectData = array(
         "id"=>$id,
@@ -39,6 +39,7 @@ while ($row = mysql_fetch_array($result)){
         "price_unit"=>$price_unit,
         "brand"=>$brand,
         "unit"=>$unit,
+        "img_prefix"=>$domain_name."/img/"
     ); 
     array_push($array,$objectData);
 }

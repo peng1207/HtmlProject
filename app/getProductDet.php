@@ -27,14 +27,14 @@ while ($row = mysql_fetch_array($result)){
     $price_unit = @$row['price_unit'] ? $row['price_unit'] : "";
     $brand = @$row['brand'] ? $row['brand'] : "";
     $unit = @$row['unit'] ? $row['unit'] : "";
-    $imgArray = explode(",",$imgIds);
-    $imgIds = ""; 
-    foreach($imgArray as $value){
-        if (!empty($imgIds)){
-            $imgIds = $imgIds.","; 
-        }
-        $imgIds = $imgIds.$domain_name."/img/".$value;
-    }
+    // $imgArray = explode(",",$imgIds);
+    // $imgIds = ""; 
+    // foreach($imgArray as $value){
+    //     if (!empty($imgIds)){
+    //         $imgIds = $imgIds.","; 
+    //     }
+    //     $imgIds = $imgIds.$domain_name."/img/".$value;
+    // }
 
     $objectData = array(
         "id"=>$id,
@@ -49,6 +49,7 @@ while ($row = mysql_fetch_array($result)){
         "price_unit"=>$price_unit,
         "brand"=>$brand,
         "unit"=>$unit,
+        "img_prefix"=>$domain_name."/img/"
     ); 
   
 }

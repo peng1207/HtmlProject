@@ -82,10 +82,12 @@
                         var reads= new FileReader();
                         reads.readAsDataURL(file);
                         myFiles.push(file);
+                        console.log(file);
+                        
                         reads.onload=function (e) {
                   
                             // var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>';
-                            var tempDiv = '<img style="width:100px;height:100px;" src='+ this.result+'>';
+                            var tempDiv = '<div onclick=clickImg(this) data_obj='+file+'> <img style="width:100px;height:100px;" src='+ this.result+'></div>';
                             if($("#feedback").children('img').length == 0)
                             {
                                 $("#feedback").append(tempDiv);
@@ -99,9 +101,30 @@
                   
                 }); 
             }
-
+            function clickImg(e){
+                
+                var mymessage = confirm("是否删除图片?");
+               
+                if (mymessage==true) {
+                    console.log("点击确定");
+                     e.remove(); 
+                }else{
+                    console.log("点击取消");
+                }
+            }
 
             function submit(){
+                  var smalls = document.getElementById('feedback').getElementsByTagName('div');
+               console.log(smalls);
+               if (smalls.length == 0) {
+                    alert("请上传图片");
+                    return; 
+               }
+                for (let index = 0; index < smalls.length; index++) {
+                    var div = smalls[index]; 
+                    var file = $(div).attr("data_obj"); 
+                    console.log($(div).attr("data_obj"));
+                }
                 var title = document.getElementById("title").value; 
                 var attribute = document.getElementById("attribute").value; 
                 var price = document.getElementById("price").value; 
@@ -234,7 +257,7 @@
                             for (i=0;i<imgPath_Array.length ;i++ ) 
                             { 
                                 var imgPath = imgPath_Array[i];
-                                var tempDiv = '<img style="width:100px;height:100px;" src='+ changeText(imgPath)+'>';
+                                var tempDiv = '<div onclick=clickImg(this) data_obj='+changeText(imgPath)+'><img style="width:100px;height:100px;" src='+ changeText(imgPath)+'></div>';
                                  if($("#feedback").children('img').length == 0)
                               {
                                 $("#feedback").append(tempDiv);
