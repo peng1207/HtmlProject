@@ -23,6 +23,12 @@ function cleanDiv(id){
 function back(){
     javascript:history.back();
 }
+function sp_reload(){
+    location.reload();
+}
+function sp_contact(){
+    window.location.href = 'addFeedback.html';
+}
 /*获取到Url里面的参数*/
 (function ($) {
     $.getUrlParam = function (name) {

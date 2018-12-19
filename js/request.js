@@ -153,6 +153,21 @@ function loginRequest(data,success,failureCom){
         }
     );    
 }
-
+function changeFeedbackStatusRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/changeFeedbackStatus.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );    
+}
 
 

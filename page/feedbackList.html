@@ -2,7 +2,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta charset="UTF-8" />
+         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
         <title> 反馈列表</title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -32,16 +33,21 @@
                         div += '<tr style="height:44px;">\
                                     <th style="width:30%">称呼</th>\
                                     <th style="width:30%">联系方式</th>\
-                                    <th style="width:30%">说明</th>\
+                                    <th style="width:30%"></th>\
                                     \
                                 </tr>'
                         for (i in  list){
                             var listDic = list[i];
                             var id = listDic.id; 
+                            var status = listDic.status; 
+                            var btnSring = "未处理"; 
+                            if (status == 1){
+                                btnSring = "已处理"; 
+                            }
                             div += '<tr style="height:44px;">\
                                          <td>'+changeText(listDic.name)+'</td>\
                                          <td>'+changeText(listDic.phone)+'</td>\
-                                         <td>'+changeText(listDic.info)+'</td>\
+                                         <td> <button onclick=editAction("'+id+'") style="margin-left:10px;width:100px;">'+changeText(btnSring)+'</button></td>\
                                          \
                                     </tr>'
 
@@ -57,13 +63,20 @@
             }
             function editAction(e){
                 console.log(e); 
-                window.location.href = 'addProduct.html?id='+e;
+                changeFeedbackStatusRequest(JSON.stringify({"id":e}),function(data){
+                    alert(data.message); 
+                    if (data.code == "0"){
+                        sp_reload(); 
+                    }
+                },function(error){
+
+                });
             }
             function deleteAction(e){
                 console.log(e); 
             }
              function addAction(){
-                window.location.href = 'addProduct.html';
+              
             }
 
         </script>

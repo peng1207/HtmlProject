@@ -48,7 +48,10 @@
                     return; 
                 }
                 addFeecdback(JSON.stringify({"name":title,"phone":phone}),function(data){
-
+                        alert(data.message); 
+                        if (data.code == "0"){
+                            back();
+                        }
                 }); 
             }
         

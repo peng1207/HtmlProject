@@ -10,11 +10,17 @@ while($row = mysql_fetch_array($result)){
     $name = @$row['name'] ? $row['name'] : ''; 
     $phone = @$row['phone'] ? $row['phone']: ''; 
     $info = @$row['info'] ? $row['info'] : '';
+    $create_time =  @$row['create_time'] ? $row['create_time'] : '';
+    $update_time =  @$row['update_time'] ? $row['update_time'] : '';
+    $status =  @$row['status'] ? $row['status'] : 0;
     array_push($array,array(
         'id'=>$id,
         'name'=>$name,
         'phone'=>$phone,
-        'info'=>$info
+        'info'=>$info,
+        "createTime"=>$create_time,
+        "updateTime"=>$update_time, 
+        "status"=>$status
     )); 
 }
 
