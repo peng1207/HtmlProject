@@ -48,11 +48,12 @@
                             console.log(imgPath_Array);
                             var imgDiv = '<div class="banner-container swiper-container">'; 
                             imgDiv += '<div class="swiper-wrapper">'; 
+                            var img_prefix =  objec.img_prefix;
                             for (i=0;i<imgPath_Array.length ;i++ ) 
                             { 
                                 var imgPath = imgPath_Array[i];
                                 console.log(imgPath);
-                                imgDiv += '<div class="swiper-slide"><img style="width:100%" src="'+imgPath+'"alt=""/></div>'; 
+                                imgDiv += '<div class="swiper-slide"><img style="width:100%" src="'+img_prefix+imgPath+'"alt=""/></div>'; 
                             } 
                             imgDiv += '</div>'; 
                            

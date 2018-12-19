@@ -2,7 +2,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta charset="UTF-8" />
+         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
         <title> 商品列表</title>
         
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -32,10 +33,10 @@
                     if (code == "0"){
                         var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">'; 
                         div += '<tr style="height:44px;">\
-                                    <th style="width:20%">名称</th>\
+                                    <th style="width:40%">名称</th>\
                                     <th style="width:20%">价格</th>\
                                     <th style="width:20%">库存</th>\
-                                    <th style="width:40%"> </th>\
+                                    <th style="width:20%"> </th>\
                                 </tr>'
                         for (i in  list){
                             var listDic = list[i];
@@ -63,6 +64,17 @@
             }
             function deleteAction(e){
                 console.log(e); 
+                 var mymessage = confirm("是否删除图片?");
+                if (mymessage==true) {
+                    console.log("点击确定");
+                     delProduct(JSON.stringify({"id":e}),function (responseData){
+                        console.log(responseData);
+                        alert(responseData.message);
+                        location.reload();
+                     }); 
+                }else{
+                    console.log("点击取消");
+                }
             }
              function addAction(){
                 window.location.href = 'addProduct.html';

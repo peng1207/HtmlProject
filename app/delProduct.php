@@ -7,10 +7,20 @@ $id = @$requestData['id'] ? $requestData['id'] : '';
 if (empty($id)){
     Response::failure("1","ID不能为空"); 
 }
+$sqla = "SELECT * from product where id = '$id'"; 
+$result = mysql_query($sqla,$conn); 
+$imgIds = ""; 
+while ($row = mysql_fetch_array($result)){
+    $imgIds = @$row["imgIds"] ? $row["imgIds"] : ""; 
+}
 
-$sqla = "DELETE FROM product where id='$id'";
-$result = mysql_query($sqla,$conn);
-if ($result){
+$sqla1 = "DELETE FROM product where id='$id'";
+$result1 = mysql_query($sqla1,$conn);
+if ($result1){
+    $imgArray = explode(",",$imgIds);
+    foreach($imgArray as $value){
+        unlink("../img/".$value); 
+    }
     Response::json("0","删除商品成功",null);  
 }else{
     Response::failure("101","添加商品失败");

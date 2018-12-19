@@ -48,9 +48,10 @@
                             //     </div>\
                             //     <div class="textStyle">'+ listData.title +'</div>  \
                             //    <div>'
+                             var img_prefix =  listData.img_prefix;
                             var tempDiv = '<div class="product_list_cort"  onclick=pushNext("'+id+'")>\
                                              <div  class="product_list">\
-                                                 <div class="product_list_img "> <img src="'+listData.img+'" class="section-row-img"/> </div>\
+                                                 <div class="product_list_img "> <img src="'+img_prefix+listData.img+'" class="section-row-img"/> </div>\
                                                  <div class="product_list_content">\
                                                      <div class="product_list_content_title">'+ listData.title +'</div>\
                                                      <div>\
