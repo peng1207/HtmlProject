@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
-        <div id="dg" style="z-index: 9999; position: fixed ! important; right: 0px; top: 30px;" onclick="sp_contact()">assd </div>
+        <div id="dg" style="z-index: 9999; position: fixed ! important; right: 10px; bottom: 30px;" onclick="sp_contact()"> <img src="../img/customerService.png" style="width:30px;height:30px;"> </img> </div>
         <div id="productList">
         </div>
         
@@ -55,7 +55,7 @@
                                                  <div class="product_list_img "> <img src="'+img_prefix+listData.img+'" class="section-row-img"/> </div>\
                                                  <div class="product_list_content">\
                                                      <div class="product_list_content_title">'+ listData.title +'</div>\
-                                                     <div>\
+                                                     <div class="product_list_content_price_con">\
                                                          <div class="product_list_content_price">¥'+listData.price+'</div>\
                                                          <div class="product_list_content_unit">'+(isEmpty(listData.price_unit) ? '' : '/')+changeText(listData.price_unit)+'</div>\
                                                      </div>\
