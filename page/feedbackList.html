@@ -1,0 +1,85 @@
+ 
+<!DOCTYPE HTML>
+<html>
+    <head>
+         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+        <title> 反馈列表</title>
+        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/request.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    </head>
+
+    <body>
+        
+        <div id ="list" style="width:100%;">
+        </div>    
+
+        <script>
+    
+             window.onload = function(){
+                productList();
+            }
+
+            function productList(){
+                feedBackListRequest(null,function(data){
+                    var code = data.code; 
+                    var listData = data.data; 
+                    var list = listData.list; 
+                    if (code == "0"){
+                        var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">'; 
+                        div += '<tr style="height:44px;">\
+                                    <th style="width:30%">称呼</th>\
+                                    <th style="width:30%">联系方式</th>\
+                                    <th style="width:30%"></th>\
+                                    \
+                                </tr>'
+                        for (i in  list){
+                            var listDic = list[i];
+                            var id = listDic.id; 
+                            var status = listDic.status; 
+                            var btnSring = "未处理"; 
+                            if (status == 1){
+                                btnSring = "已处理"; 
+                            }
+                            div += '<tr style="height:44px;">\
+                                         <td>'+changeText(listDic.name)+'</td>\
+                                         <td>'+changeText(listDic.phone)+'</td>\
+                                         <td> <button onclick=editAction("'+id+'") style="margin-left:10px;width:100px;">'+changeText(btnSring)+'</button></td>\
+                                         \
+                                    </tr>'
+
+                        }
+                        
+                        div += "</table>"
+                        $("#list").append(div); 
+                       
+                    }
+
+
+                }); 
+            }
+            function editAction(e){
+                console.log(e); 
+                changeFeedbackStatusRequest(JSON.stringify({"id":e}),function(data){
+                    alert(data.message); 
+                    if (data.code == "0"){
+                        sp_reload(); 
+                    }
+                },function(error){
+
+                });
+            }
+            function deleteAction(e){
+                console.log(e); 
+            }
+             function addAction(){
+              
+            }
+
+        </script>
+
+    </body>
+    </html>

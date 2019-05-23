@@ -11,7 +11,8 @@
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
-        <dic id="productList">
+        <div id="dg" style="z-index: 9999; position: fixed ! important; right: 10px; bottom: 30px;" onclick="sp_contact()"> <img src="../img/customerService.png" style="width:30px;height:30px;"> </img> </div>
+        <div id="productList">
         </div>
         
         <script>
@@ -48,6 +49,7 @@
                             //     </div>\
                             //     <div class="textStyle">'+ listData.title +'</div>  \
                             //    <div>'
+<<<<<<< HEAD
                             // var tempDiv = '<div class="product_list" onclick=pushNext("'+id+'")>\
                             //                  <div id="product_list" class="product_list product_list_top">\
                             //                  <div class="product_list_img "> <img src="'+listData.img+'" class="section-row-img"/> </div>\
@@ -60,6 +62,24 @@
                                              <div class="product_list_content"> <div>'+ listData.title +'</div><span class="product_list_content_price">'+listData.price+'</span><span class="product_list_content_unit">'+(isEmpty(listData.price_unit) ? '' : '/')+changeText(listData.price_unit)+'</span></div>\
                                         </div>'
                                
+=======
+                             var img_prefix =  listData.img_prefix;
+                            var tempDiv = '<div class="product_list_cort"  onclick=pushNext("'+id+'")>\
+                                             <div  class="product_list">\
+                                                 <div class="product_list_img "> <img src="'+img_prefix+listData.img+'" class="section-row-img"/> </div>\
+                                                 <div class="product_list_content">\
+                                                     <div class="product_list_content_title">'+ listData.title +'</div>\
+                                                     <div class="product_list_content_price_con">\
+                                                         <div class="product_list_content_price">¥'+listData.price+'</div>\
+                                                         <div class="product_list_content_unit">'+(isEmpty(listData.price_unit) ? '' : '/')+changeText(listData.price_unit)+'</div>\
+                                                     </div>\
+                                                 </div>\
+                                             </div>\
+                                             <div class="line product_list_line"></div>\
+                                        </div>'
+
+                              
+>>>>>>> fbe0cad2ec29894bf4906bb3f210b0ff5d4ec755
                             $("#productList").append(tempDiv);
                         }
                 });

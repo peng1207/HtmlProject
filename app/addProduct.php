@@ -49,8 +49,9 @@ if (empty($id)){
     $id =  md5(uniqid());
     $is_insert = true; 
 }
+$time_str = time();
 if ($is_insert){
-    $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds,price_unit,unit,brand) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds','$price_unit','$unit','$brand')";
+    $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds,price_unit,unit,brand,create_time,update_time) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds','$price_unit','$unit','$brand','$time_str','$time_str')";
     $result = mysql_query($sqla,$conn); 
     
     if ($result){
@@ -61,7 +62,7 @@ if ($is_insert){
         Response::failure("101","添加商品失败");
     }
 }else{
-    $sqla = "UPDATE product set title='$title',attribute = '$attribute',price = '$price',stock = '$stock',spec = '$spec',info = '$info', imgIds = '$imgIds',price_unit = '$price_unit',unit='$unit',brand='$brand'  WHERE id = '$id'"; 
+    $sqla = "UPDATE product set title='$title',attribute = '$attribute',price = '$price',stock = '$stock',spec = '$spec',info = '$info', imgIds = '$imgIds',price_unit = '$price_unit',unit='$unit',brand='$brand',update_time='$time_str'  WHERE id = '$id'"; 
     $result = mysql_query($sqla,$conn); 
     if ($result){
         Response::json("0","更新商品成功",null); 

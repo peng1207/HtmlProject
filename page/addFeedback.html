@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
         <title> 联系我们</title>
         <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -10,20 +11,28 @@
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
     <body>
-
-        <div  style="width:80%;height: 120px;margin-left: 10%">
+        <div class="nav">
+            <div class="nav_content">
+                <div onclick=back() class="nav_back">
+                    <img src="../img/back.png" class="nav_back_img"/> 
+                </div>
+                 <div class="nav_title">联系我们</div>
+            </div>
+            <div class="line"></div>
+    </div>
+        <div  style="width:80%;height: 120px;margin-left: 10%;margin-top: 10px;">
                 <div >
-                        <div class="">请留下您的联系方式，我们会尽快联系您的</div>                       
+                        <div class="">请留下您的联系方式，我们会尽快联系您的 <br>您的信息保密保存，您可以放心填写</div>                       
                 </div>
                 <div class="div-row">
-                        <div class="div-inline div-title" >您的称呼</div>
+                        <div class="div-inline div-title" >称呼</div>
                         <input class="input" type="text" id="name" placeholder="输入您的称呼"/> 
                 </div>
                 <div class="div-row">
-                        <div class="div-inline div-title" >您的联系方式</div>
+                        <div class="div-inline div-title" >联系方式</div>
                         <input class="input" type="text" id="phone" placeholder="输入您的联系方式"/> 
                 </div>
-                <div> <button onclick="submit()"> 提交</button> </div>
+                <div class="button" onclick="submit()">提交</div>
         </div>
         <script>
             
@@ -39,7 +48,10 @@
                     return; 
                 }
                 addFeecdback(JSON.stringify({"name":title,"phone":phone}),function(data){
-
+                        alert(data.message); 
+                        if (data.code == "0"){
+                            back();
+                        }
                 }); 
             }
         

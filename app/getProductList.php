@@ -22,10 +22,16 @@ while ($row = mysql_fetch_array($result)){
     if (count($imgID_array)){
         $imgId = $imgID_array[0]; 
     }
+<<<<<<< HEAD
     if (!empty($imgId)){
         // $imgId = $domain_name."/img/".$imgId;
         $imgId = "https://".$_SERVER['SERVER_NAME']."/img/".$imgId;
     }
+=======
+    // if (!empty($imgId)){
+    //     $imgId = $domain_name."/img/".$imgId;
+    // }
+>>>>>>> fbe0cad2ec29894bf4906bb3f210b0ff5d4ec755
 
     $objectData = array(
         "id"=>$id,
@@ -40,6 +46,7 @@ while ($row = mysql_fetch_array($result)){
         "price_unit"=>$price_unit,
         "brand"=>$brand,
         "unit"=>$unit,
+        "img_prefix"=>$domain_name."/img/"
     ); 
     array_push($array,$objectData);
 }

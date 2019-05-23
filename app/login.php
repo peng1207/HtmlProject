@@ -18,9 +18,14 @@ $pwd = md5($pwd);
 $sqla = "SELECT * from user where accound='$accound' and pwd='$pwd'";
  
 $result = mysql_query($sqla,$conn);
- 
-if ($result && mysql_fetch_array($result)){
-    Response::json("0","登录成功"); 
+$row = mysql_fetch_array($result); 
+
+if ($result ){
+    $userID =  $row['user_id']; 
+    // $sql = "UPDATE SET INTO user WHERE "
+    Response::json("0","登录成功",array(
+        "user_id"=>$userID
+    )); 
 }else{
     Response::failure("101","密码或账号错误");
 }
