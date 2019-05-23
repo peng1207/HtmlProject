@@ -24,8 +24,8 @@ while ($row = mysql_fetch_array($result)){
     }
  
     if (!empty($imgId)){
-        // $imgId = $domain_name."/img/".$imgId;
-        $imgId = "https://".$_SERVER['SERVER_NAME']."/img/".$imgId;
+        $imgId = $domain_name."/img/".$imgId;
+        // $imgId = "https://".$_SERVER['SERVER_NAME']."/img/".$imgId;
     }
  
 

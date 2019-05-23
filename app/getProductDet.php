@@ -34,7 +34,7 @@ while ($row = mysql_fetch_array($result)){
         if (!empty($imgIds)){
             $imgIds = $imgIds.","; 
         }
-        $imgIds = $imgIds."https://".$_SERVER['SERVER_NAME']."/img/".$value;
+        $imgIds = $imgIds.$domain_name."/img/".$value;
     }
  
 
