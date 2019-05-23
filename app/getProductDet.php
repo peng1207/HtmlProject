@@ -27,7 +27,7 @@ while ($row = mysql_fetch_array($result)){
     $price_unit = @$row['price_unit'] ? $row['price_unit'] : "";
     $brand = @$row['brand'] ? $row['brand'] : "";
     $unit = @$row['unit'] ? $row['unit'] : "";
-<<<<<<< HEAD
+ 
     $imgArray = explode(",",$imgIds);
     $imgIds = ""; 
     foreach($imgArray as $value){
@@ -36,16 +36,7 @@ while ($row = mysql_fetch_array($result)){
         }
         $imgIds = $imgIds."https://".$_SERVER['SERVER_NAME']."/img/".$value;
     }
-=======
-    // $imgArray = explode(",",$imgIds);
-    // $imgIds = ""; 
-    // foreach($imgArray as $value){
-    //     if (!empty($imgIds)){
-    //         $imgIds = $imgIds.","; 
-    //     }
-    //     $imgIds = $imgIds.$domain_name."/img/".$value;
-    // }
->>>>>>> fbe0cad2ec29894bf4906bb3f210b0ff5d4ec755
+ 
 
     $objectData = array(
         "id"=>$id,
