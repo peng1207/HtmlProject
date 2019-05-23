@@ -190,42 +190,47 @@
     width: 100%;
     height: 1px;
     background: #eeeeee; 
-   
+    margin-top: 5px;
   }
   .product_det_title{
-    font-size: 32px;
+    font-size: 20px;
     color: #333333; 
     margin-top: 10px;
   }
   .product_det_infoTitle{
-    font-size: 24px;
-    color:#999;
-    margin-top: 5px;
-  }
-  .product_det_info{
-    font-size: 28px;
+    font-size: 16px;
     color:#666;
     margin-top: 5px;
   }
+  .product_det_info{
+    font-size: 14px;
+    color:#999;
+    margin-top: 5px;
+  }
   .product_det_attribute{
-    font-size: 30px;
+    font-size: 16px;
     color: #0363b5;
+    margin-top: 5px;
   }
   .product_det_price{
-    font-size: 34px;
+    font-size: 18px;
     color: #F33; 
+    margin-top: 5px;
   }
   .product_det_brand{
-    font-size: 28px; 
+    font-size: 14px; 
     color: #333333; 
+    margin-top: 5px;
   }
   .product_det_spec{
-    font-size: 28px; 
+    font-size: 14px; 
     color: #333333; 
+    margin-top: 5px;
   }
   .product_det_stock{
-    font-size: 28px; 
+    font-size: 14px; 
     color: #333333;
+    margin-top: 5px;
   }
   .swiper-container {
     width: 100%;
@@ -251,40 +256,38 @@
     align-items: center;
   }
  .product_list{
-   width: 100%;
-   /* overflow: hidden; */
-   /* position:relative; */
-  padding-left: 10px;
-   height: 120px;;
+    height: 100px;
+    padding: 5px;
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
  }
 .product_list_img{
-  float: left;
-  width: 100px;
-  /* margin-left: 10px; */
-  height: 100px;
-  display: block;
-  margin:0 auto;
-  border:1px solid #ddd;
-  
+    width: 90px;
+    height: 90px;
+    border-radius: 3px; 
 }
 .product_list_top{
   padding-top: 10px;
 }
 
 .product_list_content{
-  float: left;
-  height: 100px;
- 
+  /* float: left; */
+    display: inline-block;
+    height: 100px;
+    position: relative;
+    padding-left: 5px;
 }
 .product_list_content_price{
   float: left;
   font-size: 16px; 
   color: #F33; 
   height: 20px;
+  margin-top: 5px;
 }
 .product_list_content_unit{
   float: left;
   font-size: 16px; 
   color: #333333;
   height: 20px;
+  margin-top: 5px;
 }

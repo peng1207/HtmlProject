@@ -23,7 +23,8 @@ while ($row = mysql_fetch_array($result)){
         $imgId = $imgID_array[0]; 
     }
     if (!empty($imgId)){
-        $imgId = $domain_name."/img/".$imgId;
+        // $imgId = $domain_name."/img/".$imgId;
+        $imgId = "https://".$_SERVER['SERVER_NAME']."/img/".$imgId;
     }
 
     $objectData = array(

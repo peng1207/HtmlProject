@@ -1,5 +1,5 @@
 /// 域名
-var domain_name = "http://120.77.38.114"; 
+var domain_name = "https://huangshupeng.cn"; 
 var prefix_url = "/app"; 
 
 //  添加或编辑商品请求

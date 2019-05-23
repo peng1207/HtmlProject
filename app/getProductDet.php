@@ -33,7 +33,7 @@ while ($row = mysql_fetch_array($result)){
         if (!empty($imgIds)){
             $imgIds = $imgIds.","; 
         }
-        $imgIds = $imgIds.$domain_name."/img/".$value;
+        $imgIds = $imgIds."https://".$_SERVER['SERVER_NAME']."/img/".$value;
     }
 
     $objectData = array(
@@ -52,7 +52,6 @@ while ($row = mysql_fetch_array($result)){
     ); 
   
 }
-
 if ($result){
     Response::json("0","获取数据成功",$objectData); 
 }else{
