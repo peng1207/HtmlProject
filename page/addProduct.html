@@ -175,7 +175,7 @@
                 var imgArray = new Array(); 
                  var data = new FormData();
                  var i = 0; 
-                 
+                 var imgIdList = new Array();
                 for (let index = 0; index < smalls.length; index++) {
                     var div = smalls[index]; 
                   
@@ -187,11 +187,14 @@
                     imgArray.push(result);
                     if (result.type == "1") {
                         console.log("网络的图片"+result.id);
+                        imgIdList.push(result.id);
                     }else{
                          data.append('upload_file'+i, fileDic[result.id]);
                         i++; 
                     }
                 }
+                console.log(i);
+                console.log(imgArray);
                 
                 if (i > 0){
 
@@ -243,7 +246,7 @@
                 
                      }); 
                 }else{
-                    var imgIds = imgArray.join(",");
+                    var imgIds = imgIdList.join(",");
                      var id = $.getUrlParam('id'); 
                         var data222 = {
                              "title": title,

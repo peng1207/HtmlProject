@@ -19,8 +19,11 @@ $sqla = "SELECT * from user where accound='$accound' and pwd='$pwd'";
  
 $result = mysql_query($sqla,$conn);
 $row = mysql_fetch_array($result); 
-
-if ($result ){
+// echo $result;
+// echo "------\n";
+// echo $row; 
+// echo "------\n";
+if ($result && $row){
     $userID =  $row['user_id']; 
     // $sql = "UPDATE SET INTO user WHERE "
     Response::json("0","登录成功",array(
