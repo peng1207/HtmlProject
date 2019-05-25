@@ -54,16 +54,10 @@
 </header>
 
 <body>
-    <!-- <div>
-        <ul class=daohang>
-            <li><a href="shopProductList.html">商品</a></li>
-            <li><a href="feedbackList.html">反馈</a></li>
-        </ul>
-    </div> -->
     <div class="content">
         <div class="left">
-            <div class="title" onclick="clickProduct(this)">商品</div>
-            <div class="title" onclick="clickFeedBack()">反馈</div>
+            <div id="productTitle" class="select_title title_line" onclick="clickProduct(this)">商品</div>
+            <div id="feedbackTitle" class="title " onclick="clickFeedBack()">反馈</div>
         </div>
         <div class="right">
             <iframe id="productlist" src="shopProductList.html" width="100%" height="100%" frameborder="0">
@@ -76,11 +70,14 @@
         function clickProduct(e) {
             document.getElementById("productlist").hidden = false
             document.getElementById("feedback").hidden = true
-            console.log(e);
+            document.getElementById("productTitle").style.color = "#ff3300"
+            document.getElementById("feedbackTitle").style.color = "#333333"
         }
         function clickFeedBack() {
             document.getElementById("productlist").hidden = true
             document.getElementById("feedback").hidden = false
+            document.getElementById("productTitle").style.color = "#333333"
+            document.getElementById("feedbackTitle").style.color = "#ff3300"
         }
     </script>
 
