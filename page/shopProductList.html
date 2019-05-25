@@ -42,7 +42,7 @@
                             var listDic = list[i];
                             var id = listDic.id; 
                             div += '<tr style="height:44px;">\
-                                         <td style="margin-left:10px;">'+changeText(listDic.title)+'</td>\
+                                         <td style="margin-left:10px;padding-left: 5px;">'+changeText(listDic.title)+'</td>\
                                          <td style="text-align: center;">'+changeText(listDic.price)+'</td>\
                                          <td style="text-align: center;">'+changeText(listDic.stock)+'</td>\
                                          <td> <button onclick=editAction("'+id+'") style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("'+id+'") style="margin-left:10px;width:100px;">删除</button> </td>\
@@ -57,7 +57,12 @@
             }
             function editAction(e){
                 console.log(e); 
-                window.location.href = 'addProduct.html?id='+e;
+                if (window != top){
+                    top.location.href = 'addProduct.html?id='+e;
+                }else{
+                    window.location.href = 'addProduct.html?id='+e;
+                }
+               
             }
             function deleteAction(e){
                 console.log(e); 
@@ -74,7 +79,12 @@
                 }
             }
              function addAction(){
-                window.location.href = 'addProduct.html';
+                 if (window != top){
+                    top.location.href = 'addProduct.html';
+                 }else{
+                    window.location.href = 'addProduct.html';
+                 }
+               
             }
 
         </script>
