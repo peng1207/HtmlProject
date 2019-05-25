@@ -25,7 +25,9 @@ $row = mysql_fetch_array($result);
 // echo "------\n";
 if ($result && $row){
     $userID =  $row['user_id']; 
-    // $sql = "UPDATE SET INTO user WHERE "
+    $time_str = time();
+     $updateSql = "UPDATE user SET login_time='$time_str' WHERE user_id='$userID'";
+     $result = mysql_query($updateSql,$conn); 
     Response::json("0","登录成功",array(
         "user_id"=>$userID
     )); 

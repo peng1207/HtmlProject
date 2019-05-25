@@ -59,7 +59,7 @@
                 </div>
 
 
-            <div class="button" onclick="submit()">提交</div>
+            <div class="button" id="submitId" onclick="submit()">提交</div>
         </div>
 
         <script>
@@ -171,6 +171,7 @@
                     alert("请上传图片");
                     return; 
                }
+                
                 var imgArray = new Array(); 
                  var data = new FormData();
                  var i = 0; 
@@ -273,7 +274,7 @@
                         if (addResponse.code == "0") {
                             back(); 
                         }
-                   
+                        
                 }) ; 
             }
          
