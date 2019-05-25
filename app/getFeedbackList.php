@@ -23,7 +23,7 @@ while($row = mysql_fetch_array($result)){
         "status"=>$status
     )); 
 }
-
+mysql_close($con);
 if ($result  ) {
     Response::json("0","获取数据成功",array(
         "list"=>$array 

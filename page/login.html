@@ -1,59 +1,70 @@
 <html>
-        <head>
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
-                <title> 登录</title>
-                <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
-                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-                <link rel="stylesheet" type="text/css" href="../css/login.css"/>
-                <script type="text/javascript" src="../js/request.js"></script>
-                <script type="text/javascript" src="../js/base.js"></script>
-            </head>    
-            <body>
-                <div class="login">
-                    <div class="login_content"> 
-                        <div class="login_content_title">账号</div>
-                        <div class="login_content_input"><input id="accound" placeholder="输入账号" style="height:30px;"/> </div> 
-                    </div>
-                    <div class="login_content"> 
-                            <div class="login_content_title">密码</div>
-                            <div class="login_content_input"><input type="password" id="password" placeholder="输入密码" style="height:30px;"/> </div> 
-                    </div>
-                    <div class="login_button" onclick="submit()">  登录</div>
-                </div>
-                
 
-                <script>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title> 登录</title>
+    <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/login.css" />
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+</head>
 
-                   
+<body>
+    <div class="login">
+        <div class="login_content">
+            <div class="login_content_title">账号</div>
+            <div class="login_content_input"><input id="accound" placeholder="输入账号" style="height:30px;" /> </div>
+        </div>
+        <div class="login_content">
+            <div class="login_content_title">密码</div>
+            <div class="login_content_input"><input type="password" id="password" placeholder="输入密码"
+                    style="height:30px;" /> </div>
+        </div>
+        <div class="login_button" onclick="submit()"> 登录</div>
+    </div>
 
-                    function submit(){
-                        var accound = document.getElementById("accound").value; 
-                        var password = document.getElementById("password").value; 
-                        if(isEmpty(accound)){
-                            alert('请输入账号');
-                            return; 
-                        }
-                        if (isEmpty(password)){
-                            alert("请输入密码"); 
-                            return;
-                        }
-                        loginRequest(JSON.stringify({"accound":accound,"pwd":password}),function(data){
-                            if (data.code == "0"){
-                                alert("登录成功");
-                                window.location.href = "./shopIndex.html";
-                            }else{
-                                alert(data.message);
-                            }
-                        },function(error){
-                            alert("请求失败");
-                        }); 
+    <script>
+       
+        window.onload = function () {
+        
+            if (isLogin() == true) {
+                pushIndex();
+            }
+            sp_no_back_off();
+        }
+        function submit() {
+            var accound = document.getElementById("accound").value;
+            var password = document.getElementById("password").value;
+            if (isEmpty(accound)) {
+                alert('请输入账号');
+                return;
+            }
+            if (isEmpty(password)) {
+                alert("请输入密码");
+                return;
+            }
+            loginRequest(JSON.stringify({ "accound": accound, "pwd": password }), function (data) {
+                if (data.code == "0") {
+                    saveUserData(data.data);
+                    alert("登录成功");
+                    pushIndex();
+                } else {
+                    alert(data.message);
+                }
+            }, function (error) {
+                alert("请求失败");
+            });
+        }
+        function pushIndex() {
+            window.location.href = "./shopIndex.html";
+        }
+
+    </script>
 
 
-                    }
-                    
-                </script>
-                
+</body>
 
-            </body>
 </html>

@@ -9,6 +9,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
+        <script type="text/javascript" src="../js/userData.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
 
@@ -20,7 +21,9 @@
         <script>
     
              window.onload = function(){
-                productList();
+                if (sp_checkLogin(true) == true) {
+                    productList();
+                }
             }
 
             function productList(){

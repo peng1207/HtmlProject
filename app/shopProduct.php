@@ -1,7 +1,11 @@
 <?php
 require_once('conn.php');
 require_once('base.php');
-$sqla = "SELECT * from product"; 
+$raw = file_get_contents('php://input');//获取非表单数据
+$requestData = json_decode($raw,TRUE); 
+$user_id =  @$requestData['user_id'] ? $requestData['user_id'] : '';
+
+$sqla = "SELECT * from product where user_id = '$user_id'"; 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
 while ($row = mysql_fetch_array($result)){
@@ -42,7 +46,7 @@ while ($row = mysql_fetch_array($result)){
     ); 
     array_push($array,$objectData);
 }
-
+mysql_close($con);
 if ($result){
     Response::json("0","获取数据成功",array(
         "list"=>$array

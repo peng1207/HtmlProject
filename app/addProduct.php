@@ -14,6 +14,7 @@ $id = @$requestData["id"] ? $requestData['id'] : "";
 $price_unit = @$requestData['price_unit'] ? $requestData['price_unit'] : ''; 
 $unit = @$requestData['unit'] ? $requestData['unit'] : ''; 
 $brand = @$requestData['brand'] ? $requestData['brand'] : '';
+$user_id =  @$requestData['user_id'] ? $requestData['user_id'] : '';
 if (empty($title)){
     Response::failure("1","标题不能为空"); 
 }
@@ -51,9 +52,9 @@ if (empty($id)){
 }
 $time_str = time();
 if ($is_insert){
-    $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds,price_unit,unit,brand,create_time,update_time) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds','$price_unit','$unit','$brand','$time_str','$time_str')";
+    $sqla = "INSERT INTO product(id,title,attribute,price,stock,spec,info,imgIds,price_unit,unit,brand,create_time,update_time,user_id) VALUES('$id','$title','$attribute','$price','$stock','$spec','$info','$imgIds','$price_unit','$unit','$brand','$time_str','$time_str','$user_id')";
     $result = mysql_query($sqla,$conn); 
-    
+    mysql_close($con);
     if ($result){
         Response::json("0","添加商品成功",array(
             'id'=>$id
@@ -62,10 +63,11 @@ if ($is_insert){
         Response::failure("101","添加商品失败");
     }
 }else{
-    $sqla = "UPDATE product set title='$title',attribute = '$attribute',price = '$price',stock = '$stock',spec = '$spec',info = '$info', imgIds = '$imgIds',price_unit = '$price_unit',unit='$unit',brand='$brand',update_time='$time_str'  WHERE id = '$id'"; 
+    $sqla = "UPDATE product set title='$title',attribute = '$attribute',price = '$price',stock = '$stock',spec = '$spec',info = '$info', imgIds = '$imgIds',price_unit = '$price_unit',unit='$unit',brand='$brand',update_time='$time_str',user_id='$user_id' WHERE id = '$id'"; 
     $result = mysql_query($sqla,$conn); 
+    mysql_close($con);
     if ($result){
-        Response::json("0","更新商品成功",null); 
+        Response::json("0","更新商品成功 $user_id",null); 
     }else{
         Response::failure("101","更新商品失败");
     }

@@ -6,7 +6,7 @@ $requestData = json_decode($raw,TRUE);
  
 
 $id = @$requestData['id'] ? $requestData['id'] : ""; 
-
+ 
 if (empty($id)){
     Response::failure("1","商品ID不能为空");
 }
@@ -53,8 +53,8 @@ while ($row = mysql_fetch_array($result)){
         "unit"=>$unit,
         "img_prefix"=>$domain_name."/img/"
     ); 
-  
 }
+mysql_close($con);
 if ($result){
     Response::json("0","获取数据成功",$objectData); 
 }else{

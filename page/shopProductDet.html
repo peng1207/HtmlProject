@@ -12,6 +12,7 @@
         <script type="text/javascript"  src="../js/libs/jquery.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
+        <script type="text/javascript" src="../js/userData.js"></script>
     </head>
     <body>
             <div class="nav">
@@ -26,13 +27,15 @@
             </div>
         <script>
             window.onload = function(){
-               getDet();
+                if (sp_checkLogin(true) == true){
+                    getDet();
+                }
             }
             function getDet(){
                 var id = $.getUrlParam('id');
-                getShopProductDet(new JSON({"id":id})); 
+                getShopProductDet(new JSON({"id":id}),function(data){
 
-
+                }); 
             }
         </script>
 

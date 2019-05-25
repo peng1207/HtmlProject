@@ -9,6 +9,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
+        <script type="text/javascript" src="../js/userData.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
     </head>
 
@@ -22,11 +23,13 @@
         <script>
     
              window.onload = function(){
-                productList();
+                if ( sp_checkLogin(true) == true){
+                    productList();
+                }
             }
 
             function productList(){
-                shopProductListRequest(null,function(data){
+                shopProductListRequest(JSON.stringify({"user_id":getUserId()}),function(data){
                     var code = data.code; 
                     var listData = data.data; 
                     var list = listData.list; 
@@ -52,11 +55,9 @@
                         $("#list").append(div); 
                        
                     }
-
                 }); 
             }
             function editAction(e){
-                console.log(e); 
                 if (window != top){
                     top.location.href = 'addProduct.html?id='+e;
                 }else{
@@ -66,7 +67,7 @@
             }
             function deleteAction(e){
                 console.log(e); 
-                 var mymessage = confirm("是否删除图片?");
+                var mymessage = confirm("是否删除商品  ?");
                 if (mymessage==true) {
                     console.log("点击确定");
                      delProduct(JSON.stringify({"id":e}),function (responseData){
@@ -84,7 +85,13 @@
                  }else{
                     window.location.href = 'addProduct.html';
                  }
-               
+            }
+            function lookAction(){
+                if (window != top){
+                    top.location.href = 'shopProductDet.html?id='+e;
+                }else{
+                    window.location.href = 'shopProductDet.html?id='+e;
+                }
             }
 
         </script>

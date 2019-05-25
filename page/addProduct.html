@@ -1,338 +1,343 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
-        <title>添加商品 </title>
-        <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="../js/request.js"></script>
-        <script type="text/javascript" src="../js/base.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
-    </head>
-    <body>
-        <div> 
-            <div class="div-row">
-                <div class="div-inline div-title" >商品名称</div>
-                <input class="input" type="text" id="title" placeholder="输入商品名称"/> 
-            </div>
-            <div class="div-row">
-                <div class="div-inline div-title" >商品属性</div>
-                <input class="input" type="text" id="attribute" placeholder="输入商品属性"/> 
-            </div>
-            <div class="div-row">
-                <div class="div-inline div-title" >商品价格</div>
-                <input class="input" type="text" id="price" placeholder="输入商品价格"/> 
-            </div>
-            <div class="div-row">
-                    <div class="div-inline div-title" >价格单位</div>
-                    <input class="input" type="text" id="price_unit" placeholder="输入价格单位"/> 
-                </div>
-            <div class="div-row">
-                 <div class="div-inline div-title" >商品库存</div>
-                <input class="input" type="text" id="stock" placeholder="输入商品库存"/> 
-            </div>
-            <div class="div-row">
-                <div class="div-inline div-title" >商品规格</div>
-                <input class="input" type="text" id="spec" placeholder="输入商品规格"/> 
-            </div>
-            <div class="div-row">
-                    <div class="div-inline div-title" >单位</div>
-                    <input class="input" type="text" id="unit" placeholder="输入单位"/> 
-             </div>  
-             <div class="div-row">
-                        <div class="div-inline div-title" >品牌</div>
-                        <input class="input" type="text" id="brand" placeholder="输入品牌"/> 
-             </div>
-                      
-            <div class="div-row">
-                <div class="div-inline div-title" >商品说明</div>
-          
-                <input class="input" type="text" id="info" placeholder="输入商品说明"/> 
-            </div >
-            <div id="feedback">
-            </div>
-                <div class="box">
-                    <a href="javascript:;" class="file">选择图片
-                        <input type="file" multiple="multiple" id="inputfile" name="upload_file" class="photo"  accept="image/png, image/jpeg, image/gif, image/jpg">
-                    </a>
-                </div>
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>添加商品 </title>
+    <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
 
-            <div class="button" id="submitId" onclick="submit()">提交</div>
+<body>
+    <div>
+        <div class="div-row">
+            <div class="div-inline div-title">商品名称</div>
+            <input class="input" type="text" id="title" placeholder="输入商品名称" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">商品属性</div>
+            <input class="input" type="text" id="attribute" placeholder="输入商品属性" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">商品价格</div>
+            <input class="input" type="text" id="price" placeholder="输入商品价格" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">价格单位</div>
+            <input class="input" type="text" id="price_unit" placeholder="输入价格单位" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">商品库存</div>
+            <input class="input" type="text" id="stock" placeholder="输入商品库存" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">商品规格</div>
+            <input class="input" type="text" id="spec" placeholder="输入商品规格" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">单位</div>
+            <input class="input" type="text" id="unit" placeholder="输入单位" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">品牌</div>
+            <input class="input" type="text" id="brand" placeholder="输入品牌" />
         </div>
 
-        <script>
-            var fileDic = new Object();
-            var fileIndex = 0; 
+        <div class="div-row">
+            <div class="div-inline div-title">商品说明</div>
 
-            window.onload = function(){
+            <input class="input" type="text" id="info" placeholder="输入商品说明" />
+        </div>
+        <div id="feedback">
+        </div>
+        <div class="box">
+            <a href="javascript:;" class="file">选择图片
+                <input type="file" multiple="multiple" id="inputfile" name="upload_file" class="photo"
+                    accept="image/png, image/jpeg, image/gif, image/jpg">
+            </a>
+        </div>
+
+
+        <div class="button" id="submitId" onclick="submit()">提交</div>
+    </div>
+
+    <script>
+        var fileDic = new Object();
+        var fileIndex = 0;
+
+        window.onload = function () {
+            if (sp_checkLogin(true) == true) {
                 getProductDet();
-                $("#inputfile").change(function(){
+                $("#inputfile").change(function () {
                     console.log("获取图片");
                     var feedback = $("#feedback");
-                     if (feedback.children('img').length>5) {
-                         alert("最多只能选择5张图片");
-                         return false;
-                       }
+                    if (feedback.children('img').length > 5) {
+                        alert("最多只能选择5张图片");
+                        return false;
+                    }
                     // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
- 
-                    $.each($('#inputfile')[0].files, function(i, file) {
-                        var reads= new FileReader();
+
+                    $.each($('#inputfile')[0].files, function (i, file) {
+                        var reads = new FileReader();
                         reads.readAsDataURL(file);
-                        var index = fileIndex.toString(); 
+                        var index = fileIndex.toString();
                         fileDic[index] = file
                         console.log(fileDic);
-                         fileIndex++;
-                        reads.onload=function (e) {
-                  
+                        fileIndex++;
+                        reads.onload = function (e) {
+
                             // var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>';
-                             
-                            var tempDiv = '<div onclick=clickImg(this) data-obj=\''+JSON.stringify({"type":"0","id":index})+'\'> <img style="width:100px;height:100px;" src='+ this.result+'></div>';
-                            if($("#feedback").children('img').length == 0)
-                            {
+
+                            var tempDiv = '<div onclick=clickImg(this) data-obj=\'' + JSON.stringify({ "type": "0", "id": index }) + '\'> <img style="width:100px;height:100px;" src=' + this.result + '></div>';
+                            if ($("#feedback").children('img').length == 0) {
                                 $("#feedback").append(tempDiv);
                             }
-                            else{
+                            else {
                                 $("#feedback").children('img').eq(0).after(tempDiv);
                             }
-                           
-                          
+
+
                         };
                     });
-
-                  
-                }); 
+                });
             }
-            function clickImg(e){
-                var mymessage = confirm("是否删除图片?");
-                if (mymessage==true) {
-                    console.log("点击确定");
-                     e.remove(); 
-                }else{
-                    console.log("点击取消");
-                }
-            }
-
-            function submit(){
-             
-                var title = document.getElementById("title").value; 
-                var attribute = document.getElementById("attribute").value; 
-                var price = document.getElementById("price").value; 
-                var stock = document.getElementById("stock").value; 
-                var spec = document.getElementById("spec").value; 
-                var info = document.getElementById("info").value;
-                var price_unit = document.getElementById("price_unit").value; 
-                var brand = document.getElementById("brand").value; 
-                var unit = document.getElementById("unit").value;
-                if (isEmpty(title)){
-                    alert("请输入标题"); 
-                    return; 
-                }
-                if (isEmpty(attribute)){
-                    alert("请输入商品属性");
-                    return; 
-                }
-                if (isEmpty(price)){
-                    alert("请输入价格"); 
-                    return; 
-                }
-                if (isEmpty(stock)){
-                    alert("请输入库存");
-                    return; 
-                }
-                if (isEmpty(spec)){
-                    alert("请输入规格");
-                    return; 
-                }
-                if (isEmpty(info)){
-                    alert("请输入说明");
-                    return; 
-                }
-                if (isEmpty(price_unit)){
-                    alert("请输入价格单位");
-                    return; 
-                }
-                if (isEmpty(unit)){
-                    alert("请输入单位"); 
-                    return; 
-                }
-                if (isEmpty(brand)){
-                    alert("请输入品牌");
-                    return;
-                }
-                console.log("点击提交");
+        }
             
-               var smalls = document.getElementById('feedback').getElementsByTagName('div');
-               console.log("-----");
-               
-               console.log(smalls);
-               if (smalls.length == 0) {
-                    alert("请上传图片");
-                    return; 
-               }
-                
-                var imgArray = new Array(); 
-                 var data = new FormData();
-                 var i = 0; 
-                 var imgIdList = new Array();
-                for (let index = 0; index < smalls.length; index++) {
-                    var div = smalls[index]; 
-                  
-                     var obj = jQuery(div).data('obj');
-                     var jsonData = JSON.stringify(obj);// 转成JSON格式
-                    var result = $.parseJSON(jsonData);// 转成JSON对象
-                    console.log(result);
-                    
-                    imgArray.push(result);
-                    if (result.type == "1") {
-                        console.log("网络的图片"+result.id);
-                        imgIdList.push(result.id);
-                    }else{
-                        data.append('upload_file'+i, fileDic[result.id]);
-                        i++; 
-                    }
-                }
-                console.log(i);
-                console.log(imgArray);
-                
-                if (i > 0){
 
-                    upload(data,function(reponse){
-                        console.log(reponse); 
-                    
-                        if (reponse.code == "0"){
-                            var imgData = reponse.data; 
-                            var img_path = ""; 
-                            // var img_path = imgData.imgs;
-                            console.log(imgData.imgs);
-                            
-                            var reponseImgIds = imgData.imgs.split(',');
-                            var id = $.getUrlParam('id'); 
-                            var img_index = 0; 
-                            for (let index = 0; index < imgArray.length; index++) {
-                                var imgId = imgArray[index];
-                                if (img_path.length != 0) {
-                                    img_path += ",";
-                                }
-                                if (imgId.type == "1") {
-                                    img_path += imgId["id"]; 
-                                }else{
-                                     img_path += reponseImgIds[img_index]; 
-                                     img_index++; 
-                                }
-                              
+        function clickImg(e) {
+            var mymessage = confirm("是否删除图片?");
+            if (mymessage == true) {
+                console.log("点击确定");
+                e.remove();
+            } else {
+                console.log("点击取消");
+            }
+        }
+
+        function submit() {
+
+            var title = document.getElementById("title").value;
+            var attribute = document.getElementById("attribute").value;
+            var price = document.getElementById("price").value;
+            var stock = document.getElementById("stock").value;
+            var spec = document.getElementById("spec").value;
+            var info = document.getElementById("info").value;
+            var price_unit = document.getElementById("price_unit").value;
+            var brand = document.getElementById("brand").value;
+            var unit = document.getElementById("unit").value;
+            if (isEmpty(title)) {
+                alert("请输入标题");
+                return;
+            }
+            if (isEmpty(attribute)) {
+                alert("请输入商品属性");
+                return;
+            }
+            if (isEmpty(price)) {
+                alert("请输入价格");
+                return;
+            }
+            if (isEmpty(stock)) {
+                alert("请输入库存");
+                return;
+            }
+            if (isEmpty(spec)) {
+                alert("请输入规格");
+                return;
+            }
+            if (isEmpty(info)) {
+                alert("请输入说明");
+                return;
+            }
+            if (isEmpty(price_unit)) {
+                alert("请输入价格单位");
+                return;
+            }
+            if (isEmpty(unit)) {
+                alert("请输入单位");
+                return;
+            }
+            if (isEmpty(brand)) {
+                alert("请输入品牌");
+                return;
+            }
+            console.log("点击提交");
+
+            var smalls = document.getElementById('feedback').getElementsByTagName('div');
+            console.log("-----");
+
+            console.log(smalls);
+            if (smalls.length == 0) {
+                alert("请上传图片");
+                return;
+            }
+
+            var imgArray = new Array();
+            var data = new FormData();
+            var i = 0;
+            var imgIdList = new Array();
+            for (let index = 0; index < smalls.length; index++) {
+                var div = smalls[index];
+
+                var obj = jQuery(div).data('obj');
+                var jsonData = JSON.stringify(obj);// 转成JSON格式
+                var result = $.parseJSON(jsonData);// 转成JSON对象
+                console.log(result);
+
+                imgArray.push(result);
+                if (result.type == "1") {
+                    console.log("网络的图片" + result.id);
+                    imgIdList.push(result.id);
+                } else {
+                    data.append('upload_file' + i, fileDic[result.id]);
+                    i++;
+                }
+            }
+            console.log(i);
+            console.log(imgArray);
+
+            if (i > 0) {
+
+                upload(data, function (reponse) {
+                    console.log(reponse);
+
+                    if (reponse.code == "0") {
+                        var imgData = reponse.data;
+                        var img_path = "";
+                        // var img_path = imgData.imgs;
+                        console.log(imgData.imgs);
+
+                        var reponseImgIds = imgData.imgs.split(',');
+                        var id = $.getUrlParam('id');
+                        var img_index = 0;
+                        for (let index = 0; index < imgArray.length; index++) {
+                            var imgId = imgArray[index];
+                            if (img_path.length != 0) {
+                                img_path += ",";
                             }
-                            console.log(img_path);
-                            var data222 = {
-                                "title": title,
-                                "attribute": attribute,
-                                "price":price,
-                                "stock":stock,
-                                "spec":spec,
-                                "info":info,
-                                "imgIds":img_path,
-                                "id":changeText(id),
-                                "price_unit":price_unit,
-                                "brand":brand,
-                                "unit":unit
+                            if (imgId.type == "1") {
+                                img_path += imgId["id"];
+                            } else {
+                                img_path += reponseImgIds[img_index];
+                                img_index++;
                             }
-                        var requestData= JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
-                        add(requestData); 
-                          
-                    }else{
+
+                        }
+                        console.log(img_path);
+                        var data222 = {
+                            "title": title,
+                            "attribute": attribute,
+                            "price": price,
+                            "stock": stock,
+                            "spec": spec,
+                            "info": info,
+                            "imgIds": img_path,
+                            "id": changeText(id),
+                            "price_unit": price_unit,
+                            "brand": brand,
+                            "unit": unit,
+                            "user_id":getUserId()
+                        }
+                        var requestData = JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
+                        add(requestData);
+
+                    } else {
                         alert(上传失败);
                     }
-                
-                     }); 
-                }else{
-                    var imgIds = imgIdList.join(",");
-                     var id = $.getUrlParam('id'); 
-                        var data222 = {
-                             "title": title,
-                            "attribute": attribute,
-                            "price":price,
-                            "stock":stock,
-                            "spec":spec,
-                            "info":info,
-                            "imgIds":imgIds,
-                            "id":changeText(id),
-                            "price_unit":price_unit,
-                            "brand":brand,
-                            "unit":unit
-                        }
-                        var requestData= JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
-                     add(requestData); 
-                }
 
-                  
-            }
-            function add(params) {
-                 addProduct(params,function(addResponse){
-                        console.log(addResponse); 
-                        alert(addResponse.message);
-                        if (addResponse.code == "0") {
-                            back(); 
-                        }
-                        
-                }) ; 
-            }
-         
-            function getProductDet(){
+                });
+            } else {
+                var imgIds = imgIdList.join(",");
                 var id = $.getUrlParam('id');
-                if (!isEmpty(id)){
-                    
-                    getShopProductDet( JSON.stringify({"id":id}),function(data){
-                            var code = data.code ; 
-                            if (code == "0"){
-                                var objectData = data.data; 
-                                console.log(objectData);
-                                var  title = objectData.title; 
-                                var attribute = objectData.attribute;
-                                var price = objectData.price; 
-                                var stock = objectData.stock; 
-                                var spec = objectData.spec;
-                                var info = objectData.info; 
-                                var status = objectData.status;
-                                var imgs = objectData.imgs; 
-                                var price_unit = objectData.price_unit; 
-                                var brand = objectData.brand; 
-                                var unit = objectData.unit;
-                                var img_prefix =  objectData.img_prefix;
-
-                              document.getElementById("title").value = changeText(title); 
-                              document.getElementById("attribute").value = changeText(attribute); 
-                              document.getElementById("price").value = changeText(price); 
-                              document.getElementById("stock").value = changeText(stock); 
-                              document.getElementById("spec").value = changeText(spec); 
-                              document.getElementById("info").value = changeText(info);
-                              document.getElementById("price_unit").value = changeText(price_unit); 
-                              document.getElementById("brand").value = changeText(brand); 
-                              document.getElementById("unit").value = changeText(unit);
-                            var imgPath_Array = new Array(); 
-                            imgPath_Array = changeText(imgs).split(",");
-                            
-                           
-                            for (i=0;i<imgPath_Array.length ;i++ ) 
-                            { 
-                                var imgPath = imgPath_Array[i];
-
-                                var tempDiv = '<div onclick=clickImg(this) data-obj=\''+JSON.stringify({"type":"1","id":imgPath})+'\'><img style="width:100px;height:100px;" src='+img_prefix+changeText(imgPath)+'></div>';
-                                 if($("#feedback").children('img').length == 0)
-                              {
-                                $("#feedback").append(tempDiv);
-                             }
-                            else{
-                                $("#feedback").children('img').eq(0).after(tempDiv);
-                            } 
-                            } 
-                            }
-                    });
+                var data222 = {
+                    "title": title,
+                    "attribute": attribute,
+                    "price": price,
+                    "stock": stock,
+                    "spec": spec,
+                    "info": info,
+                    "imgIds": imgIds,
+                    "id": changeText(id),
+                    "price_unit": price_unit,
+                    "brand": brand,
+                    "unit": unit,
+                    "user_id":getUserId()
                 }
+                var requestData = JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
+                add(requestData);
             }
- 
-        
-        </script>
 
-    </body>
+
+        }
+        function add(params) {
+            addProduct(params, function (addResponse) {
+                console.log(addResponse);
+                alert(addResponse.message);
+                if (addResponse.code == "0") {
+                     back();
+                }
+
+            });
+        }
+
+        function getProductDet() {
+            var id = $.getUrlParam('id');
+            if (!isEmpty(id)) {
+                getShopProductDet(JSON.stringify({ "id": id ,"user_id":getUserId()}), function (data) {
+                    var code = data.code;
+                    if (code == "0") {
+                        var objectData = data.data;
+                        console.log(objectData);
+                        var title = objectData.title;
+                        var attribute = objectData.attribute;
+                        var price = objectData.price;
+                        var stock = objectData.stock;
+                        var spec = objectData.spec;
+                        var info = objectData.info;
+                        var status = objectData.status;
+                        var imgs = objectData.imgs;
+                        var price_unit = objectData.price_unit;
+                        var brand = objectData.brand;
+                        var unit = objectData.unit;
+                        var img_prefix = objectData.img_prefix;
+
+                        document.getElementById("title").value = changeText(title);
+                        document.getElementById("attribute").value = changeText(attribute);
+                        document.getElementById("price").value = changeText(price);
+                        document.getElementById("stock").value = changeText(stock);
+                        document.getElementById("spec").value = changeText(spec);
+                        document.getElementById("info").value = changeText(info);
+                        document.getElementById("price_unit").value = changeText(price_unit);
+                        document.getElementById("brand").value = changeText(brand);
+                        document.getElementById("unit").value = changeText(unit);
+                        var imgPath_Array = new Array();
+                        imgPath_Array = changeText(imgs).split(",");
+
+
+                        for (i = 0; i < imgPath_Array.length; i++) {
+                            var imgPath = imgPath_Array[i];
+
+                            var tempDiv = '<div onclick=clickImg(this) data-obj=\'' + JSON.stringify({ "type": "1", "id": imgPath }) + '\'><img style="width:100px;height:100px;" src=' + img_prefix + changeText(imgPath) + '></div>';
+                            if ($("#feedback").children('img').length == 0) {
+                                $("#feedback").append(tempDiv);
+                            }
+                            else {
+                                $("#feedback").children('img').eq(0).after(tempDiv);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+
+    </script>
+
+</body>
+
 </html>

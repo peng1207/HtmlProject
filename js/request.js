@@ -86,7 +86,11 @@ function shopProductListRequest(data,success){
         }
     );    
 }
-/// 获取店铺商品详情
+/**
+ *  获取店铺商品详情
+ * @param {*} data 请求参数
+ * @param {*} success 回调
+ */
 function getShopProductDet(data,success){
     $.ajax(
         {
@@ -100,7 +104,11 @@ function getShopProductDet(data,success){
         }
     );   
 }
-/// 删除商品
+/**
+ * 删除商品
+ * @param {*} data 请求参数
+ * @param {*} success 回调
+ */
 function delProduct(data,success){
     $.ajax(
         {
@@ -114,8 +122,11 @@ function delProduct(data,success){
         }
     );   
 }
-
-/// 上传
+/**
+ * 上传
+ * @param {*} data 请求参数
+ * @param {*} success 回调
+ */
 function upload(data,success){
     console.log(data);
     $.ajax(
