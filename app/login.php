@@ -28,12 +28,12 @@ if ($result && $row){
     $time_str = time();
     $updateSql = "UPDATE user SET login_time='$time_str' WHERE user_id='$userID'";
     $result = mysql_query($updateSql,$conn); 
-    mysql_close($con);
+    mysql_close($conn);
     Response::json("0","登录成功",array(
         "user_id"=>$userID
     )); 
 }else{
-    mysql_close($con);
+    mysql_close($conn);
     Response::failure("101","密码或账号错误");
 }
 

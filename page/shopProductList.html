@@ -36,15 +36,18 @@
                     if (code == "0"){
                         var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">'; 
                         div += '<tr style="height:44px;">\
+                                    <th style="width:5%">编号</th>\
                                     <th style="width:40%">名称</th>\
                                     <th style="width:20%">价格</th>\
-                                    <th style="width:20%">库存</th>\
+                                    <th style="width:15%">库存</th>\
                                     <th style="width:20%"> </th>\
                                 </tr>'
                         for (i in  list){
                             var listDic = list[i];
                             var id = listDic.id; 
-                            div += '<tr style="height:44px;">\
+                            console.log(i);
+                            div += '<tr style="height:50px;">\
+                                         <td style="text-align: center; ">'+i+'</td>\
                                          <td style="margin-left:10px;padding-left: 5px;">'+changeText(listDic.title)+'</td>\
                                          <td style="text-align: center;">'+changeText(listDic.price)+'</td>\
                                          <td style="text-align: center;">'+changeText(listDic.stock)+'</td>\

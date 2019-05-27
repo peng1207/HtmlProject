@@ -1,0 +1,107 @@
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+</head>
+
+<body>
+    <div style="height:40px;">
+        <button onclick="clickAdd()"
+            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加品牌</button>
+    </div>
+
+    <div id="list" style="width:100%;margin-top:10px;">
+    </div>
+
+    <script>
+        window.onload = function () {
+            if (sp_checkLogin(true) == true) {
+                getBrandList();
+            }
+        }
+
+        function clickAdd() {
+            var brand_name = prompt("请输入品牌名称", "");
+            if (brand_name) {
+                console.log(brand_name);
+                addBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_name": brand_name }), function (responseData) {
+                    getBrandList();
+                    alert(responseData.message);
+                }, function (error) {
+
+                });
+            }
+        }
+
+        function getBrandList() {
+            getBrandListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+                var code = responseData.code;
+                var listData = responseData.data;
+                var list = listData.list;
+                if (code == "0") {
+                    addDiv(list);
+                }
+            }, function (error) {
+
+            });
+        }
+        function addDiv(list) {
+            $("#list").children().remove();
+            var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">';
+            div += '<tr style="height:44px;">\
+                                    <th style="width:5%">编号</th>\
+                                    <th style="width:50%">名称</th>\
+                                    <th style="width:45%"> </th>\
+                                </tr>'
+            for (i in list) {
+                var listDic = list[i];
+                var id = listDic.brand_id;
+                console.log(i);
+                div += '<tr style="height:50px;">\
+                                         <td style="text-align: center; ">'+ i + '</td>\
+                                         <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.brand_name) + '</td>\
+                                         <td> <button onclick=editAction(this) data-obj=\''+JSON.stringify(listDic)+'\'style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("' + id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
+                                    </tr>'
+            }
+            div += "</table>"
+            $("#list").append(div);
+        }
+        function deleteAction(e){
+            console.log(e);
+            var mymessage = confirm("是否删除品牌"); 
+            if (mymessage == true){
+                deleteBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_id":e}),function(responseData){
+                getBrandList();
+                alert(responseData.message);
+            },function(error){
+
+            });
+            }
+           
+           
+        }
+        function editAction(e){
+            var obj = jQuery(e).data('obj');
+            var jsonData = JSON.stringify(obj);// 转成JSON格式
+            var result = $.parseJSON(jsonData);// 转成JSON对象
+            var brand_name = prompt("请输入品牌名称", result.brand_name);
+            if (brand_name) {
+                console.log(brand_name);
+                addBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_name": brand_name ,"brand_id":result.brand_id}), function (responseData) {
+                    getBrandList();
+                    alert(responseData.message);
+                }, function (error) {
+
+                });
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

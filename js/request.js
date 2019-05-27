@@ -180,5 +180,135 @@ function changeFeedbackStatusRequest(data,success,failureCom){
         }
     );    
 }
-
-
+/**
+ * 添加品牌或修改品牌 
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function addBrandRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/addBrand.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );  
+}
+/**
+ *  获取品牌列表
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function getBrandListRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/getBrandList.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );  
+}
+/**
+ * 删除品牌
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function deleteBrandRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/deleteBrand.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );  
+}
+/**
+ * 添加品牌或修改品牌 
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function addSortRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/addSort.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );  
+}
+/**
+ *  获取品牌列表
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function getSortListRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/getSortList.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );  
+}
+/**
+ * 删除品牌
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function deleteSortRequest(data,success,failureCom){
+    $.ajax(
+        {
+            type:"POST", 
+            dataType:"json",
+            data:data,
+            url : domain_name + prefix_url + "/deleteSort.php", 
+            success:function(data){
+                success(data); 
+            },
+            error:function(){
+                failureCom();
+            }
+        }
+    );  
+}

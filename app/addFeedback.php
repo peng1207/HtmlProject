@@ -17,7 +17,7 @@ $time_str = time();
 $id =  md5(uniqid());
 $sqla = "INSERT INTO feedback(id,info,phone,name,create_time,update_time) VALUES ('$id','$info','$phone','$name','$time_str','$time_str')";
 $result = mysql_query($sqla,$conn); 
-mysql_close($con);
+mysql_close($conn);
 if ($result) {
     Response::json("0","提交成功"); 
 }else{

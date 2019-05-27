@@ -16,7 +16,7 @@ while ($row = mysql_fetch_array($result)){
 
 $sqla1 = "DELETE FROM product where id='$id'";
 $result1 = mysql_query($sqla1,$conn);
-mysql_close($con);
+mysql_close($conn);
 if ($result1){
     $imgArray = explode(",",$imgIds);
     foreach($imgArray as $value){
@@ -24,7 +24,7 @@ if ($result1){
     }
     Response::json("0","删除商品成功",null);  
 }else{
-    Response::failure("101","添加商品失败");
+    Response::failure("101","删除商品失败");
 }
 
 ?>

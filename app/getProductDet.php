@@ -54,7 +54,7 @@ while ($row = mysql_fetch_array($result)){
         "img_prefix"=>$domain_name."/img/"
     ); 
 }
-mysql_close($con);
+mysql_close($conn);
 if ($result){
     Response::json("0","获取数据成功",$objectData); 
 }else{
