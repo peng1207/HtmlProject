@@ -22,20 +22,20 @@ if ($is_insert){
     $result = mysql_query($sqla,$conn); 
     mysql_close($conn);
     if ($result){
-        Response::json("0","添加品牌成功",array(
+        Response::json("0","添加分类成功",array(
             'id'=>$sort_id
         )); 
     }else{
-        Response::failure("101","添加品牌失败");
+        Response::failure("101","添加分类失败");
     }
 }else{
     $sqla = "update sort set sort_name='$sort_name',update_time='$time_str',update_user_id='$user_id' where sort_id='$sort_id'";
     $result = mysql_query($sqla,$conn); 
     mysql_close($conn);
     if ($result){
-        Response::json("0","修改品牌成功",null); 
+        Response::json("0","修改分类成功",null); 
     }else{
-        Response::failure("101","修改品牌失败");
+        Response::failure("101","修改分类失败");
     }
 }
 

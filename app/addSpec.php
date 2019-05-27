@@ -8,7 +8,7 @@ $requestData = json_decode($raw,TRUE);
 $spec_name = @$requestData['spec_name'] ? $requestData['spec_name'] : ''; 
 $spec_id = @$requestData['spec_id'] ? $requestData['spec_id'] : ''; 
 $user_id =  @$requestData['user_id'] ? $requestData['user_id'] : '';
-if (empty($brand_name)){
+if (empty($spec_name)){
     Response::failure("1","请输入规格名称");
 }
 $is_insert = FALSE; 
@@ -22,20 +22,20 @@ if ($is_insert){
     $result = mysql_query($sqla,$conn); 
     mysql_close($conn);
     if ($result){
-        Response::json("0","添加品牌成功",array(
+        Response::json("0","添加规格成功",array(
             'id'=>$spec_id
         )); 
     }else{
-        Response::failure("101","添加品牌失败");
+        Response::failure("101","添加规格失败");
     }
 }else{
     $sqla = "update spec set spec_name='$spec_name',update_time='$time_str',update_user_id='$user_id' where spec_id='$spec_id'";
     $result = mysql_query($sqla,$conn); 
     mysql_close($conn);
     if ($result){
-        Response::json("0","修改品牌成功",null); 
+        Response::json("0","修改规格成功",null); 
     }else{
-        Response::failure("101","修改品牌失败");
+        Response::failure("101","修改规格失败");
     }
 }
 

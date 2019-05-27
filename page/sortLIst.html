@@ -24,7 +24,7 @@
             }
         }
         function clickAdd() {
-            var sort_name = prompt("请输入品牌名称", "");
+            var sort_name = prompt("请输入分类名称", "");
             if (sort_name) {
                 console.log(sort_name);
                 addSortRequest(JSON.stringify({ "user_id": getUserId(), "sort_name": sort_name }), function (responseData) {
@@ -70,7 +70,7 @@
         }
         function deleteAction(e){
             console.log(e);
-            var mymessage = confirm("是否删除品牌"); 
+            var mymessage = confirm("是否删除分类"); 
             if (mymessage == true){
                 deleteSortRequest(JSON.stringify({ "user_id": getUserId(), "sort_id":e}),function(responseData){
                 getSortList();
@@ -86,10 +86,10 @@
             var obj = jQuery(e).data('obj');
             var jsonData = JSON.stringify(obj);// 转成JSON格式
             var result = $.parseJSON(jsonData);// 转成JSON对象
-            var sort_name = prompt("请输入品牌名称", result.sort_name);
+            var sort_name = prompt("请输入分类名称", result.sort_name);
             if (sort_name) {
                 console.log(sort_name);
-                addBrandRequest(JSON.stringify({ "user_id": getUserId(), "sort_name": sort_name ,"sort_id":result.sort_id}), function (responseData) {
+                addSortRequest(JSON.stringify({ "user_id": getUserId(), "sort_name": sort_name ,"sort_id":result.sort_id}), function (responseData) {
                     getSortList();
                     alert(responseData.message);
                 }, function (error) {

@@ -22,20 +22,20 @@ if ($is_insert){
     $result = mysql_query($sqla,$conn); 
     mysql_close($conn);
     if ($result){
-        Response::json("0","添加品牌成功",array(
+        Response::json("0","添加单位成功",array(
             'id'=>$unit_id
         )); 
     }else{
-        Response::failure("101","添加品牌失败");
+        Response::failure("101","添加单位失败");
     }
 }else{
     $sqla = "update unit set unit_name='$unit_name',update_time='$time_str',update_user_id='$user_id' where unit_id='$unit_id'";
     $result = mysql_query($sqla,$conn); 
     mysql_close($conn);
     if ($result){
-        Response::json("0","修改品牌成功",null); 
+        Response::json("0","修改单位成功",null); 
     }else{
-        Response::failure("101","修改品牌失败");
+        Response::failure("101","修改单位失败");
     }
 }
 

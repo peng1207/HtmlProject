@@ -23,7 +23,6 @@
                 getBrandList();
             }
         }
-
         function clickAdd() {
             var brand_name = prompt("请输入品牌名称", "");
             if (brand_name) {
@@ -36,7 +35,6 @@
                 });
             }
         }
-
         function getBrandList() {
             getBrandListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
                 var code = responseData.code;
