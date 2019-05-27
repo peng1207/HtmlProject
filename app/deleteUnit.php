@@ -5,7 +5,7 @@ require_once('conn.php');
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
 $unit_id = @$requestData['unit_id'] ? $requestData['unit_id'] : ''; 
-if (empty($brand_id)){
+if (empty($unit_id)){
     Response::failure("1","id不能为空");
 }
 $sqla = "DELETE from unit where unit_id = '$unit_id'";
