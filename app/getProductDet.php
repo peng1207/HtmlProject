@@ -40,7 +40,7 @@ while ($row = mysql_fetch_array($result)){
         if (!empty($imgIds)){
             $imgIds = $imgIds.","; 
         }
-        $imgIds = $imgIds.$domain_name."/img/".$value;
+        $imgIds = $imgIds.$domain_name."/".$upload_img_directory.$value;
     }
  
 
@@ -64,7 +64,7 @@ while ($row = mysql_fetch_array($result)){
         "spec_id"=>$spec_id,
         "brand_name"=>$brand_name,
         "brand_id"=>$brand_id,
-        "img_prefix"=>$domain_name."/img/"
+        "img_prefix"=>$domain_name."/".$upload_img_directory
     ); 
 }
 mysql_close($conn);

@@ -194,6 +194,11 @@
             console.log(i);
             console.log(imgArray);
 
+            if (imgArray.length == 0){
+                alert("至少上传一张图片"); 
+                return;
+            }
+
             if (i > 0) {
 
                 upload(data, function (reponse) {
@@ -243,7 +248,7 @@
                         add(requestData);
 
                     } else {
-                        alert(上传失败);
+                        alert("上传图片失败");
                     }
 
                 });
@@ -277,7 +282,7 @@
             addProduct(params, function (addResponse) {
                 console.log(addResponse);
                 alert(addResponse.message);
-                if (addResponse.code == "0") {
+                if (addResponse.code == K_REQUEST_SUCCESS) {
                     back();
                 }
 

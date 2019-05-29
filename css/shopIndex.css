@@ -33,12 +33,11 @@
     border-bottom:2px solid #eeeeee;
 }
 .left span{
-    background: #999999;
+    background: #e2e2e2;
     display: block;
     width: 100px;
     /* border:1px solid #ECEEF2; */
     height: 30px;
-    /* text-align: center; */
     padding-left: 5px;
     line-height: 30px;
 }

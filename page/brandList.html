@@ -1,7 +1,8 @@
 <html>
 
 <head>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../js/request.js"></script>
     <script type="text/javascript" src="../js/base.js"></script>
@@ -58,38 +59,38 @@
             for (i in list) {
                 var listDic = list[i];
                 var id = listDic.brand_id;
-            
+
                 div += '<tr style="height:50px;">\
                                          <td style="text-align: center; ">'+ i + '</td>\
                                          <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.brand_name) + '</td>\
-                                         <td> <button onclick=editAction(this) data-obj=\''+JSON.stringify(listDic)+'\'style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("' + id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
+                                         <td> <button onclick=editAction(this) data-obj=\''+ JSON.stringify(listDic) + '\'style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("' + id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
                                     </tr>'
             }
             div += "</table>"
             $("#list").append(div);
         }
-        function deleteAction(e){
+        function deleteAction(e) {
             console.log(e);
-            var mymessage = confirm("是否删除品牌"); 
-            if (mymessage == true){
-                deleteBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_id":e}),function(responseData){
-                getBrandList();
-                alert(responseData.message);
-            },function(error){
+            var mymessage = confirm("是否删除品牌");
+            if (mymessage == true) {
+                deleteBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_id": e }), function (responseData) {
+                    getBrandList();
+                    alert(responseData.message);
+                }, function (error) {
 
-            });
+                });
             }
-           
-           
+
+
         }
-        function editAction(e){
+        function editAction(e) {
             var obj = jQuery(e).data('obj');
             var jsonData = JSON.stringify(obj);// 转成JSON格式
             var result = $.parseJSON(jsonData);// 转成JSON对象
             var brand_name = prompt("请输入品牌名称", result.brand_name);
             if (brand_name) {
                 console.log(brand_name);
-                addBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_name": brand_name ,"brand_id":result.brand_id}), function (responseData) {
+                addBrandRequest(JSON.stringify({ "user_id": getUserId(), "brand_name": brand_name, "brand_id": result.brand_id }), function (responseData) {
                     getBrandList();
                     alert(responseData.message);
                 }, function (error) {

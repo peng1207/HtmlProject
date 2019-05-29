@@ -31,7 +31,7 @@ while ($row = mysql_fetch_array($result)){
     }
  
     if (!empty($imgId)){
-        $imgId = $domain_name."/img/".$imgId;
+        $imgId = $domain_name."/".$upload_img_directory.$imgId;
         // $imgId = "https://".$_SERVER['SERVER_NAME']."/img/".$imgId;
     }
  
@@ -56,7 +56,7 @@ while ($row = mysql_fetch_array($result)){
         "spec_id"=>$spec_id,
         "brand_name"=>$brand_name,
         "brand_id"=>$brand_id,
-        "img_prefix"=>$domain_name."/img/"
+        "img_prefix"=>$domain_name."/".$upload_img_directory
     ); 
     array_push($array,$objectData);
 }

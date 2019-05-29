@@ -1,0 +1,177 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <title>添加广告</title>
+
+</head>
+
+<body>
+    <div>
+        <div class="div-row">
+            <div class="div-inline div-title">广告名称</div>
+            <input class="div_input" type="text" id="title" placeholder="输入广告名称" />
+        </div>
+        <div id="feedback">
+        </div>
+        <div class="tips">注:图片比例为16:9 尺寸建议640*360 大小不要超过1M</div>
+        <div class="box">
+            <a href="javascript:;" class="file">选择图片
+                <input type="file" multiple="multiple" id="inputfile" name="upload_file" class="photo"
+                    accept="image/png, image/jpeg, image/gif, image/jpg">
+            </a>
+        </div>
+        <div class="button" id="submitId" onclick="submit()">提交</div>
+    </div>
+</body>
+
+<script>
+    var fileDic = new Object();
+    var fileIndex = 0;
+    window.onload = function () {
+        if (sp_checkLogin(true) == true) {
+
+            $("#inputfile").change(function () {
+                console.log("获取图片");
+                var feedback = $("#feedback");
+                if (feedback.children('img').length > 1) {
+                    alert("最多只能选择1张图片");
+                    return false;
+                }
+                // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+                $.each($('#inputfile')[0].files, function (i, file) {
+                    var reads = new FileReader();
+                    reads.readAsDataURL(file);
+                    var index = fileIndex.toString();
+                    fileDic[index] = file
+                    console.log(fileDic);
+                    fileIndex++;
+                    reads.onload = function (e) {
+                        var tempDiv = '<div onclick=clickImg(this) data-obj=\'' + JSON.stringify({ "type": "0", "id": index }) + '\'> <img style="width:320px;height:180px;" src=' + this.result + '></div>';
+                        if ($("#feedback").children('img').length == 0) {
+                            $("#feedback").append(tempDiv);
+                        }
+                        else {
+                            $("#feedback").children('img').eq(0).after(tempDiv);
+                        }
+                    };
+                });
+            });
+        }
+    }
+
+    function clickImg(e) {
+        var mymessage = confirm("是否删除图片?");
+        if (mymessage == true) {
+            console.log("点击确定");
+            e.remove();
+        } else {
+            console.log("点击取消");
+        }
+    }
+    function submit() {
+        var title = document.getElementById("title").value;
+        if (isEmpty(title)) {
+            alert("请输入广告标题");
+            return;
+        }
+        var smalls = document.getElementById('feedback').getElementsByTagName('div');
+        var imgArray = new Array();
+        var data = new FormData();
+        var i = 0;
+        var imgIdList = new Array();
+        for (let index = 0; index < smalls.length; index++) {
+            var div = smalls[index];
+
+            var obj = jQuery(div).data('obj');
+            var jsonData = JSON.stringify(obj);// 转成JSON格式
+            var result = $.parseJSON(jsonData);// 转成JSON对象
+            console.log(result);
+
+            imgArray.push(result);
+            if (result.type == "1") {
+                console.log("网络的图片" + result.id);
+                imgIdList.push(result.id);
+            } else {
+                data.append('upload_file' + i, fileDic[result.id]);
+                i++;
+            }
+        }
+        if (imgArray.length == 0) {
+            alert("请上传图片");
+            return;
+        }
+        if (i > 0) {
+
+            upload(data, function (reponse) {
+                console.log(reponse);
+
+                if (reponse.code == "0") {
+                    var imgData = reponse.data;
+                    var img_path = "";
+                    // var img_path = imgData.imgs;
+                    console.log(imgData.imgs);
+
+                    var reponseImgIds = imgData.imgs.split(',');
+                    var id = $.getUrlParam('id');
+                    var img_index = 0;
+                    for (let index = 0; index < imgArray.length; index++) {
+                        var imgId = imgArray[index];
+                        if (img_path.length != 0) {
+                            img_path += ",";
+                        }
+                        if (imgId.type == "1") {
+                            img_path += imgId["id"];
+                        } else {
+                            img_path += reponseImgIds[img_index];
+                            img_index++;
+                        }
+
+                    }
+                    console.log(img_path);
+                    var data222 = {
+                        "img": img_path,
+                        "user_id": getUserId(),
+                        "advert_name": title
+                    }
+                    var requestData = JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
+                    add(requestData);
+
+                } else {
+                    alert(上传失败);
+                }
+
+            });
+        } else {
+            var imgIds = imgIdList.join(",");
+            var id = $.getUrlParam('id');
+            var data222 = {
+                "img": imgIds,
+                "user_id": getUserId(),
+                "advert_name": title
+            }
+            var requestData = JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
+            add(requestData);
+        }
+    }
+    function add(parm) {
+        addAdvertRequest(parm, function (reponseData) {
+            alert(reponseData.message);
+            if (reponseData.code == K_REQUEST_SUCCESS) {
+                back();
+            }
+        }, function (error) {
+            console.log(error);
+            alert("上传失败 重新上传");
+        })
+    }
+</script>
+
+</html>

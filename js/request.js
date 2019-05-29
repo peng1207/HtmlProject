@@ -220,3 +220,21 @@ function deleteUnitRequest(data,success,failureCom){
 function productRecommendRequest(data,success,failureCom){
     sendRequest(data, domain_name + prefix_url + "/productRecommend.php",success,failureCom);
 }
+/**
+ * 添加广告
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function addAdvertRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/addAdvert.php",success,failureCom);
+}
+/**
+ *  获取广告列表
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function getAdvertListRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/shopAdvertList.php",success,failureCom);
+}

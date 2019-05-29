@@ -55,7 +55,7 @@
                                          <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.title) + '</td>\
                                          <td style="text-align: center;">'+ changeText(listDic.price) + '/' + changeText(listDic.unit_name) + '</td>\
                                          <td> <button onclick=editAction("'+ id + '") style="margin-left:10px;width:100px;">编辑</button>\
-                                            <button onclick=recommendAction(\''+ JSON.stringify(listDic) + '\') style="margin-left:10px;width:100px;">' + recommendTitle + '</button>\
+                                            <button onclick=recommendAction(\''+ JSON.stringify({"is_recommend":is_recommend,"id":listDic.id}) + '\') style="margin-left:10px;width:100px;">' + recommendTitle + '</button>\
                                             <button onclick=deleteAction("'+ id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
                                     </tr>'
                     }

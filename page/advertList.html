@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+</head>
+
+<body>
+    <div style="height:40px;">
+        <button onclick="clickAdd()"
+            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加广告</button>
+    </div>
+    <div id="list" style="width:100%;margin-top:10px;">
+     </div>
+</body>
+
+<script>
+ window.onload = function () {
+            if (sp_checkLogin(true) == true) {
+                getAdvertList();
+            }
+        }
+    function clickAdd(){
+        window.location.href = 'addAdvert.html';
+        // if (window != top) {
+        //         top.location.href = 'addAdvert.html';
+        //     } else {
+        //         window.location.href = 'addAdvert.html';
+        //     }
+    }
+    function getAdvertList(){
+        getAdvertListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+                var code = responseData.code;
+                var listData = responseData.data;
+                var list = listData.list;
+                if (code == "0") {
+                    addDiv(list);
+                }
+            }, function (error) {
+
+            });
+    }
+    function addDiv(list) {
+            $("#list").children().remove();
+            var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">';
+            div += '<tr style="height:44px;">\
+                                    <th style="width:5%">编号</th>\
+                                    <th style="width:50%">广告名称</th>\
+                                    <th style="width:10%">状态</th>\
+                                    <th style="width:35%"> </th>\
+                                </tr>'
+            for (i in list) {
+                var listDic = list[i];
+                var id = listDic.advert_id;
+                var status = listDic.status;
+                var statusStr = "开启"; 
+                if (status == 0){
+                    statusStr = "关闭";
+                }
+                div += '<tr style="height:50px;">\
+                                         <td style="text-align: center; ">'+ i + '</td>\
+                                         <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.advert_name) + '</td>\
+                                         <td style="margin-left:10px;text-align: center;">'+ statusStr + '</td>';
+                if (status == 1){
+                        div +=  '<td> <button onclick=editAction(this) data-obj=\''+ JSON.stringify(listDic) + '\'style="margin-left:10px;width:100px;">关闭</button>'
+                }
+                div += '<button onclick=deleteAction("' + id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
+                                </tr>';
+            }
+            div += "</table>"   
+            $("#list").append(div);
+        }
+</script>
+
+</html>

@@ -1,5 +1,6 @@
 <?php
 require_once('conn.php');
+require_once('base.php');
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
 $id = @$requestData['id'] ? $requestData['id'] : ''; 
@@ -20,7 +21,7 @@ mysql_close($conn);
 if ($result1){
     $imgArray = explode(",",$imgIds);
     foreach($imgArray as $value){
-        unlink("../img/".$value); 
+        unlink("../".$upload_img_directory.$value); 
     }
     Response::json("0","删除商品成功",null);  
 }else{

@@ -18,10 +18,8 @@ foreach($_FILES as $file){
    
     $gb_filename = iconv('utf-8','gb2312',md5(uniqid()).".jpg");    //名字转换成gb2312处理
    
-   
     $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i"; 
-    $move_path =  '../img/'.$gb_filename; 
-  
+    $move_path =  '../'.$upload_img_directory.$gb_filename; 
     
     if (move_uploaded_file ( $_FILES[$upload_file_name]['tmp_name'], $move_path )){
         if (!empty($img_paths)){
@@ -29,7 +27,7 @@ foreach($_FILES as $file){
             $remove_path = $remove_path.","; 
         }
         $img_paths = $img_paths.$gb_filename;
-        $remove_path = $remove_path."../img/".$gb_filename; 
+        $remove_path = $remove_path."../".$upload_img_directory.$gb_filename; 
         $success_index++; 
     }else{
         
