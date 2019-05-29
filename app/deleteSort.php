@@ -8,7 +8,8 @@ $sort_id = @$requestData['sort_id'] ? $requestData['sort_id'] : '';
 if (empty($sort_id)){
     Response::failure("1","id不能为空");
 }
-$sqla = "DELETE from sort where sort_id = '$sort_id'";
+// $sqla = "DELETE from sort where sort_id = '$sort_id'";
+$sqla = "update sort set status = '0' where sort_id = '$sort_id'";
 $result1 = mysql_query($sqla,$conn);
 mysql_close($conn);
 if ($result1){

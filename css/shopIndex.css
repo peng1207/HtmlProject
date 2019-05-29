@@ -5,8 +5,9 @@
     margin-top: 5px;
 }
 .left{
-    width: 80px;
+    width: 100px;
     height: 100%;
+     
 }
 .right{
     position: relative;
@@ -31,3 +32,23 @@
 .title_line{
     border-bottom:2px solid #eeeeee;
 }
+.left span{
+    background: #999999;
+    display: block;
+    width: 100px;
+    /* border:1px solid #ECEEF2; */
+    height: 30px;
+    /* text-align: center; */
+    padding-left: 5px;
+    line-height: 30px;
+}
+ 
+
+/* .left p{
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid#2f2f2f;
+} */

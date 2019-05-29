@@ -43,7 +43,7 @@ function getUserToken(){
  */
 function isLogin(){
     var userID = getUserId()
-    console.log(userID);
+    
     if (isEmpty(userID) == false){
         return true;
     }else{

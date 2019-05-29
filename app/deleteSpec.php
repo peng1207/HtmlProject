@@ -8,7 +8,8 @@ $spec_id = @$requestData['spec_id'] ? $requestData['spec_id'] : '';
 if (empty($spec_id)){
     Response::failure("1","id不能为空");
 }
-$sqla = "DELETE from spec where spec_id = '$spec_id'";
+// $sqla = "DELETE from spec where spec_id = '$spec_id'";
+$sqla = "update spec set status = '0' where spec_id = '$spec_id'";
 $result1 = mysql_query($sqla,$conn);
 mysql_close($conn);
 if ($result1){

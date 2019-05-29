@@ -4,8 +4,8 @@ require_once('conn.php');
  
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
-
-$sqla = "SELECT * FROM brand"; 
+$status = 1;
+$sqla = "SELECT * FROM brand WHERE status = '$status'"; 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
 while ($row = mysql_fetch_array($result)){

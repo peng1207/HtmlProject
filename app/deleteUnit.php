@@ -8,7 +8,8 @@ $unit_id = @$requestData['unit_id'] ? $requestData['unit_id'] : '';
 if (empty($unit_id)){
     Response::failure("1","id不能为空");
 }
-$sqla = "DELETE from unit where unit_id = '$unit_id'";
+// $sqla = "DELETE from unit where unit_id = '$unit_id'";
+$sqla = "update unit set status = '0' where unit_id = '$unit_id'";
 $result1 = mysql_query($sqla,$conn);
 mysql_close($conn);
 if ($result1){
@@ -16,5 +17,4 @@ if ($result1){
 }else{
     Response::failure("101","删除单位失败");
 }
-
 ?>

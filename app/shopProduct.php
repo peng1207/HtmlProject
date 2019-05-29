@@ -4,23 +4,31 @@ require_once('base.php');
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
 $user_id =  @$requestData['user_id'] ? $requestData['user_id'] : '';
-
-$sqla = "SELECT * from product where user_id = '$user_id'"; 
+//SELECT p.id,p.title,p.price,p.stock,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id WHERE p.id = 'e311f09bdb411574eeec982535c57cdb'
+$sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,p.is_recommend,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id  where p.user_id = '$user_id'"; 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
 while ($row = mysql_fetch_array($result)){
     $id = @$row["id"] ? $row["id"] : ""; 
     $title = @$row["title"] ? $row["title"] : ""; 
-    $attribute = @$row["attribute"] ? $row["attribute"] : ""; 
     $price = @$row["price"] ? $row["price"] : ""; 
     $stock = @$row["stock"] ? $row["stock"] : ""; 
-    $spec = @$row["spec"] ? $row["spec"] : ""; 
     $info = @$row["info"] ? $row["info"] : ""; 
     $imgIds = @$row["imgIds"] ? $row["imgIds"] : ""; 
     $status = @$row["status"] ? $row["status"] : ""; 
-    $price_unit = @$row['price_unit'] ? $row['price_unit'] : "";
-    $brand = @$row['brand'] ? $row['brand'] : "";
-    $unit = @$row['unit'] ? $row['unit'] : "";
+    $sub_title =  @$row["sub_title"] ? $row["sub_title"] : ""; 
+    $purpose =  @$row["purpose"] ? $row["purpose"] : ""; 
+    $features =  @$row["features"] ? $row["features"] : ""; 
+    $packing =  @$row["packing"] ? $row["packing"] : ""; 
+    $unit_id =  @$row["unit_id"] ? $row["unit_id"] : ""; 
+    $unit_name =  @$row["unit_name"] ? $row["unit_name"] : ""; 
+    $sort_name =  @$row["sort_name"] ? $row["sort_name"] : ""; 
+    $sort_id =  @$row["sort_id"] ? $row["sort_id"] : ""; 
+    $spec_name =  @$row["spec_name"] ? $row["spec_name"] : ""; 
+    $spec_id =  @$row["spec_id"] ? $row["spec_id"] : ""; 
+    $brand_name =  @$row["brand_name"] ? $row["brand_name"] : ""; 
+    $brand_id =  @$row["brand_id"] ? $row["brand_id"] : ""; 
+    $is_recommend = @$row["is_recommend"] ? $row["is_recommend"] : 0;
     $imgID_array = explode(',',$imgIds);
     $imgId = ""; 
     if (count($imgID_array)){
@@ -32,16 +40,24 @@ while ($row = mysql_fetch_array($result)){
     $objectData = array(
         "id"=>$id,
         "title"=>$title, 
-        "attribute"=>$attribute,
         "price"=>$price,
         "stock"=>$stock,
-        "spec"=>$spec,
         "info"=>$info,
         "status"=>$status,
         "img"=>$imgId,
-        "price_unit"=>$price_unit,
-        "brand"=>$brand,
-        "unit"=>$unit,
+        "sub_title"=>$sub_title,
+        "purpose"=>$purpose,
+        "features"=>$features,
+        "packing"=>$packing,
+        "unit_id"=>$unit_id,
+        "unit_name"=>$unit_name,
+        "sort_name"=>$sort_name,
+        "sort_id"=>$sort_id,
+        "spec_name"=>$spec_name,
+        "spec_id"=>$spec_id,
+        "brand_name"=>$brand_name,
+        "brand_id"=>$brand_id,
+        "is_recommend"=>$is_recommend,
         "img_prefix"=>$domain_name."/img/"
     ); 
     array_push($array,$objectData);

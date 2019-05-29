@@ -101,10 +101,35 @@
   overflow:hidden;
   display:block;
   clear:both;
-  border:1px solid #ddd;
+  /* border:1px solid #ddd; */
   margin-top: 10px;
-
+  margin-right: 0px;
 }
+.div_select{
+  height: 30px;
+  width: 100px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.div_input{
+  width: 80%;;
+  float: left;
+  margin: 10px;
+  min-height: 30px;
+  max-height: 30px;
+  font-size:14px;
+  padding:5px 8px;
+  margin-top: 10px;
+  border:1px solid #ddd;
+  position: relative;
+  /* top:0;
+  left:0; */
+}
+.tips {
+  font-size: 13px;
+  color: #999999; 
+}
+
 .input:empty::before {
   content: attr(placeholder);
 }

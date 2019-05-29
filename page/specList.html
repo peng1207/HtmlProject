@@ -11,7 +11,7 @@
 <body>
     <div style="height:40px;">
         <button onclick="clickAdd()"
-            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加分类</button>
+            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加规格</button>
     </div>
 
     <div id="list" style="width:100%;margin-top:10px;">
@@ -20,23 +20,23 @@
     <script>
         window.onload = function () {
             if (sp_checkLogin(true) == true) {
-                getSortList();
+                getSpecList();
             }
         }
         function clickAdd() {
-            var sort_name = prompt("请输入分类名称", "");
-            if (sort_name) {
-                console.log(sort_name);
-                addSortRequest(JSON.stringify({ "user_id": getUserId(), "sort_name": sort_name }), function (responseData) {
-                    getSortList();
+            var spec_name = prompt("请输入规格名称", "");
+            if (spec_name) {
+                console.log(spec_name);
+                addSpecRequest(JSON.stringify({ "user_id": getUserId(), "spec_name": spec_name }), function (responseData) {
+                    getSpecList();
                     alert(responseData.message);
                 }, function (error) {
 
                 });
             }
         }
-        function getSortList() {
-            getSortListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+        function getSpecList() {
+            getSpecListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
                 var code = responseData.code;
                 var listData = responseData.data;
                 var list = listData.list;
@@ -52,16 +52,16 @@
             var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">';
             div += '<tr style="height:44px;">\
                                     <th style="width:5%">编号</th>\
-                                    <th style="width:50%">分类名称</th>\
+                                    <th style="width:50%">规格名称</th>\
                                     <th style="width:45%"> </th>\
                                 </tr>'
             for (i in list) {
                 var listDic = list[i];
-                var id = listDic.sort_id;
-              
+                var id = listDic.spec_id;
+               
                 div += '<tr style="height:50px;">\
                                          <td style="text-align: center; ">'+ i + '</td>\
-                                         <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.sort_name) + '</td>\
+                                         <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.spec_name) + '</td>\
                                          <td> <button onclick=editAction(this) data-obj=\''+JSON.stringify(listDic)+'\'style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("' + id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
                                     </tr>'
             }
@@ -70,10 +70,10 @@
         }
         function deleteAction(e){
             console.log(e);
-            var mymessage = confirm("是否删除分类"); 
+            var mymessage = confirm("是否删除规格"); 
             if (mymessage == true){
-                deleteSortRequest(JSON.stringify({ "user_id": getUserId(), "sort_id":e}),function(responseData){
-                getSortList();
+                deleteSpecRequest(JSON.stringify({ "user_id": getUserId(), "spec_id":e}),function(responseData){
+                getSpecList();
                 alert(responseData.message);
             },function(error){
 
@@ -86,11 +86,11 @@
             var obj = jQuery(e).data('obj');
             var jsonData = JSON.stringify(obj);// 转成JSON格式
             var result = $.parseJSON(jsonData);// 转成JSON对象
-            var sort_name = prompt("请输入分类名称", result.sort_name);
-            if (sort_name) {
-                console.log(sort_name);
-                addSortRequest(JSON.stringify({ "user_id": getUserId(), "sort_name": sort_name ,"sort_id":result.sort_id}), function (responseData) {
-                    getSortList();
+            var spec_name = prompt("请输入规格名称", result.spec_name);
+            if (spec_name) {
+                console.log(spec_name);
+                addSpecRequest(JSON.stringify({ "user_id": getUserId(), "spec_name": spec_name ,"spec_id":result.spec_id}), function (responseData) {
+                    getSpecList();
                     alert(responseData.message);
                 }, function (error) {
 

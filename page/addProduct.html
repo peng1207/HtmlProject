@@ -17,62 +17,75 @@
     <div>
         <div class="div-row">
             <div class="div-inline div-title">商品名称</div>
-            <input class="input" type="text" id="title" placeholder="输入商品名称" />
+            <input class="div_input" type="text" id="title" placeholder="输入商品名称" />
         </div>
         <div class="div-row">
-            <div class="div-inline div-title">商品属性</div>
-            <input class="input" type="text" id="attribute" placeholder="输入商品属性" />
+            <div class="div-inline div-title">副标题</div>
+            <input class="div_input" type="text" id="sub_title" placeholder="输入副标题" />
         </div>
         <div class="div-row">
-            <div class="div-inline div-title">商品价格</div>
-            <input class="input" type="text" id="price" placeholder="输入商品价格" />
+            <div class="div-inline div-title">价格</div>
+            <input class="div_input" type="text" id="price" placeholder="输入商品价格" />
         </div>
-        <div class="div-row">
-            <div class="div-inline div-title">价格单位</div>
-            <input class="input" type="text" id="price_unit" placeholder="输入价格单位" />
-        </div>
-        <div class="div-row">
-            <div class="div-inline div-title">商品库存</div>
-            <input class="input" type="text" id="stock" placeholder="输入商品库存" />
-        </div>
-        <div class="div-row">
-            <div class="div-inline div-title">商品规格</div>
-            <input class="input" type="text" id="spec" placeholder="输入商品规格" />
-        </div>
+
         <div class="div-row">
             <div class="div-inline div-title">单位</div>
-            <input class="input" type="text" id="unit" placeholder="输入单位" />
+            <select class="div_select" name="unit" id="unit"> </select>
         </div>
+
+        <div class="div-row">
+            <div class="div-inline div-title">分类</div>
+            <select class="div_select" name="sort" id="sort"> </select>
+        </div>
+
         <div class="div-row">
             <div class="div-inline div-title">品牌</div>
-            <input class="input" type="text" id="brand" placeholder="输入品牌" />
+            <select class="div_select" name="brand" id="brand"> </select>
         </div>
 
         <div class="div-row">
-            <div class="div-inline div-title">商品说明</div>
-
-            <input class="input" type="text" id="info" placeholder="输入商品说明" />
+            <div class="div-inline div-title">规格</div>
+            <select class="div_select" name="spec" id="spec"> </select>
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">库存</div>
+            <input class="div_input" type="text" id="stock" placeholder="输入商品库存" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">产品介绍</div>
+            <input class="div_input" type="text" id="info" placeholder="输入产品介绍"></input>
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">产品特性</div>
+            <input class="div_input" type="text" id="features" placeholder="输入产品特性" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">产品用途</div>
+            <input class="div_input" type="text" id="purpose" placeholder="输入产品用途" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">包装与储存</div>
+            <input class="div_input" type="text" id="packing" placeholder="输入包装与储存" />
         </div>
         <div id="feedback">
         </div>
+        <div class="tips">注:图片比例为1:1 尺寸建议480*480 大小不要超过1M</div>
         <div class="box">
             <a href="javascript:;" class="file">选择图片
                 <input type="file" multiple="multiple" id="inputfile" name="upload_file" class="photo"
                     accept="image/png, image/jpeg, image/gif, image/jpg">
             </a>
         </div>
-
-
         <div class="button" id="submitId" onclick="submit()">提交</div>
     </div>
 
     <script>
         var fileDic = new Object();
         var fileIndex = 0;
-
+        var productData;
         window.onload = function () {
             if (sp_checkLogin(true) == true) {
-                getProductDet();
+                sendAllRequest();
                 $("#inputfile").change(function () {
                     console.log("获取图片");
                     var feedback = $("#feedback");
@@ -107,8 +120,6 @@
                 });
             }
         }
-            
-
         function clickImg(e) {
             var mymessage = confirm("是否删除图片?");
             if (mymessage == true) {
@@ -118,56 +129,38 @@
                 console.log("点击取消");
             }
         }
+        function getSelectValue(id) {
+            var myselect = document.getElementById(id);
+            var index = myselect.selectedIndex;
+            var value = myselect.options[index].value;
+            console.log("获取到的选中的值" + id);
+            console.log(value);
+            return value;
+        }
+
 
         function submit() {
-
             var title = document.getElementById("title").value;
-            var attribute = document.getElementById("attribute").value;
+            var sub_title = document.getElementById("sub_title").value;
             var price = document.getElementById("price").value;
+            var unit_id = getSelectValue("unit");
+            var sort_id = getSelectValue("sort");
+            var brand_id = getSelectValue("brand");
+            var spec_id = getSelectValue("spec");
             var stock = document.getElementById("stock").value;
-            var spec = document.getElementById("spec").value;
             var info = document.getElementById("info").value;
-            var price_unit = document.getElementById("price_unit").value;
-            var brand = document.getElementById("brand").value;
-            var unit = document.getElementById("unit").value;
+            var features = document.getElementById("features").value;
+            var purpose = document.getElementById("purpose").value;
+            var packing = document.getElementById("packing").value;
             if (isEmpty(title)) {
                 alert("请输入标题");
-                return;
-            }
-            if (isEmpty(attribute)) {
-                alert("请输入商品属性");
                 return;
             }
             if (isEmpty(price)) {
                 alert("请输入价格");
                 return;
             }
-            if (isEmpty(stock)) {
-                alert("请输入库存");
-                return;
-            }
-            if (isEmpty(spec)) {
-                alert("请输入规格");
-                return;
-            }
-            if (isEmpty(info)) {
-                alert("请输入说明");
-                return;
-            }
-            if (isEmpty(price_unit)) {
-                alert("请输入价格单位");
-                return;
-            }
-            if (isEmpty(unit)) {
-                alert("请输入单位");
-                return;
-            }
-            if (isEmpty(brand)) {
-                alert("请输入品牌");
-                return;
-            }
             console.log("点击提交");
-
             var smalls = document.getElementById('feedback').getElementsByTagName('div');
             console.log("-----");
 
@@ -231,17 +224,20 @@
                         console.log(img_path);
                         var data222 = {
                             "title": title,
-                            "attribute": attribute,
+                            "sub_title": changeText(sub_title),
                             "price": price,
-                            "stock": stock,
-                            "spec": spec,
-                            "info": info,
+                            "unit_id": changeText(unit_id),
+                            "sort_id": changeText(sort_id),
+                            "brand_id": changeText(brand_id),
+                            "spec_id": changeText(spec_id),
+                            "stock": changeText(stock),
+                            "info": changeText(info),
+                            "features": changeText(features),
+                            "purpose": changeText(purpose),
+                            "packing": changeText(packing),
                             "imgIds": img_path,
                             "id": changeText(id),
-                            "price_unit": price_unit,
-                            "brand": brand,
-                            "unit": unit,
-                            "user_id":getUserId()
+                            "user_id": getUserId()
                         }
                         var requestData = JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
                         add(requestData);
@@ -256,17 +252,20 @@
                 var id = $.getUrlParam('id');
                 var data222 = {
                     "title": title,
-                    "attribute": attribute,
+                    "sub_title": changeText(sub_title),
                     "price": price,
-                    "stock": stock,
-                    "spec": spec,
-                    "info": info,
+                    "unit_id": changeText(unit_id),
+                    "sort_id": changeText(sort_id),
+                    "brand_id": changeText(brand_id),
+                    "spec_id": changeText(spec_id),
+                    "stock": changeText(stock),
+                    "info": changeText(info),
+                    "features": changeText(features),
+                    "purpose": changeText(purpose),
+                    "packing": changeText(packing),
                     "imgIds": imgIds,
                     "id": changeText(id),
-                    "price_unit": price_unit,
-                    "brand": brand,
-                    "unit": unit,
-                    "user_id":getUserId()
+                    "user_id": getUserId()
                 }
                 var requestData = JSON.stringify(data222);  // JSON对象序列化（把js对象序列化为JSON字符串>>stringify()）
                 add(requestData);
@@ -279,45 +278,63 @@
                 console.log(addResponse);
                 alert(addResponse.message);
                 if (addResponse.code == "0") {
-                     back();
+                    back();
                 }
 
             });
         }
-
+        function sendAllRequest() {
+            getBrandList();
+            getUnitList();
+            getSpecList();
+            getSortList();
+            getProductDet();
+        }
         function getProductDet() {
             var id = $.getUrlParam('id');
             if (!isEmpty(id)) {
-                getShopProductDet(JSON.stringify({ "id": id ,"user_id":getUserId()}), function (data) {
+                getShopProductDet(JSON.stringify({ "id": id, "user_id": getUserId() }), function (data) {
                     var code = data.code;
-                    if (code == "0") {
+                    if (code == K_REQUEST_SUCCESS) {
                         var objectData = data.data;
                         console.log(objectData);
+                        productData = objectData;
                         var title = objectData.title;
-                        var attribute = objectData.attribute;
                         var price = objectData.price;
                         var stock = objectData.stock;
-                        var spec = objectData.spec;
                         var info = objectData.info;
                         var status = objectData.status;
                         var imgs = objectData.imgs;
-                        var price_unit = objectData.price_unit;
-                        var brand = objectData.brand;
-                        var unit = objectData.unit;
+                        var sub_title = objectData.sub_title;
+                        var purpose = objectData.purpose; 
+                        var features = objectData.features; 
+                        var packing = objectData.packing;
+                        var unit_id = objectData.unit_id;
+                        var unit_name = objectData.unit_name;
+                        var sort_name = objectData.sort_name;
+                        var sort_id = objectData.sort_id;
+                        var spec_name = objectData.spec_name;
+                        var spec_id = objectData.spec_id;
+                        var brand_name = objectData.brand_name;
+                        var brand_id = objectData.brand_id;
+                        
                         var img_prefix = objectData.img_prefix;
 
                         document.getElementById("title").value = changeText(title);
-                        document.getElementById("attribute").value = changeText(attribute);
                         document.getElementById("price").value = changeText(price);
                         document.getElementById("stock").value = changeText(stock);
-                        document.getElementById("spec").value = changeText(spec);
                         document.getElementById("info").value = changeText(info);
-                        document.getElementById("price_unit").value = changeText(price_unit);
-                        document.getElementById("brand").value = changeText(brand);
-                        document.getElementById("unit").value = changeText(unit);
+                        document.getElementById('sub_title').value = changeText(sub_title); 
+                        document.getElementById('purpose').value = changeText(purpose);
+                        document.getElementById('features').value = changeText(features);
+                        document.getElementById('packing').value = changeText(packing);
+                        setSelectDefault("brand",brand_id); 
+                        setSelectDefault("sort",sort_id);
+                        setSelectDefault("spec",spec_id); 
+                        setSelectDefault("unit",unit_id); 
+
                         var imgPath_Array = new Array();
                         imgPath_Array = changeText(imgs).split(",");
-
 
                         for (i = 0; i < imgPath_Array.length; i++) {
                             var imgPath = imgPath_Array[i];
@@ -334,7 +351,84 @@
                 });
             }
         }
+        function setSelectDefault(id,value){
+            if (!isEmpty(value)){
+                document.getElementsByName(id)[0].value=value;
+            }
+        }
 
+        function getBrandList() {
+            getBrandListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+                var code = responseData.code;
+                var listData = responseData.data;
+                var list = listData.list;
+                if (code == "0") {
+                    var tempDiv;
+                    for (i in list) {
+                        var listDic = list[i];
+                        var id = listDic.brand_id;
+                        tempDiv += '<option value=' + id + '>' + listDic.brand_name + '</option>';
+                    }
+                    $("#brand").append(tempDiv);
+                }
+            }, function (error) {
+
+            });
+        }
+        function getUnitList() {
+            getUnitListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+                var code = responseData.code;
+                var listData = responseData.data;
+                var list = listData.list;
+                if (code == "0") {
+                    var tempDiv;
+                    for (i in list) {
+                        var listDic = list[i];
+                        var id = listDic.unit_id;
+                        tempDiv += '<option value=' + id + '>' + listDic.unit_name + '</option>';
+                    }
+                    $("#unit").append(tempDiv);
+                }
+            }, function (error) {
+
+            });
+        }
+        function getSpecList() {
+            getSpecListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+                var code = responseData.code;
+                var listData = responseData.data;
+                var list = listData.list;
+                if (code == "0") {
+                    var tempDiv;
+                    for (i in list) {
+                        var listDic = list[i];
+                        var id = listDic.spec_id;
+                        tempDiv += '<option value=' + id + '>' + listDic.spec_name + '</option>';
+                    }
+                    $("#spec").append(tempDiv);
+                }
+            }, function (error) {
+
+            });
+        }
+        function getSortList() {
+            getSortListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+                var code = responseData.code;
+                var listData = responseData.data;
+                var list = listData.list;
+                if (code == "0") {
+                    var tempDiv;
+                    for (i in list) {
+                        var listDic = list[i];
+                        var id = listDic.sort_id;
+                        tempDiv += '<option value=' + id + '>' + listDic.sort_name + '</option>';
+                    }
+                    $("#sort").append(tempDiv);
+                }
+            }, function (error) {
+
+            });
+        }
 
     </script>
 

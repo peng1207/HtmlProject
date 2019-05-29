@@ -4,8 +4,8 @@ require_once('conn.php');
  
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
-
-$sqla = "select * from unit"; 
+$status = 1;
+$sqla = "select * from unit WHERE status = '$status'"; 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
 while ($row = mysql_fetch_array($result)){

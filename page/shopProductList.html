@@ -1,103 +1,130 @@
- 
 <!DOCTYPE HTML>
 <html>
-    <head>
-         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
-        <title> 商品列表</title>
-        
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="../js/request.js"></script>
-        <script type="text/javascript" src="../js/base.js"></script>
-        <script type="text/javascript" src="../js/userData.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
-    </head>
 
-    <body>
-        <div style="height:40px;">
-             <button onclick="addAction()" style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加商品</button>
-        </div>
-        <div id ="list" style="width:100%;margin-top:10px;">
-        </div>    
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title> 商品列表</title>
 
-        <script>
-    
-             window.onload = function(){
-                if ( sp_checkLogin(true) == true){
-                    productList();
-                }
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+
+<body>
+    <div style="height:40px;">
+        <button onclick="addAction()"
+            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加商品</button>
+    </div>
+    <div id="list" style="width:100%;margin-top:10px;">
+    </div>
+
+    <script>
+
+        window.onload = function () {
+            if (sp_checkLogin(true) == true) {
+                productList();
             }
+        }
 
-            function productList(){
-                shopProductListRequest(JSON.stringify({"user_id":getUserId()}),function(data){
-                    var code = data.code; 
-                    var listData = data.data; 
-                    var list = listData.list; 
-                    if (code == "0"){
-                        var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">'; 
-                        div += '<tr style="height:44px;">\
+        function productList() {
+            shopProductListRequest(JSON.stringify({ "user_id": getUserId() }), function (data) {
+                var code = data.code;
+                var listData = data.data;
+                var list = listData.list;
+                if (code == "0") {
+                    var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">';
+                    div += '<tr style="height:44px;">\
                                     <th style="width:5%">编号</th>\
-                                    <th style="width:40%">名称</th>\
+                                    <th style="width:45%">名称</th>\
                                     <th style="width:20%">价格</th>\
-                                    <th style="width:15%">库存</th>\
-                                    <th style="width:20%"> </th>\
+                                    <th style="width:30%"></th>\
                                 </tr>'
-                        for (i in  list){
-                            var listDic = list[i];
-                            var id = listDic.id; 
-                            console.log(i);
-                            div += '<tr style="height:50px;">\
-                                         <td style="text-align: center; ">'+i+'</td>\
-                                         <td style="margin-left:10px;padding-left: 5px;">'+changeText(listDic.title)+'</td>\
-                                         <td style="text-align: center;">'+changeText(listDic.price)+'</td>\
-                                         <td style="text-align: center;">'+changeText(listDic.stock)+'</td>\
-                                         <td> <button onclick=editAction("'+id+'") style="margin-left:10px;width:100px;">编辑</button>  <button onclick=deleteAction("'+id+'") style="margin-left:10px;width:100px;">删除</button> </td>\
-                                    </tr>'
+                    for (i in list) {
+                        var listDic = list[i];
+                        var id = listDic.id;
+                        var is_recommend = listDic.is_recommend;
+                        var recommendTitle = "推荐";
+                        if (is_recommend == 1) {
+                            recommendTitle = "取消推荐"
                         }
-                        div += "</table>"
-                        $("#list").append(div); 
-                       
+                        div += '<tr style="height:50px;">\
+                                         <td style="text-align: center; ">'+ i + '</td>\
+                                         <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.title) + '</td>\
+                                         <td style="text-align: center;">'+ changeText(listDic.price) + '/' + changeText(listDic.unit_name) + '</td>\
+                                         <td> <button onclick=editAction("'+ id + '") style="margin-left:10px;width:100px;">编辑</button>\
+                                            <button onclick=recommendAction(\''+ JSON.stringify(listDic) + '\') style="margin-left:10px;width:100px;">' + recommendTitle + '</button>\
+                                            <button onclick=deleteAction("'+ id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
+                                    </tr>'
                     }
-                }); 
-            }
-            function editAction(e){
-                if (window != top){
-                    top.location.href = 'addProduct.html?id='+e;
-                }else{
-                    window.location.href = 'addProduct.html?id='+e;
-                }
-               
-            }
-            function deleteAction(e){
-                console.log(e); 
-                var mymessage = confirm("是否删除商品  ?");
-                if (mymessage==true) {
-                    console.log("点击确定");
-                     delProduct(JSON.stringify({"id":e}),function (responseData){
-                        console.log(responseData);
-                        alert(responseData.message);
-                        sp_reload(); 
-                     }); 
-                }else{
-                    console.log("点击取消");
-                }
-            }
-             function addAction(){
-                 if (window != top){
-                    top.location.href = 'addProduct.html';
-                 }else{
-                    window.location.href = 'addProduct.html';
-                 }
-            }
-            function lookAction(){
-                if (window != top){
-                    top.location.href = 'shopProductDet.html?id='+e;
-                }else{
-                    window.location.href = 'shopProductDet.html?id='+e;
-                }
-            }
+                    div += "</table>"
+                    $("#list").append(div);
 
-        </script>
+                }
+            });
+        }
+        function editAction(e) {
+            if (window != top) {
+                top.location.href = 'addProduct.html?id=' + e;
+            } else {
+                window.location.href = 'addProduct.html?id=' + e;
+            }
+        }
+        function deleteAction(e) {
+            console.log(e);
+            var mymessage = confirm("是否删除商品?");
+            if (mymessage == true) {
+                console.log("点击确定");
+                delProduct(JSON.stringify({ "id": e }), function (responseData) {
+                    console.log(responseData);
+                    if (responseData.code == K_REQUEST_SUCCESS){
+                        sp_reload();
+                    }
+                    alert(responseData.message);
+                });
+            } else {
+                console.log("点击取消");
+            }
+        }
+        /// 点击推荐按钮
+        function recommendAction(e) {
+            var result = $.parseJSON(e);// 转成JSON对象
+            
+            var is_recommend = result.is_recommend;
+            if (is_recommend == 0) {
+                is_recommend = 1;
+            }else{
+                is_recommend = 0;
+            }
+            console.log(is_recommend);
+            productRecommendRequest(JSON.stringify({ "id": result.id, "is_recommend": is_recommend }), function (responseData) {
+                alert(responseData.message);
+                if (responseData.code == K_REQUEST_SUCCESS){
+                    sp_reload();
+                }
+            }, function (error) {
 
-    </body>
-    </html>
+            });
+        }
+        function addAction() {
+            if (window != top) {
+                top.location.href = 'addProduct.html';
+            } else {
+                window.location.href = 'addProduct.html';
+            }
+        }
+        function lookAction() {
+            if (window != top) {
+                top.location.href = 'shopProductDet.html?id=' + e;
+            } else {
+                window.location.href = 'shopProductDet.html?id=' + e;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
