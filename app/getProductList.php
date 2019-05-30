@@ -3,7 +3,12 @@ require_once('conn.php');
 require_once('base.php');
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
-$sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = 1"; 
+$status = 1;
+$sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = '$status'"; 
+$keyword = @$requestData['keyword'] ? $requestData['keyword'] : ""; 
+if (!empty($keyword)){
+    $sqla .= "and (p.title like '%$keyword%' or b.brand_name like '%$keyword%')";
+}
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
 while ($row = mysql_fetch_array($result)){
@@ -64,6 +69,6 @@ if ($result){
         "list"=>$array
     ) ); 
 } else {
-    Response::failure("101","获取数据失败 ");
+    Response::failure("101","获取数据失败");
 }
 ?>
