@@ -100,10 +100,10 @@
             }
             console.log(is_recommend);
             productRecommendRequest(JSON.stringify({ "id": result.id, "is_recommend": is_recommend }), function (responseData) {
-                alert(responseData.message);
                 if (responseData.code == K_REQUEST_SUCCESS){
                     sp_reload();
                 }
+                alert(responseData.message);
             }, function (error) {
 
             });

@@ -22,7 +22,7 @@ mysql_close($conn);
 if ($result){
     Response::json("0","添加广告成功",null); 
 }else{
-    Response::failure("101","添加广告失败".$result);
+    Response::failure("101","添加广告失败");
 }
 
 ?>

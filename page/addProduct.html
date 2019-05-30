@@ -87,9 +87,12 @@
             if (sp_checkLogin(true) == true) {
                 sendAllRequest();
                 $("#inputfile").change(function () {
+                    
                     console.log("获取图片");
                     var feedback = $("#feedback");
-                    if (feedback.children('img').length > 5) {
+                    var smalls = document.getElementById('feedback').getElementsByTagName('div');
+                    console.log(smalls.length);
+                    if (smalls.length > 4) {
                         alert("最多只能选择5张图片");
                         return false;
                     }

@@ -238,3 +238,21 @@ function addAdvertRequest(data,success,failureCom){
 function getAdvertListRequest(data,success,failureCom){
     sendRequest(data, domain_name + prefix_url + "/shopAdvertList.php",success,failureCom);
 }
+/**
+ * 删除广告
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function deleteAdvertRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/deleteAdvert.php",success,failureCom);
+}
+/**
+ * 更新广告状态
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function updateAdvertStatusRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/advertStatus.php",success,failureCom);
+}

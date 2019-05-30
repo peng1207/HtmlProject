@@ -66,13 +66,40 @@
                                          <td style="margin-left:10px;padding-left: 5px;">'+ changeText(listDic.advert_name) + '</td>\
                                          <td style="margin-left:10px;text-align: center;">'+ statusStr + '</td>';
                 if (status == 1){
-                        div +=  '<td> <button onclick=editAction(this) data-obj=\''+ JSON.stringify(listDic) + '\'style="margin-left:10px;width:100px;">关闭</button>'
+                        div +=  '<td> <button onclick=closeAction(this) data-obj=\''+ JSON.stringify(listDic) + '\'style="margin-left:10px;width:100px;">关闭</button>'
+                }else{
+                    div += '<td>'
                 }
                 div += '<button onclick=deleteAction("' + id + '") style="margin-left:10px;width:100px;">删除</button> </td>\
                                 </tr>';
             }
             div += "</table>"   
             $("#list").append(div);
+        }
+        function closeAction(e){
+        console.log(jQuery(e).data('obj'));
+        var jsonData = JSON.stringify(jQuery(e).data('obj'));// 转成JSON格式
+            var result = $.parseJSON(jsonData);// 转成JSON对象
+            
+            updateAdvertStatusRequest(JSON.stringify({"advert_id":result.advert_id,"user_id":getUserId(),"status":0}),function(responseData){
+                if (responseData.code == K_REQUEST_SUCCESS){
+                    getAdvertList();
+                }
+                alert(responseData.message); 
+            },function(error){
+                alert("请求失败");
+            });
+        }
+        function deleteAction(e){
+            deleteAdvertRequest(JSON.stringify({"advert_id":e,"user_id":getUserId()}),function(responseData){
+                if (responseData.code == K_REQUEST_SUCCESS){
+                    getAdvertList();
+                }
+                 alert(responseData.message); 
+               
+            },function(error){
+                alert("请求失败");
+            });
         }
 </script>
 

@@ -40,7 +40,8 @@
             $("#inputfile").change(function () {
                 console.log("获取图片");
                 var feedback = $("#feedback");
-                if (feedback.children('img').length > 1) {
+                var smalls = document.getElementById('feedback').getElementsByTagName('div');
+                if (smalls.length > 0) {
                     alert("最多只能选择1张图片");
                     return false;
                 }
