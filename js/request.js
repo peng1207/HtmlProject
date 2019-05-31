@@ -256,3 +256,21 @@ function deleteAdvertRequest(data,success,failureCom){
 function updateAdvertStatusRequest(data,success,failureCom){
     sendRequest(data, domain_name + prefix_url + "/advertStatus.php",success,failureCom);
 }
+/**
+ * 获取公司信息
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function getCompanyInfoRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/shopCompanyInfo.php",success,failureCom);
+}
+/**
+ * 更新公司信息
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function updateCompanyInfoRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/updateCompanyInfo.php",success,failureCom);
+}

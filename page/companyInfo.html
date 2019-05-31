@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+
+<body>
+    <div style="height:40px;">
+        <button onclick="clickAdd()"
+            style="float: left;;margin-top: 5px;margin-left:10px;height: 30px;color: #333333;font-size: 16px;width: 100px;">编辑</button>
+    </div>
+    <div class="info">
+        <div>
+            <img src="" id="logo" style="width:100px;height:100px;"></img>
+        </div>
+        <div>
+            <div>公司名称</div>
+            <div id="company_name"></div>
+        </div>
+        <div>
+            <div>联系方式</div>
+            <div id="phone"></div>
+        </div>
+        <div>
+            <div>地址</div>
+            <div id="address"></div>
+        </div>
+        <div>
+            <div>介绍</div>
+            <div id="info"></div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    window.onload = function () {
+        getCompanyInfo();
+    }
+    function clickAdd() {
+        window.location.href = "./editCompanyInfo.html"
+    }
+    // 获取公司信息
+    function getCompanyInfo() {
+        getCompanyInfoRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+            if (responseData.code == K_REQUEST_SUCCESS) {
+                var data = responseData.data;
+                $("#company_name").text(changeText(data.company_name)) ;
+                $("#phone").text(changeText(changeText(data.phone))) ;
+                $("#address").text(changeText(data.address)) ;
+                $("#info").text(changeText(data.info)) ;
+                
+                var logo = changeText(data.logo);
+                var img_prefix = data.img_prefix;
+                if (!isEmpty(logo)) {
+                    document.getElementById("logo").src = img_prefix + logo;
+                }
+            }
+        }, function (error) {
+
+        })
+    }
+</script>
+
+</html>

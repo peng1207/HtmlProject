@@ -3,7 +3,6 @@ require_once('conn.php');
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
  
-
 $accound = @$requestData['accound'] ? $requestData['accound'] : ''; 
 $pwd = @$requestData['pwd'] ? $requestData['pwd'] : ''; 
 

@@ -10,9 +10,7 @@ if (!$conn){
     echo "数据库连接失败"; 
 }
 mysql_select_db($dbname);
-
-
-
+ 
 ?>
 
 

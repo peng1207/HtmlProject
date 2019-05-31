@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/request.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/userData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+
+<body>
+    <div>
+        <div style="text-align: center">
+            <img id="logo" style="width:150px;height:150px; border: 1px solid #e2e2e2"> </img>
+        </div>
+        <div class="box">
+            <a href="javascript:;" class="file">选择图片
+                <input type="file" id="inputfile" name="upload_file" class="photo"
+                    accept="image/png, image/jpeg, image/gif, image/jpg">
+            </a>
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">公司名称</div>
+            <input class="div_input" type="text" id="company_name" placeholder="输入公司名称" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">联系方式</div>
+            <input class="div_input" type="text" id="phone" placeholder="输入联系方式" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">公司地址</div>
+            <input class="div_input" type="text" id="address" placeholder="输入公司地址" />
+        </div>
+        <div class="div-row">
+            <div class="div-inline div-title">公司简介</div>
+            <input class="div_input" type="text" id="info" placeholder="输入公司简介" />
+        </div>
+    </div>
+    <button onclick="clickSave()">保存</button>
+</body>
+<script>
+    var uploadFile;
+    var logo;
+    var company_id;
+    window.onload = function () {
+        getCompanyInfo();
+        $("#inputfile").change(function () {
+           
+            console.log("获取图片");
+            // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+            $.each($('#inputfile')[0].files, function (i, file) {
+                var reads = new FileReader();
+                reads.readAsDataURL(file);
+                uploadFile = file;
+                logo = null;
+                reads.onload = function (e) {
+                    // var tempDiv = '<img style="width:100px;height:100px;margin-left: 10px;border:1px solid #ddd;" src='+ this.result+'>';
+                    console.log(this.result);
+                    document.getElementById("logo").src = this.result;
+                };
+            });
+        });
+    }
+    function clickSave() {
+        if (uploadFile == null && isEmpty(logo) == true) {
+            alert("请上传logo");
+            return;
+        }
+        var company_name = document.getElementById("company_name").value;
+        var phone = document.getElementById("phone").value;
+        var address = document.getElementById("address").value;
+        var info = document.getElementById("info");
+        if (isEmpty(company_name)) {
+            alert("请输入公司名称");
+            return;
+        }
+        if (isEmpty(phone)) {
+            alert("请输入联系方式");
+            return;
+        }
+        if (isEmpty(address)) {
+            alert("请输入地址");
+            return;
+        }
+        if (uploadFile != null && isEmpty(logo) == true) {
+            var fData = new FormData();
+            fData.append('upload_file' + 0, uploadFile);
+            upload(fData, function (reponse) {
+                if (reponse.code == K_REQUEST_SUCCESS) {
+                    var imgData = reponse.data;
+                    var img_path = "";
+                    logo = imgData.imgs;
+                    // var img_path = imgData.imgs;
+                    console.log(logo);
+                    updateRequest(JSON.stringify({ "user_id": getUserId(),"company_id": changeText(company_id), "company_name": company_name, "phone": phone, "address": address, "info": changeText(info), "logo": changeText(logo) }));
+                }
+            });
+        } else {
+            updateRequest(JSON.stringify({"user_id": getUserId(), "company_id": changeText(company_id), "company_name": company_name, "phone": phone, "address": address, "info": changeText(info), "logo": logo }));
+        }
+
+
+    }
+    // 获取公司信息
+    function getCompanyInfo() {
+        getCompanyInfoRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+            if (responseData.code == K_REQUEST_SUCCESS) {
+                var data = responseData.data;
+                document.getElementById("company_name").value = changeText(data.company_name);
+                document.getElementById("phone").value = changeText(data.phone);
+                document.getElementById("address").value = changeText(data.address);
+                document.getElementById("info").value = changeText(data.info);
+                company_id = changeText(data.company_id);
+                logo = changeText(data.logo);
+                var img_prefix = data.img_prefix;
+                if (!isEmpty(logo)) {
+                    document.getElementById("logo").src = img_prefix + logo;
+                }
+            }
+        }, function (error) {
+
+        })
+    }
+    function updateRequest(data) {
+        updateCompanyInfoRequest(data, function (responseData) {
+            alert(responseData.message);
+            if (responseData.code == K_REQUEST_SUCCESS) {
+                back();
+            }
+        }, function (error) {
+
+        })
+    }
+
+</script>
+
+</html>
