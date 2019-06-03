@@ -42,11 +42,12 @@
   height: 44px;
   border: 1px solid #ddd; 
   font-size: 24px;
-  background-color: #F33; 
+  background-color: #407df7; 
   text-align: center;
   color: #fff;
   padding:5px 8px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 10px;
+  border-radius: 5px;
 }

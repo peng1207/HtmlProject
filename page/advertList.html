@@ -7,12 +7,13 @@
     <script type="text/javascript" src="../js/userData.js"></script>
     <script type="text/javascript" src="../js/request.js"></script>
     <script type="text/javascript" src="../js/base.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 
 <body>
     <div style="height:40px;">
         <button onclick="clickAdd()"
-            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加广告</button>
+        class="button_right">添加广告</button>
     </div>
     <div id="list" style="width:100%;margin-top:10px;">
      </div>
@@ -46,7 +47,7 @@
     }
     function addDiv(list) {
             $("#list").children().remove();
-            var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">';
+            var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:1px solid #eee">';
             div += '<tr style="height:44px;">\
                                     <th style="width:5%">编号</th>\
                                     <th style="width:50%">广告名称</th>\

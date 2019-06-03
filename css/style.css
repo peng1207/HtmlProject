@@ -138,13 +138,15 @@
   height: 50px;
   border: 1px solid #ddd; 
   font-size: 24px;
-  background-color: #F33; 
+  background-color: #407df7; 
   text-align: center;
   color: #fff;
   padding:5px 8px;
   margin: 0 auto;
   margin-top: 10px;
+  border-radius: 5px;
 }
+ 
 #feedback{
   height: 200px;
   /* text-align: center; */
@@ -173,7 +175,7 @@
 .file {
   position: relative;
   display: inline-block;
-  border: 1px solid #1ab294;
+  border: 1px solid #407df7;
   border-radius: 4px;
   padding: 8px 16px;
   overflow: hidden;
@@ -181,7 +183,7 @@
   text-decoration: none;
   text-indent: 0;
   line-height: 20px;
-  color: #1ab294;
+  color: #407df7;
   }
   
   .file input {
@@ -192,7 +194,7 @@
   opacity: 0;
   }
   .box{
-  margin-top: 10px;
+  margin-top: 20px;
   text-align: center;
   }
   .box a{
@@ -360,4 +362,15 @@
 }
 .product_list_content_price_con{
   margin-top: 10px;
+}
+.button_right{
+  float:right;
+  margin-top: 5px;
+  height: 30px;
+  color: #407df7;
+  font-size: 16px;
+  width: 100px;
+  border: 1px solid #407df7;
+  border-radius: 5px;
+  margin-right: 10px;
 }

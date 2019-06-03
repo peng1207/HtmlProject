@@ -18,8 +18,10 @@
 }
 div button{
     height: 30px;
-    color: #333333;
+    color: #407df7;
     width: 100px;
     margin-left: 20px;
     margin-top: 20px;
+    border: 1px solid #407df7;
+    border-radius: 5px;
 }

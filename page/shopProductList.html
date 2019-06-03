@@ -16,7 +16,7 @@
 <body>
     <div style="height:40px;">
         <button onclick="addAction()"
-            style="float:right;margin-top: 5px;height: 30px;color: #333333;font-size: 16px;width: 100px;">添加商品</button>
+           class="button_right">添加商品</button>
     </div>
     <div id="list" style="width:100%;margin-top:10px;">
     </div>
@@ -35,7 +35,7 @@
                 var listData = data.data;
                 var list = listData.list;
                 if (code == "0") {
-                    var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:solid #eee">';
+                    var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:1px solid #eee">';
                     div += '<tr style="height:44px;">\
                                     <th style="width:5%">编号</th>\
                                     <th style="width:45%">名称</th>\
