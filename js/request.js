@@ -274,3 +274,6 @@ function getCompanyInfoRequest(data,success,failureCom){
 function updateCompanyInfoRequest(data,success,failureCom){
     sendRequest(data, domain_name + prefix_url + "/updateCompanyInfo.php",success,failureCom);
 }
+function editPwdRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/editPwd.php",success,failureCom);
+}
