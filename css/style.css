@@ -2,7 +2,7 @@
 * {
   box-sizing: border-box;
 }
-
+/*
 .section-video ul.list {
   padding: 5px;
   width: 100%;
@@ -63,7 +63,7 @@
   overflow: hidden;
   text-overflow: ellipsis
 }
-
+*/
 
 .textStyle{
   color:#F33;

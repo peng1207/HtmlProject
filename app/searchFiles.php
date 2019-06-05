@@ -28,8 +28,8 @@ while($row = mysql_fetch_array($companyResult)){
     $logo = @$row["logo"] ? $row["logo"] : ""; 
     array_push($save_img_array,$logo);
 }
-echo "---------数据库中的----------";
-print_r($save_img_array);
+// echo "---------数据库中的----------";
+// print_r($save_img_array);
 
 // echo "----------合并后的---------";
 $all_img = array_merge($save_img_array,$result);
@@ -37,13 +37,14 @@ $all_img = array_merge($save_img_array,$result);
 // echo "---------去重的---------";
 $list_array = array_unique($all_img);
 // print_r($list_array);
-echo "---------得到存在于目录下但不存在于数据库中的元素组成的数组--------";
+// echo "---------得到存在于目录下但不存在于数据库中的元素组成的数组--------";
 $c = array_diff($result,$save_img_array); 
-print_r($c);
+// print_r($c);
 foreach($c as $value){
     unlink("../".$upload_img_directory.$value); 
 }
-echo "删除成功";
+Response::json("0","删除成功",null); 
+// echo "删除成功";
 
 function scanFile($path) {
   global $result;
