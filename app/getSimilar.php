@@ -3,30 +3,19 @@ require_once('conn.php');
 require_once('base.php');
 $raw = file_get_contents('php://input');//获取非表单数据
 $requestData = json_decode($raw,TRUE); 
+$id = @$requestData['id'] ? $requestData['id'] : ""; 
 $status = 1;
+$b_id ; 
+$sqlDet = "select brand_id from product where id = '$id'"; 
+$resultDet = mysql_query($sqlDet,$conn); 
 
-$sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = '$status'"; 
-$keyword = @$requestData['keyword'] ? $requestData['keyword'] : ""; 
-$select_sort_id = @$requestData['sort_id'] ? $requestData['sort_id'] : ""; 
-$select_brand_id =  @$requestData['brand_id'] ? $requestData['brand_id'] : "";
-$order_by =  @$requestData['order_by'] ? $requestData['order_by'] : "";
-if (!empty($select_sort_id)){
-    $sqla .= "and s.sort_id = '$select_sort_id'";
+while ($row = mysql_fetch_array($resultDet)){
+    $b_id =  @$row["brand_id"] ? $row["brand_id"] : ""; 
 }
-if (!empty($select_brand_id)){
-    $sqla .= "and b.brand_id = '$select_brand_id'";
+if (empty($b_id)){
+    Response::failure("1","没有找到对应的数据");
 }
-if (!empty($keyword)){
-    $sqla .= "and (p.title like '%$keyword%' or b.brand_name like '%$keyword%')";
-}
-if (!empty($order_by)){
-    // 降序
-    if ($order_by == "price_desc"){
-        $sqla .= "order by p.price DESC";
-    }else if ($order_by == "price_asc"){ // 升序
-        $sqla .= "order by p.price ASC";
-    }
-}
+$sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = '$status' and p.brand_id = '$b_id' and p.id != '$id' LIMIT 10"; 
 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 

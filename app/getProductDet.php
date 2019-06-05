@@ -14,6 +14,7 @@ if (empty($id)){
 $sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id  where p.id = '$id'"; 
 $result = mysql_query($sqla,$conn); 
 $objectData ; 
+$b_id ;
 while ($row = mysql_fetch_array($result)){
     $id = @$row["id"] ? $row["id"] : ""; 
     $title = @$row["title"] ? $row["title"] : ""; 
@@ -34,6 +35,7 @@ while ($row = mysql_fetch_array($result)){
     $spec_id =  @$row["spec_id"] ? $row["spec_id"] : ""; 
     $brand_name =  @$row["brand_name"] ? $row["brand_name"] : ""; 
     $brand_id =  @$row["brand_id"] ? $row["brand_id"] : ""; 
+    $b_id = $brand_id;
     $imgArray = explode(",",$imgIds);
     $imgIds = ""; 
     foreach($imgArray as $value){
@@ -42,8 +44,6 @@ while ($row = mysql_fetch_array($result)){
         }
         $imgIds = $imgIds.$domain_name."/".$upload_img_directory.$value;
     }
- 
-
     $objectData = array(
         "id"=>$id,
         "title"=>$title, 
@@ -66,6 +66,9 @@ while ($row = mysql_fetch_array($result)){
         "brand_id"=>$brand_id,
         "img_prefix"=>$domain_name."/".$upload_img_directory
     ); 
+}
+if (!empty($b_id)){
+    $sqlLike = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = '$status' and p.brand_id = '$b_id' and p.id != '$id'"; 
 }
 mysql_close($conn);
 if ($result){
