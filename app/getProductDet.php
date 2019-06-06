@@ -67,10 +67,9 @@ while ($row = mysql_fetch_array($result)){
         "img_prefix"=>$domain_name."/".$upload_img_directory
     ); 
 }
-if (!empty($b_id)){
-    $sqlLike = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = '$status' and p.brand_id = '$b_id' and p.id != '$id'"; 
-}
-mysql_close($conn);
+
+ 
+  
 if ($result){
     Response::json("0","获取数据成功",$objectData); 
 }else{

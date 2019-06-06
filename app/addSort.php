@@ -20,7 +20,7 @@ $time_str = time();
 if ($is_insert){
     $sqla = "insert into sort (sort_id,sort_name,create_time,update_time,create_user_id,update_user_id) values('$sort_id','$sort_name','$time_str','$time_str','$user_id','$user_id')";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+   
     if ($result){
         Response::json("0","添加分类成功",array(
             'id'=>$sort_id
@@ -31,7 +31,7 @@ if ($is_insert){
 }else{
     $sqla = "update sort set sort_name='$sort_name',update_time='$time_str',update_user_id='$user_id' where sort_id='$sort_id'";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+    
     if ($result){
         Response::json("0","修改分类成功",null); 
     }else{

@@ -66,7 +66,7 @@ while ($row = mysql_fetch_array($result)){
     ); 
   
 }
-mysql_close($conn);
+  
 if ($result){
     Response::json("0","获取数据成功",$objectData); 
 }else{

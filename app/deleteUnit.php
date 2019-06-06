@@ -11,7 +11,7 @@ if (empty($unit_id)){
 // $sqla = "DELETE from unit where unit_id = '$unit_id'";
 $sqla = "update unit set status = '0' where unit_id = '$unit_id'";
 $result1 = mysql_query($sqla,$conn);
-mysql_close($conn);
+  
 if ($result1){
     Response::json("0","删除单位成功",null);  
 }else{

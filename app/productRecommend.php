@@ -11,7 +11,7 @@ if (empty($id)){
 
 $sqla = "UPDATE product set is_recommend = '$is_recommend' where id ='$id'";
 $result = mysql_query($sqla,$conn);
-mysql_close($conn);
+  
 if ($result){
     Response::json("0",$is_recommend == 0 ? "取消推荐成功" : "设置推荐成功",null); 
 }else{

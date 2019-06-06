@@ -13,7 +13,7 @@ while ($row = mysql_fetch_array($result)){
     $obj = $domain_name."/".$upload_img_directory.$obj;
     array_push($array,$obj);
 }
-mysql_close($conn);
+  
 if ($result){
     Response::json("0","获取数据成功",array(
         "list"=>$array

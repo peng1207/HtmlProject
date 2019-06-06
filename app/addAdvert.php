@@ -18,7 +18,7 @@ $advert_id = md5(uniqid());
 $time_str = time();
 $sqla = "insert into advert (advert_id,advert_name,create_time,update_time,create_user_id,img) values('$advert_id','$advert_name','$time_str','$time_str','$user_id','$img')";
 $result = mysql_query($sqla,$conn); 
-mysql_close($conn);
+ 
 if ($result){
     Response::json("0","添加广告成功",null); 
 }else{

@@ -20,7 +20,7 @@ $time_str = time();
 if ($is_insert){
     $sqla = "INSERT INTO brand (brand_id,brand_name,create_time,update_time,create_user_id,update_user_id) VALUES ('$brand_id','$brand_name','$time_str','$time_str','$user_id','$user_id')";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+    
     if ($result){
         Response::json("0","添加品牌成功",array(
             'id'=>$brand_id
@@ -31,7 +31,7 @@ if ($is_insert){
 }else{
     $sqla = "UPDATE brand SET brand_name='$brand_name',update_time='$time_str',update_user_id='$user_id' WHERE brand_id='$brand_id'";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+  
     if ($result){
         Response::json("0","修改品牌成功",null); 
     }else{

@@ -17,7 +17,7 @@ while ($row = mysql_fetch_array($result)){
 
 $sqla1 = "DELETE FROM product where id='$id'";
 $result1 = mysql_query($sqla1,$conn);
-mysql_close($conn);
+  
 if ($result1){
     $imgArray = explode(",",$imgIds);
     foreach($imgArray as $value){

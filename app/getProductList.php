@@ -91,7 +91,7 @@ while ($row = mysql_fetch_array($countResult)){
     $totalCount = (int)$row["found_rows()"];
 }
 
-mysql_close($conn);
+  
 if ($result){
     Response::json("0","获取数据成功",array(
         "list"=>$array,

@@ -11,7 +11,7 @@ if (empty($brand_id)){
 // $sqla = "DELETE FROM brand where brand_id = '$brand_id'";
 $sqla = "update brand set status = '0' where brand_id = '$brand_id'";
 $result1 = mysql_query($sqla,$conn);
-mysql_close($conn);
+  
 if ($result1){
     Response::json("0","删除品牌成功",null);  
 }else{

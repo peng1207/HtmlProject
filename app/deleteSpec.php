@@ -11,7 +11,7 @@ if (empty($spec_id)){
 // $sqla = "DELETE from spec where spec_id = '$spec_id'";
 $sqla = "update spec set status = '0' where spec_id = '$spec_id'";
 $result1 = mysql_query($sqla,$conn);
-mysql_close($conn);
+  
 if ($result1){
     Response::json("0","删除规格成功",null);  
 }else{

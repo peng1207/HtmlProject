@@ -11,7 +11,7 @@ if (empty($sort_id)){
 // $sqla = "DELETE from sort where sort_id = '$sort_id'";
 $sqla = "update sort set status = '0' where sort_id = '$sort_id'";
 $result1 = mysql_query($sqla,$conn);
-mysql_close($conn);
+  
 if ($result1){
     Response::json("0","删除分类成功",null);  
 }else{

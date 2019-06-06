@@ -37,7 +37,7 @@ $time_str = time();
 if ($is_insert){
     $sqla = "INSERT INTO product(id,title,sub_title,price,unit_id,sort_id,brand_id,spec_id,stock,info,features,purpose,packing,imgIds,create_time,update_time,user_id,update_user_id) VALUES('$id','$title','$sub_title','$price','$unit_id','$sort_id','$brand_id','$spec_id','$stock','$info','$features','$purpose','$packing','$imgIds','$time_str','$time_str','$user_id','$user_id')";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+      
     if ($result){
         Response::json("0","添加商品成功",array(
             'id'=>$id
@@ -48,7 +48,7 @@ if ($is_insert){
 }else{
     $sqla = "UPDATE product set title='$title',sub_title = '$sub_title',price = '$price',unit_id = '$unit_id',sort_id = '$sort_id',brand_id = '$brand_id',spec_id = '$spec_id',stock = '$stock',info = '$info',features = '$features',purpose = '$purpose',packing = '$packing', imgIds = '$imgIds',update_time='$time_str',update_user_id='$user_id' WHERE id = '$id'"; 
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+      
     if ($result){
         Response::json("0","更新商品成功",null); 
     }else{

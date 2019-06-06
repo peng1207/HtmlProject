@@ -20,7 +20,7 @@ $time_str = time();
 if ($is_insert){
     $sqla = "insert into spec (spec_id,spec_name,create_time,update_time,create_user_id,update_user_id) values('$spec_id','$spec_name','$time_str','$time_str','$user_id','$user_id')";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+      
     if ($result){
         Response::json("0","添加规格成功",array(
             'id'=>$spec_id
@@ -31,7 +31,7 @@ if ($is_insert){
 }else{
     $sqla = "update spec set spec_name='$spec_name',update_time='$time_str',update_user_id='$user_id' where spec_id='$spec_id'";
     $result = mysql_query($sqla,$conn); 
-    mysql_close($conn);
+      
     if ($result){
         Response::json("0","修改规格成功",null); 
     }else{

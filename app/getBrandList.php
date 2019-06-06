@@ -18,7 +18,7 @@ while ($row = mysql_fetch_array($result)){
     array_push($array,$obj);
 }
 
-mysql_close($conn);
+  
 if ($result){
     Response::json("0","获取数据成功",array(
         "list"=>$array
