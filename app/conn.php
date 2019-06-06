@@ -33,10 +33,11 @@ class DB {
             if (!$this->link){
                 echo "连接失败"; 
             }
+            
              mysql_select_db($this->database) or $this->err();
             // $this->query("SET NAMES '{$this->charset}'", $this->link);
-            return $this->link;
-            // return null;
+            // return $this->link;
+        
         }
         /**
          * 防止被克隆
@@ -53,7 +54,7 @@ class DB {
         //   }
         
           return self::$_instance;
-        // return null;
+       
        } 
     public function cloae(){
          mysql_close($this->link);
