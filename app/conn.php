@@ -56,7 +56,7 @@ class DB {
           return self::$_instance;
        
        } 
-    public function cloae(){
+    public function close(){
          mysql_close($this->link);
     }
     public function getConn(){
