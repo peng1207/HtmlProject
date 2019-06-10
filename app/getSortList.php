@@ -11,9 +11,11 @@ $array = array();
 while ($row = mysql_fetch_array($result)){
     $sort_id = @$row["sort_id"] ? $row["sort_id"] : ""; 
     $sort_name = @$row["sort_name"] ? $row["sort_name"] : ""; 
+    $logo = @$row["logo"] ? $row["logo"] : ""; 
     $obj = array(
         "sort_id"=>$sort_id,
-        "sort_name"=>$sort_name
+        "sort_name"=>$sort_name,
+        "logo"=>$logo
     ); 
     array_push($array,$obj);
 }

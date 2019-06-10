@@ -11,9 +11,11 @@ $array = array();
 while ($row = mysql_fetch_array($result)){
     $brand_id = @$row["brand_id"] ? $row["brand_id"] : ""; 
     $brand_name = @$row["brand_name"] ? $row["brand_name"] : ""; 
+    $logo = @$row["logo"] ? $row["logo"] : ""; 
     $obj = array(
         "brand_id"=>$brand_id,
-        "brand_name"=>$brand_name
+        "brand_name"=>$brand_name,
+        "logo"=>$logo
     ); 
     array_push($array,$obj);
 }

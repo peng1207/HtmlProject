@@ -8,6 +8,7 @@ $requestData = json_decode($raw,TRUE);
 $sort_name = @$requestData['sort_name'] ? $requestData['sort_name'] : ''; 
 $sort_id = @$requestData['sort_id'] ? $requestData['sort_id'] : ''; 
 $user_id =  @$requestData['user_id'] ? $requestData['user_id'] : '';
+$logo = @$requestData['logo'] ? $requestData['logo'] : ''; 
 if (empty($sort_name)){
     Response::failure("1","请输入分类名称");
 }
@@ -18,7 +19,7 @@ if (empty($sort_id)){
 }
 $time_str = time();
 if ($is_insert){
-    $sqla = "insert into sort (sort_id,sort_name,create_time,update_time,create_user_id,update_user_id) values('$sort_id','$sort_name','$time_str','$time_str','$user_id','$user_id')";
+    $sqla = "insert into sort (sort_id,sort_name,create_time,update_time,create_user_id,update_user_id,logo) values('$sort_id','$sort_name','$time_str','$time_str','$user_id','$user_id','$logo')";
     $result = mysql_query($sqla,$conn); 
    
     if ($result){
@@ -29,7 +30,7 @@ if ($is_insert){
         Response::failure("101","添加分类失败");
     }
 }else{
-    $sqla = "update sort set sort_name='$sort_name',update_time='$time_str',update_user_id='$user_id' where sort_id='$sort_id'";
+    $sqla = "update sort set sort_name='$sort_name',update_time='$time_str',update_user_id='$user_id',logo='$logo' where sort_id='$sort_id'";
     $result = mysql_query($sqla,$conn); 
     
     if ($result){

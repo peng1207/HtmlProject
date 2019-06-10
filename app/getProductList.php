@@ -8,6 +8,12 @@ $status = 1;
 $pageSize = @$requestData['pageSize'] ? $requestData['pageSize'] : 10;
 // 当前页
 $c_page = @$requestData['c_page'] ? $requestData['c_page'] : 1;
+$array = array(); 
+if ($c_page != 1){
+    Response::json("0","获取数据成功",array(
+        "list"=>$array,
+    ) ); 
+}
 $sqla = "SELECT SQL_CALC_FOUND_ROWS p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.status = '$status'"; 
 $keyword = @$requestData['keyword'] ? $requestData['keyword'] : ""; 
 $select_sort_id = @$requestData['sort_id'] ? $requestData['sort_id'] : ""; 
@@ -33,7 +39,7 @@ if (!empty($order_by)){
  
 $result = mysql_query($sqla,$conn); 
 $countResult = mysql_query("select found_rows()",$conn);
-$array = array(); 
+
 while ($row = mysql_fetch_array($result)){
     $id = @$row["id"] ? $row["id"] : ""; 
     $title = @$row["title"] ? $row["title"] : ""; 

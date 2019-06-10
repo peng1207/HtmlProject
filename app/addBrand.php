@@ -7,6 +7,7 @@ $requestData = json_decode($raw,TRUE);
 
 $brand_name = @$requestData['brand_name'] ? $requestData['brand_name'] : ''; 
 $brand_id = @$requestData['brand_id'] ? $requestData['brand_id'] : ''; 
+$logo = @$requestData['logo'] ? $requestData['logo'] : ''; 
 $user_id =  @$requestData['user_id'] ? $requestData['user_id'] : '';
 if (empty($brand_name)){
     Response::failure("1","请输入品牌名称");
@@ -18,7 +19,7 @@ if (empty($brand_id)){
 }
 $time_str = time();
 if ($is_insert){
-    $sqla = "INSERT INTO brand (brand_id,brand_name,create_time,update_time,create_user_id,update_user_id) VALUES ('$brand_id','$brand_name','$time_str','$time_str','$user_id','$user_id')";
+    $sqla = "INSERT INTO brand (brand_id,brand_name,create_time,update_time,create_user_id,update_user_id,logo) VALUES ('$brand_id','$brand_name','$time_str','$time_str','$user_id','$user_id','$logo')";
     $result = mysql_query($sqla,$conn); 
     
     if ($result){
@@ -29,7 +30,7 @@ if ($is_insert){
         Response::failure("101","添加品牌失败");
     }
 }else{
-    $sqla = "UPDATE brand SET brand_name='$brand_name',update_time='$time_str',update_user_id='$user_id' WHERE brand_id='$brand_id'";
+    $sqla = "UPDATE brand SET brand_name='$brand_name',update_time='$time_str',update_user_id='$user_id',logo='$logo' WHERE brand_id='$brand_id'";
     $result = mysql_query($sqla,$conn); 
   
     if ($result){
