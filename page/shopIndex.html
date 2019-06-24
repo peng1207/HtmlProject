@@ -73,7 +73,7 @@
                 <span>模块管理</span>
                 <div>
                     <div id="advertTitle" class="title title_line" onclick="clickAdert(this)">广告管理</div>
-                    <div id="indexIconTitle" class="title title_line" onclick="clickIndexIcon(this)">首页icon管理</div>
+                    <div id="indexIconTitle" class="title title_line" onclick="clickIndexIcon(this)">首页icon</div>
                 </div>
             </div>
 
@@ -112,6 +112,8 @@
             </iframe>
             <iframe id="advert" src="advertList.html" width="100%" height="100%" frameborder="0" hidden="true">
             </iframe>
+            <iframe id="indexIcon" src="indexIcon.html" width="100%" height="100%" frameborder="0" hidden="true">
+            </iframe> 
         </div>
     </div>
     <script type="text/javascript">
@@ -166,7 +168,7 @@
         }
         function clickIndexIcon(e){
             setAllDivDefault();
-            document.getElementById("advert").hidden = false;
+            document.getElementById("indexIcon").hidden = false;
             setSelectTitle(e);
         }
         function setSelectTitle(e) {
@@ -182,6 +184,7 @@
             document.getElementById("unitList").hidden = true;
             document.getElementById("specList").hidden = true;
             document.getElementById("advert").hidden = true;
+            document.getElementById("indexIcon").hidden = true
             document.getElementById("productTitle").style.color = "#333333"
             // document.getElementById("feedbackTitle").style.color = "#333333"
             // document.getElementById("userTitle").style.color = "#333333"
