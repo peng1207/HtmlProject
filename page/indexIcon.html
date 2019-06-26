@@ -3,16 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../js/request.js"></script>
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/indexIcon.css" />
     <title>首页icon配置</title>
 </head>
 
 <body>
     <div>
-        <div>位置1</div>
+        <div class="indexTitle">位置1</div>
         <div> <img id="icon1" style="width:100px;height:100px; border: 1px solid #e2e2e2;margin-left: 20px;"> </img>
         </div>
         <div class="box" style="width:150px;height:50px;">
@@ -21,10 +23,14 @@
                     accept="image/png, image/jpeg, image/gif, image/jpg">
             </a>
         </div>
+        <span class="labelTitle">标签名称</span>
+        <!-- <input class="sortInput" placeholder="请输入名称" id="input1"></input> -->
+        <textarea  class="sortInput" placeholder="请输入名称" id="input1"></textarea>
+        <button class="sortButton" onclick="clickSort(this)" id="sortID1" data-inputid="input1">分类</button>
     </div>
 
     <div>
-        <div>位置2</div>
+        <div class="indexTitle">位置2</div>
         <div> <img id="icon2" style="width:100px;height:100px; border: 1px solid #e2e2e2;margin-left: 20px;"> </img>
         </div>
         <div class="box" style="width:150px;height:50px;">
@@ -33,14 +39,13 @@
                     accept="image/png, image/jpeg, image/gif, image/jpg">
             </a>
         </div>
-        <span>标签名称</span> 
-        <input placeholder="请输入名称"></input> 
-        <button>分类</button> 
-        <span></span>
+        <span class="labelTitle">标签名称</span>
+        <input class="sortInput" placeholder="请输入名称" id="input2"></input>
+        <button class="sortButton" onclick="clickSort(this)" id="sortID2" data-inputid="input2">分类</button>
     </div>
 
     <div>
-        <div>位置3</div>
+        <div class="indexTitle">位置3</div>
         <div> <img id="icon3" style="width:100px;height:100px; border: 1px solid #e2e2e2;margin-left: 20px;"> </img>
         </div>
         <div class="box" style="width:150px;height:50px;">
@@ -49,10 +54,13 @@
                     accept="image/png, image/jpeg, image/gif, image/jpg">
             </a>
         </div>
+        <span class="labelTitle">标签名称</span>
+        <input class="sortInput" placeholder="请输入名称" id="input3"></input>
+        <button class="sortButton" onclick="clickSort(this)" id="sortID3" data-inputid="input3">分类</button>
     </div>
 
     <div>
-        <div>位置4</div>
+        <div class="indexTitle">位置4</div>
         <div> <img id="icon4" style="width:100px;height:100px; border: 1px solid #e2e2e2;margin-left: 20px;"> </img>
         </div>
         <div class="box" style="width:150px;height:50px;">
@@ -61,10 +69,13 @@
                     accept="image/png, image/jpeg, image/gif, image/jpg">
             </a>
         </div>
+        <span class="labelTitle">标签名称</span>
+        <input class="sortInput" placeholder="请输入名称" id="input4"></input>
+        <button class="sortButton" onclick="clickSort(this)" id="sortID4" data-inputid="input4">分类</button>
     </div>
 
     <div>
-        <div>位置5</div>
+        <div class="indexTitle">位置5</div>
         <div> <img id="icon5" style="width:100px;height:100px; border: 1px solid #e2e2e2;margin-left: 20px;"> </img>
         </div>
         <div class="box" style="width:150px;height:50px;">
@@ -73,8 +84,377 @@
                     accept="image/png, image/jpeg, image/gif, image/jpg">
             </a>
         </div>
+        <span class="labelTitle">标签名称</span>
+        <input class="sortInput" placeholder="请输入名称" id="input5"></input>
+        <button class="sortButton" onclick="clickSort(this)" id="sortID5" data-inputid="input5">分类</button>
     </div>
+    <button class="button" onclick="submit()">保存</button>
+    <div id="selectSortId"
+        style="z-index:100; top: 0; left: 0; width: 100%; height: 100%;display: none;position: fixed;background-color: rgba(0, 0, 0, 0.5);">
+        <div
+            style="margin-left: 10%;margin-top: 10%; background-color: white; height: 80%; margin-bottom: 10%;margin-right: 10%;">
+            <div id="list" style="width:100%;margin-top:10px;">
+
+            </div>
+            <div class="buttonView">
+                <button class="sortButton" onclick="saveSort()">保存</button>
+                <button class="sortButton" onclick="canceSort()">关闭</button>
+            </div>
+
+        </div>
 
 </body>
+
+<script>
+    var file1;
+    var file2;
+    var file3;
+    var file4;
+    var file5;
+    var icon1;
+    var icon2;
+    var icon3;
+    var icon4;
+    var icon5;
+    var iconID1;
+    var iconID2;
+    var iconID3;
+    var iconID4;
+    var iconID5;
+    var modelID;
+    var tempDiv;
+
+    window.onload = function () {
+        getSortList();
+        iconRequest();
+        $("#inputfile1").change(function () {
+
+            console.log("获取图片");
+            // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+            $.each($('#inputfile1')[0].files, function (i, file) {
+                var reads = new FileReader();
+                reads.readAsDataURL(file);
+                file1 = file
+                icon1 = null;
+                reads.onload = function (e) {
+                    console.log(this.result);
+                    document.getElementById("icon1").src = this.result;
+                };
+            });
+        });
+        $("#inputfile2").change(function () {
+
+            console.log("获取图片");
+            // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+            $.each($('#inputfile2')[0].files, function (i, file) {
+                var reads = new FileReader();
+                reads.readAsDataURL(file);
+                file2 = file;
+                icon2 = null;
+                reads.onload = function (e) {
+                    console.log(this.result);
+                    document.getElementById("icon2").src = this.result;
+                };
+            });
+        });
+        $("#inputfile3").change(function () {
+
+            console.log("获取图片");
+            // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+            $.each($('#inputfile3')[0].files, function (i, file) {
+                var reads = new FileReader();
+                reads.readAsDataURL(file);
+                file3 = file;
+                icon3 = null;
+                reads.onload = function (e) {
+                    console.log(this.result);
+                    document.getElementById("icon3").src = this.result;
+                };
+            });
+        });
+        $("#inputfile4").change(function () {
+
+            console.log("获取图片");
+            // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+            $.each($('#inputfile4')[0].files, function (i, file) {
+                var reads = new FileReader();
+                reads.readAsDataURL(file);
+                file4 = file;
+                icon4 = null;
+                reads.onload = function (e) {
+                    console.log(this.result);
+                    document.getElementById("icon4").src = this.result;
+                };
+            });
+        });
+        $("#inputfile5").change(function () {
+
+            console.log("获取图片");
+            // var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+
+            $.each($('#inputfile5')[0].files, function (i, file) {
+                var reads = new FileReader();
+                reads.readAsDataURL(file);
+                file5 = file;
+                icon5 = null;
+                reads.onload = function (e) {
+                    console.log(this.result);
+                    document.getElementById("icon5").src = this.result;
+                };
+            });
+        });
+    }
+    function clickSort(e) {
+        tempDiv = e;
+        document.getElementById("selectSortId").style.display = "block";
+    }
+    function saveSort() {
+        var selectSort = $("input[name='selectSortRadio']:checked").val();
+        var result = $.parseJSON(selectSort);// 转成JSON对象
+        tempDiv.value = result.sort_id;
+        var inputId = jQuery(tempDiv).data('inputid');
+        if (isEmpty(document.getElementById(inputId).value) == true) {
+            document.getElementById(inputId).value = result.sort_name;
+        }
+        canceSort();
+    }
+    function canceSort() {
+        document.getElementById("selectSortId").style.display = "none";
+        tempDiv = null;
+    }
+    function getSortList() {
+        getSortListRequest(JSON.stringify({ "user_id": getUserId() }), function (responseData) {
+            var code = responseData.code;
+            var listData = responseData.data;
+            var list = listData.list;
+            if (code == "0") {
+                addDiv(list);
+            }
+        }, function (error) {
+
+        });
+    }
+    function addDiv(list) {
+        $("#list").children().remove();
+        var div = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%;border:1px solid #eee">';
+        div += '<tr style="height:44px;">\
+                                    <th style="width:5%"></th>\
+                                    <th style="width:95%">分类名称</th>\
+                                </tr>'
+        for (i in list) {
+            var listDic = list[i];
+            var id = listDic.sort_id;
+            var name = changeText(listDic.sort_name);
+            var value = JSON.stringify(listDic);
+            div += '<tr style="height:50px;">\
+                                         <td style="text-align: center; "><input type="radio" name="selectSortRadio" id="selectSortRadio" value=\''+ value + '\'></input></td>\
+                                         <td style="margin-left:10px;padding-left: 5px;">'+ name + '</td>\
+                                    </tr>'
+        }
+        div += "</table>"
+        $("#list").append(div);
+    }
+    function submit() {
+        var sortID1 = document.getElementById("sortID1").value;
+        var sortID2 = document.getElementById("sortID2").value;
+        var sortID3 = document.getElementById("sortID3").value;
+        var sortID4 = document.getElementById("sortID4").value;
+        var sortID5 = document.getElementById("sortID5").value;
+        console.log(sortID2);
+        if (isEmpty(sortID1) == true) {
+            alert("请选择位置1关联的分类");
+            return;
+        }
+        if (isEmpty(sortID2) == true) {
+            alert("请选择位置2关联的分类");
+            return;
+        }
+        if (isEmpty(sortID3) == true) {
+            alert("请选择位置3关联的分类");
+            return;
+        }
+        if (isEmpty(sortID4) == true) {
+            alert("请选择位置4关联的分类");
+            return;
+        }
+        if (isEmpty(sortID5) == true) {
+            alert("请选择位置5关联的分类");
+            return;
+        }
+        var input1 = document.getElementById("input1").value;
+        var input2 = document.getElementById("input2").value;
+        var input3 = document.getElementById("input3").value;
+        var input4 = document.getElementById("input4").value;
+        var input5 = document.getElementById("input5").value;
+        if (isEmpty(input1) == true) {
+            alert("请输入位置1标签的名称");
+            return;
+        }
+        if (isEmpty(input2) == true) {
+            alert("请输入位置2标签的名称");
+            return;
+        }
+        if (isEmpty(input3) == true) {
+            alert("请输入位置3标签的名称");
+            return;
+        }
+        if (isEmpty(input4) == true) {
+            alert("请输入位置4标签的名称");
+            return;
+        }
+        if (isEmpty(input5) == true) {
+            alert("请输入位置5标签的名称");
+            return;
+        }
+        var index = 0;
+        var isUpload = false;
+        var fData = new FormData();
+        if (file1 != null && isEmpty(icon1) == true) {
+            fData.append('upload_file' + index, file1);
+            index++;
+            isUpload = true;
+        } else if (isEmpty(icon1) == true) {
+            alert("请上传位置1的图片");
+            return;
+        }
+        if (file2 != null && isEmpty(icon2) == true) {
+            fData.append('upload_file' + index, file2);
+            index++;
+            isUpload = true;
+        } else if (isEmpty(icon2) == true) {
+            alert("请上传位置2的图片");
+            return;
+        }
+        if (file3 != null && isEmpty(icon3) == true) {
+            fData.append('upload_file' + index, file3);
+            index++;
+            isUpload = true;
+        } else if (isEmpty(icon3) == true) {
+            alert("请上传位置3的图片");
+            return;
+        }
+        if (file4 != null && isEmpty(icon4) == true) {
+            fData.append('upload_file' + index, file4);
+            index++;
+            isUpload = true;
+        } else if (isEmpty(icon4) == true) {
+            alert("请上传位置4的图片");
+            return;
+        }
+        if (file5 != null && isEmpty(icon5) == true) {
+            fData.append('upload_file' + index, file5);
+            index++;
+            isUpload = true;
+        } else if (isEmpty(icon5) == true) {
+            alert("请上传位置5的图片");
+            return;
+        }
+
+        if (isUpload == true) {
+            upload(fData, function (reponse) {
+                if (reponse.code == K_REQUEST_SUCCESS) {
+                    var imgData = reponse.data;
+                    var reponseImgIds = imgData.imgs.split(',');
+                    for (let i = 0; i < reponseImgIds.length; i++) {
+                        var path = reponseImgIds[i];
+                        if (isEmpty(icon1) == true) {
+                            icon1 = path;
+                        }else if (isEmpty(icon2) == true) {
+                            icon2 = path;
+                        }else if (isEmpty(icon3) == true) {
+                            icon3 = path;
+                        }else if (isEmpty(icon4) == true) {
+                            icon4 = path;
+                        }else if (isEmpty(icon5) == true) {
+                            icon5 = path;
+                        }
+                    }
+                    var list = new Array();
+                    list.push({ "name": input1, "img": icon1, "id": changeText(iconID1), "type_value": changeText(sortID1) });
+                    list.push({ "name": input2, "img": icon2, "id": changeText(iconID2), "type_value": changeText(sortID2) });
+                    list.push({ "name": input3, "img": icon3, "id": changeText(iconID3), "type_value": changeText(sortID3) });
+                    list.push({ "name": input4, "img": icon4, "id": changeText(iconID4), "type_value": changeText(sortID4) });
+                    list.push({ "name": input5, "img": icon5, "id": changeText(iconID5), "type_value": changeText(sortID5) });
+                    var dataParm = { "list": list, "id": changeText(modelID), "user_id": getUserId() };
+                    submitRequest(dataParm);
+                }
+            });
+        } else {
+            var list = new Array();
+            list.push({ "name": input1, "img": icon1, "id": changeText(iconID1), "type_value": changeText(sortID1) });
+            list.push({ "name": input2, "img": icon2, "id": changeText(iconID2), "type_value": changeText(sortID2) });
+            list.push({ "name": input3, "img": icon3, "id": changeText(iconID3), "type_value": changeText(sortID3) });
+            list.push({ "name": input4, "img": icon4, "id": changeText(iconID4), "type_value": changeText(sortID4) });
+            list.push({ "name": input5, "img": icon5, "id": changeText(iconID5), "type_value": changeText(sortID5) });
+            var dataParm = { "list": list, "id": changeText(modelID), "user_id": getUserId() };
+            submitRequest(dataParm);
+        }
+    }
+    function submitRequest(parm) {
+        addIconRequest(JSON.stringify(parm), function (reponseData) {
+            alert(reponseData.message);
+        }, function (error) {
+
+        })
+    }
+    function iconRequest() {
+        getIconRequest(null, function (reponseData) {
+            var code = reponseData.code;
+            var listData = reponseData.data;
+            var list = listData.list;
+            if (code == "0") {
+                modelID = listData.id;
+                list.forEach(element => {
+                    console.log(element);
+                    var img_prefix = element.img_prefix;
+                    var id = element.id;
+                    var img = element.img;
+                    var name = element.name;
+                    var type_value = element.type_value;
+                    if (isEmpty(icon1)){
+                        icon1 = img;
+                        iconID1 = id; 
+                        document.getElementById("icon1").src = img_prefix + img;
+                        document.getElementById("sortID1").value = type_value;
+                        document.getElementById("input1").value = name;
+                    }else if (isEmpty(icon2)){
+                        icon2 = img;
+                        iconID2 = id; 
+                        document.getElementById("icon2").src = img_prefix + img;
+                        document.getElementById("sortID2").value = type_value;
+                        document.getElementById("input2").value = name;
+                    }else if (isEmpty(icon3)){
+                        icon3 = img;
+                        iconID3 = id; 
+                        document.getElementById("icon3").src = img_prefix + img;
+                        document.getElementById("sortID3").value = type_value;
+                        document.getElementById("input3").value = name;
+                    }else if (isEmpty(icon4)){
+                        icon4 = img;
+                        iconID4 = id; 
+                        document.getElementById("icon4").src = img_prefix + img;
+                        document.getElementById("sortID4").value = type_value;
+                        document.getElementById("input4").value = name;
+                    }else if (isEmpty(icon5)){
+                        icon5 = img;
+                        iconID5 = id; 
+                        document.getElementById("icon5").src = img_prefix + img;
+                        document.getElementById("sortID5").value = type_value;
+                        document.getElementById("input5").value = name;
+                    }
+
+                });
+            }  
+        }, function (error) {
+
+        })
+    }
+
+</script>
+
 
 </html>

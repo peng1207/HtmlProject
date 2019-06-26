@@ -274,6 +274,30 @@ function getCompanyInfoRequest(data,success,failureCom){
 function updateCompanyInfoRequest(data,success,failureCom){
     sendRequest(data, domain_name + prefix_url + "/updateCompanyInfo.php",success,failureCom);
 }
+/**
+ * 编辑密码
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
 function editPwdRequest(data,success,failureCom){
     sendRequest(data, domain_name + prefix_url + "/editPwd.php",success,failureCom);
+}
+/**
+ * 添加icon请求
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function addIconRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/addIcon.php",success,failureCom);
+}
+/**
+ * 获取icon的数据
+ * @param {*} data 
+ * @param {*} success 
+ * @param {*} failureCom 
+ */
+function getIconRequest(data,success,failureCom){
+    sendRequest(data, domain_name + prefix_url + "/shopIconList.php",success,failureCom);
 }

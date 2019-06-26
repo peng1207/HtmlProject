@@ -11,11 +11,13 @@ $advertSql = "select img from advert";
 $companySql = "select logo from company";
 $sortSql = "select logo from sort"; 
 $brandSql = "select logo from brand";
+$modelSql = "select img from appModelDet";
 $productResult = mysql_query($productSql,$conn); 
 $advertResult = mysql_query($advertSql,$conn); 
 $companyResult = mysql_query($companySql,$conn);
 $sortResutlt = mysql_query($sortSql,$conn); 
 $brandResult = mysql_query($brandSql,$conn);
+$modelResult = mysql_query($modelSql,$conn);
 $save_img_array = array();
  
 while($row = mysql_fetch_array($productResult)){
@@ -40,7 +42,10 @@ while($row = mysql_fetch_array($brandResult)){
     $logo = @$row["logo"] ? $row["logo"] : ""; 
     array_push($save_img_array,$logo);
 }
-
+while($row = mysql_fetch_array($modelResult)){
+   $img = @$row["img"] ? $row["img"] : ""; 
+   array_push($save_img_array,$img);
+}
 // echo "---------数据库中的----------";
 // print_r($save_img_array);
 
