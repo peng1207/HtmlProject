@@ -19,6 +19,7 @@
     height: 30px;
     background-color: #ffffff;
     border-radius: 5px;
+    margin-left: 10px;
 }
 .sortInput {
     color: #333333; 
@@ -27,9 +28,26 @@
     border: #407df7 solid 1px;
     padding-left: 5px;
     padding-right: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
 }
 .buttonView {
     width: 100% ;
     text-align: center;
     margin-top: 20px;
+}
+.inputContent{
+    margin-top: 25%;
+}
+.iconTips{
+    color: #999999;
+    font-size: 12px;
+    margin-left: 20px;
+    margin-top: 1px;
+}
+.iconLeft{
+    width: 30%;
+}
+.iconContent{
+    display: flex
 }
