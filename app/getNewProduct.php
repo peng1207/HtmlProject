@@ -1,7 +1,7 @@
 <?php
 require_once('conn.php');
 require_once('base.php');
-$time_str = time() - 3600 * 24 * 3; 
+$time_str = time() - 3600 * 24 * 7; 
 $sqla = "SELECT p.id,p.title,p.price,p.stock,p.status,p.info,p.imgIds,p.create_time,p.update_time,p.sub_title,p.purpose,p.features,p.packing,u.unit_id,u.unit_name,s.sort_name,s.sort_id,sp.spec_name,sp.spec_id,b.brand_name,b.brand_id from product p LEFT JOIN unit u on u.unit_id = p.unit_id LEFT JOIN brand b on b.brand_id = p.brand_id LEFT JOIN sort s on s.sort_id = p.sort_id LEFT JOIN spec sp on sp.spec_id = p.spec_id where p.create_time > '$time_str' ORDER BY p.create_time DESC LIMIT 10"; 
 $result = mysql_query($sqla,$conn); 
 $array = array(); 
