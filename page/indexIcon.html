@@ -13,6 +13,9 @@
 </head>
 
 <body>
+    <div>
+        <button onclick="iconRequest()"> 刷新</button>
+    </div>
     <div class="iconContent">
         <div>
             <div class="indexTitle">位置1</div>
@@ -460,6 +463,11 @@
             var list = listData.list;
             if (code == "0") {
                 modelID = listData.id;
+                file1 = null;
+                file2 = null; 
+                file3 = null; 
+                file4 = null; 
+                file5 = null;
                 list.forEach(element => {
                     var img_prefix = element.img_prefix;
                     var id = element.id;
