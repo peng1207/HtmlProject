@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
 </head>
 
 <body>
@@ -36,12 +37,13 @@
             <div id="info"  class="compony_content"></div>
         </div>
     </div>
-
+    <div class="footerpage"></div>
 </body>
 
 <script>
     window.onload = function () {
         getCompanyInfo();
+        $(".footerpage").load("./footer.html");
     }
     function clickAdd() {
         window.location.href = "./editCompanyInfo.html"

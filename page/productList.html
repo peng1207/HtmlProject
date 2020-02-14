@@ -9,20 +9,20 @@
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
     </head>
     <body>
         <div id="dg" style="z-index: 9999; position: fixed ! important; right: 10px; bottom: 30px;" onclick="sp_contact()"> <img src="../img/customerService.png" style="width:30px;height:30px;"> </img> </div>
         <div id="productList">
         </div>
-        
+        <div class="footerpage"></div>
         <script>
             
             window.onload = function(){
                 productList();
+                $(".footerpage").load("./footer.html");
             }
 
-         
-            
             function pushNext(e){
                 console.log(e);
                window.location.href = 'priductDet.html?id='+e;

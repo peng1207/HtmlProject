@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
     <link rel="stylesheet" type="text/css" href="../css/editPwd.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../js/request.js"></script>
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
     <title>修改密码</title>
 
 </head>
@@ -25,9 +27,15 @@
     <div>
         <button onclick="submit()">修改</button>
     </div>
+    <div class="footerpage"></div>
 </body>
 
 <script>
+
+    window.onload = function () {
+        $(".footerpage").load("./footer.html");
+    }
+
     function submit() {
         var oldPwd = document.getElementById("oldPwd").value;
         var newPwd = document.getElementById("newPwd").value; 

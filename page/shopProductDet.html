@@ -13,6 +13,7 @@
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
         <script type="text/javascript" src="../js/userData.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
     </head>
     <body>
             <div class="nav">
@@ -25,11 +26,13 @@
                 
             <div id="productDet">
             </div>
+            <div class="footerpage"></div>
         <script>
             window.onload = function(){
                 if (sp_checkLogin(true) == true){
                     getDet();
                 }
+                $(".footerpage").load("./footer.html");
             }
             function getDet(){
                 var id = $.getUrlParam('id');

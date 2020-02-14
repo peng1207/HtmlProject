@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
 </head>
 
 <body>
@@ -39,7 +40,7 @@
         </div>
         <button onclick="clickSave()" class="button"> 保存</button>
     </div>
-   
+    <div class="footerpage"></div>
 </body>
 <script>
     var uploadFile;
@@ -64,6 +65,7 @@
                 };
             });
         });
+        $(".footerpage").load("./footer.html");
     }
     function clickSave() {
         if (uploadFile == null && isEmpty(logo) == true) {

@@ -1,0 +1,11 @@
+@charset "utf-8";
+.bottom_body{
+    background-color:#333;
+    text-align: center;
+    color: white;
+    min-height: 40;
+    margin-top: 10px;
+  }
+.a_title{
+    color:white
+}

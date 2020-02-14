@@ -9,6 +9,7 @@
         <script type="text/javascript" src="../js/request.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
     </head>
     <body>
         <div class="nav">
@@ -34,8 +35,11 @@
                 </div>
                 <div class="button" onclick="submit()">提交</div>
         </div>
+        <div class="footerpage"></div>
         <script>
-            
+            window.onload = function(){
+                $(".footerpage").load("./footer.html");
+            }
             function submit(){
                 var title = document.getElementById("name").value; 
                 var phone = document.getElementById("phone").value; 

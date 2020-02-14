@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
 </head>
 
 <body>
@@ -78,7 +79,7 @@
         </div>
         <div class="button" id="submitId" onclick="submit()">提交</div>
     </div>
-
+    <div class="footerpage"></div>
     <script>
         var fileDic = new Object();
         var fileIndex = 0;
@@ -122,6 +123,7 @@
                     });
                 });
             }
+            $(".footerpage").load("./footer.html");
         }
         function clickImg(e) {
             var mymessage = confirm("是否删除图片?");

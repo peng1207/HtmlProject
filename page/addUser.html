@@ -9,11 +9,18 @@
         <script type="text/javascript" src="../js/base.js"></script>
         <script type="text/javascript" src="../js/userData.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
    </head>
    <body>
         <div>
             <div>请添加子账号，账号只能为数字、字母，并区分大小写</div>
         </div>
+        <div class="footerpage"></div>
+        <script>
+             window.onload = function (){
+               $(".footerpage").load("./footer.html");
+             }
+        </script>
    </body>
 
 </html>

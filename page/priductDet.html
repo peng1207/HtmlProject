@@ -8,6 +8,7 @@
        
         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
         <link rel="stylesheet" href="../css/swiper.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
     </head>
     <body>
             <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
@@ -29,12 +30,12 @@
         <div id="dg" style="z-index: 9999; position: fixed ! important; right: 10px; margin-top: 10px; " onclick="sp_contact()"> <img src="../img/customerService.png" style="width:30px;height:30px;"> </img> </div>
         <div id="productDet" class="product_det"> 
         </div>
-       
+        <div class="footerpage"></div>
        <script>
            
            window.onload = function(){
                getDet();
-               
+               $(".footerpage").load("./footer.html");
             }
             function getDet(){
                 var id = $.getUrlParam('id');

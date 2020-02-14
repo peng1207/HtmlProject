@@ -7,6 +7,7 @@
     <!-- <script type="text/javascript" src="js/libs/jquery.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/login.css" />
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
     <script type="text/javascript" src="../js/request.js"></script>
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
@@ -25,15 +26,18 @@
         </div>
         <div class="login_button" onclick="submit()"> 登录</div>
     </div>
-
+    <div class="footerpage"></div>
     <script>
        
         window.onload = function () {
-        
+            
             if (isLogin() == true) {
                 pushIndex();
+            }else{
+                $(".footerpage").load("./footer.html");
             }
             sp_no_back_off();
+           
         }
         function submit() {
             var accound = document.getElementById("accound").value;
@@ -66,5 +70,4 @@
 
 
 </body>
-
 </html>

@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/userData.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
     <title>添加广告</title>
 
 </head>
@@ -29,6 +30,7 @@
         </div>
         <div class="button" id="submitId" onclick="submit()">提交</div>
     </div>
+    <div class="footerpage"></div>
 </body>
 
 <script>
@@ -66,6 +68,7 @@
                 });
             });
         }
+        $(".footerpage").load("./footer.html");
     }
 
     function clickImg(e) {
